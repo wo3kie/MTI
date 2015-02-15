@@ -1,15 +1,14 @@
-//*********************************************************************
-
-%name Parser
+/* * */
 
 %{
-void *alloca (unsigned int){}; // bez tego XBuilder siê wyk³ada :)
-%}
-
-%header{
 #include <iostream>
 #include <string>
 
+#include "lekser.h"
+
+#include "czynnik.h"
+#include "czynnikUnarny.h"
+#include "definicjaFunkcji.h"
 #include "instrukcjaIteracyjnaWhile.h"
 #include "instrukcjaPrzypisania.h"
 #include "instrukcjaSkokuReturn.h"
@@ -20,11 +19,13 @@ void *alloca (unsigned int){}; // bez tego XBuilder siê wyk³ada :)
 #include "literalNapisowy.h"
 #include "nawias.h"
 #include "program.h"
-    #include "symbolLocation.h"
+#include "symbolLocation.h"
 #include "wartosc.h"
 #include "wyrazenie.h"
 #include "wywolanieFunkcji.h"
 %}
+
+%name Parser
 
 %union {
     double _liczba;
@@ -59,8 +60,6 @@ void *alloca (unsigned int){}; // bez tego XBuilder siê wyk³ada :)
     ZmiennaLokalna* _zmiennaLokalna;
 };
 
-%define MEMBERS public: SymbolLocation sLocation;
-
 %type<_czynnik> czynnik
 %type<_czynnikUnarny> czynnikUnarny
 %type<_definicjaFunkcji> definicjaFunkcji
@@ -87,6 +86,9 @@ void *alloca (unsigned int){}; // bez tego XBuilder siê wyk³ada :)
 %type<_wywolanieFunkcji> wywolanieFunkcji
 %type<_zmiennaGlobalna> zmiennaGlobalna;
 %type<_zmiennaLokalna> zmiennaLokalna;
+%type<_napis> identyfikator;
+%type<_napis> lnapisowy;
+%type<_liczba> liczba;
 
 %token <_liczba> LICZBA
 %token <_napis>	IDENTYFIKATOR LNAPISOWY
@@ -99,6 +101,21 @@ void *alloca (unsigned int){}; // bez tego XBuilder siê wyk³ada :)
 %left '*' '/'
 %nonassoc UMINUS
 %left OPERATOR_ZASIEGU
+
+%define CONSTRUCTOR_PARAM   std::istream* _in, std::ostream* _out
+%define CONSTRUCTOR_INIT    : m_lexer( _in, _out )
+%define CONSTRUCTOR_CODE    {}
+
+%define MEMBERS                     \
+    public:                         \
+        virtual ~Parser(){}         \
+    public:                         \
+        SymbolLocation sLocation;   \
+    protected:                      \
+        yyFlexLexer m_lexer;
+
+%define LEX_BODY { return m_lexer.yylex(); }
+%define ERROR_BODY { std::cerr << "Syntax error" << std::endl; }
 
 %%
 
@@ -113,10 +130,10 @@ listaDeklaracji:
     ;
 
 deklaracja:
-    DOUBLE IDENTYFIKATOR ';'                        { $$= new DeklaracjaDouble( *( $2), 0, sLocation.numerLinii);}
-    | DOUBLE IDENTYFIKATOR '=' LICZBA ';'           { $$= new DeklaracjaDouble( *( $2), $4, sLocation.numerLinii);}
-    | STRING IDENTYFIKATOR ';'                      { $$= new DeklaracjaString( *( $2), "", sLocation.numerLinii);}
-    | STRING IDENTYFIKATOR '=' LNAPISOWY ';'        { $$= new DeklaracjaString( *( $2), *( $4), sLocation.numerLinii);}
+    DOUBLE identyfikator ';'                        { $$= new DeklaracjaDouble( *( $2), 0, sLocation.numerLinii);}
+    | DOUBLE identyfikator '=' liczba ';'           { $$= new DeklaracjaDouble( *( $2), $4, sLocation.numerLinii);}
+    | STRING identyfikator ';'                      { $$= new DeklaracjaString( *( $2), "", sLocation.numerLinii);}
+    | STRING identyfikator '=' lnapisowy ';'        { $$= new DeklaracjaString( *( $2), *( $4), sLocation.numerLinii);}
     ;
 
 listaFunkcji:
@@ -125,9 +142,9 @@ listaFunkcji:
     ;
 
 definicjaFunkcji:
-    DOUBLE IDENTYFIKATOR '(' listaParametrow ')' instrukcja
+    DOUBLE identyfikator '(' listaParametrow ')' instrukcja
                                 { $$= new DefinicjaFunkcji( new WartoscDouble(), *( $2), $4, $6, sLocation.numerLinii);}
-    | STRING IDENTYFIKATOR '(' listaParametrow ')' instrukcja
+    | STRING identyfikator '(' listaParametrow ')' instrukcja
                                 { $$= new DefinicjaFunkcji( new WartoscString(), *( $2), $4, $6, sLocation.numerLinii);}
     ;
 
@@ -138,8 +155,8 @@ listaParametrow:
     ;
 
 parametr:
-    DOUBLE IDENTYFIKATOR                            { $$= new ParametrDouble( *( $2), 0, sLocation.numerLinii);}
-    | STRING IDENTYFIKATOR                          { $$= new ParametrString( *( $2), "", sLocation.numerLinii);}
+    DOUBLE identyfikator                            { $$= new ParametrDouble( *( $2), 0, sLocation.numerLinii);}
+    | STRING identyfikator                          { $$= new ParametrString( *( $2), "", sLocation.numerLinii);}
     ;
 
 instrukcja:
@@ -164,8 +181,8 @@ listaInstrukcji:
     ;
 
 instrukcjaPrzypisania:
-    IDENTYFIKATOR '=' wyrazenie ';'                 { $$= new InstrukcjaPrzypisania( new ZmiennaLokalna( *( $1), sLocation.numerLinii), $3, sLocation.numerLinii);}
-    | OPERATOR_ZASIEGU IDENTYFIKATOR '=' wyrazenie ';'
+    identyfikator '=' wyrazenie ';'                 { $$= new InstrukcjaPrzypisania( new ZmiennaLokalna( *( $1), sLocation.numerLinii), $3, sLocation.numerLinii);}
+    | OPERATOR_ZASIEGU identyfikator '=' wyrazenie ';'
                                                     { $$= new InstrukcjaPrzypisania( new ZmiennaGlobalna( *( $2), sLocation.numerLinii), $4, sLocation.numerLinii);}
     ;
 
@@ -226,21 +243,21 @@ czynnik:
     zmiennaLokalna                                  { $$= $1;}
     | zmiennaGlobalna                               { $$= $1;}
     | wywolanieFunkcji                              { $$= $1;}
-    | LICZBA                                        { $$= new Liczba( $1, sLocation.numerLinii);}
-    | LNAPISOWY                                     { $$= new LiteralNapisowy( *( $1), sLocation.numerLinii);}
+    | liczba                                        { $$= new Liczba( $1, sLocation.numerLinii);}
+    | lnapisowy                                     { $$= new LiteralNapisowy( *( $1), sLocation.numerLinii);}
     | nawias                                        { $$= $1;}
     ;
 
 zmiennaLokalna:
-    IDENTYFIKATOR                                   { $$= new ZmiennaLokalna( *( $1), sLocation.numerLinii);}
+    identyfikator                                   { $$= new ZmiennaLokalna( *( $1), sLocation.numerLinii);}
     ;
 
 zmiennaGlobalna:
-    OPERATOR_ZASIEGU IDENTYFIKATOR                  { $$= new ZmiennaGlobalna( *( $2), sLocation.numerLinii);}
+    OPERATOR_ZASIEGU identyfikator                  { $$= new ZmiennaGlobalna( *( $2), sLocation.numerLinii);}
     ;
 
 wywolanieFunkcji:
-    IDENTYFIKATOR '(' listaWyrazen ')'              { $$= new WywolanieFunkcji( *( $1), $3, sLocation.numerLinii);}
+    identyfikator '(' listaWyrazen ')'              { $$= new WywolanieFunkcji( *( $1), $3, sLocation.numerLinii);}
     ;
 
 listaWyrazen:
@@ -253,4 +270,14 @@ nawias:
     '(' wyrazenie ')'                               { $$= new Nawias( $2, sLocation.numerLinii);}
     ;
 
+lnapisowy:
+    LNAPISOWY                                       { $$= new std::string( m_lexer.YYText() ); }
+
+liczba:
+    LICZBA                                          { $$= atoi( m_lexer.YYText() ); }
+
+identyfikator:
+    IDENTYFIKATOR                                   { $$= new std::string( m_lexer.YYText() ); }
+
 %%
+

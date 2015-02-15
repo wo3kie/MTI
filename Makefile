@@ -1,5 +1,5 @@
 PROJECT= Interpreter
-CXX=g++
+CXX=clang++
 OBJS= definicjaFunkcji.o \
 	identyfikator.o \
 	instrukcjaIteracyjnaDoWhile.o 	instrukcjaIteracyjnaFor.o instrukcjaIteracyjnaWhile.o \
@@ -15,7 +15,7 @@ OBJS= definicjaFunkcji.o \
 	program.o \
 	symbolLocation.o \
 	wywolanieFunkcji.o
-CXXFLAGS= -g -Wall
+CXXFLAGS= -g
 
 all: $(PROJECT)
 

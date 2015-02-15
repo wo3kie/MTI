@@ -15,12 +15,10 @@ class TablicaSlowKluczowych{
     public:
         explicit TablicaSlowKluczowych(int __nieSlowo)
         :_nieSlowo(__nieSlowo){
-            dodajSlowo( "do", Parser::DO );
             dodajSlowo( "double", Parser::DOUBLE );
             dodajSlowo( "string", Parser::STRING );
             dodajSlowo( "while", Parser::WHILE );
             dodajSlowo( "if", Parser::IF );
-            dodajSlowo( "for", Parser::FOR );
             dodajSlowo( "return", Parser::RETURN );
             dodajSlowo( "printf", Parser::PRINTF );
             dodajSlowo( "scanf", Parser::SCANF );
