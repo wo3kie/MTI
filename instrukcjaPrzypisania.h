@@ -6,29 +6,29 @@
 #include "wyjatki.h"
 #include "wyrazenie.h"
 
-/// Reprezentuje instrukcje przypisania
+// Reprezentuje instrukcje przypisania
 class InstrukcjaPrzypisania:public Instrukcja{
     public:
-        /// Konstruktor przyjmuje jako parametr nazwe zmiennej do której bêdziemy przypisywac,
-        /// wyra¿enie którego wartoœc przypiszemy oraz numer linii, w której by³a instrukcja przypisania
+        // Konstruktor przyjmuje jako parametr nazwe zmiennej do której bêdziemy przypisywac,
+        // wyra¿enie którego wartoœc przypiszemy oraz numer linii, w której by³a instrukcja przypisania
         inline InstrukcjaPrzypisania( Identyfikator* __identyfikator, Wyrazenie* __wyrazenie, int __numerLinii);
 
-        /// Wykonuje instrukcjê
+        // Wykonuje instrukcjê
         virtual const Wartosc* execute(RunTimeData& __runTimeData);
 
-        /// Przechodzi przez drzewo skladniowe w gl¹b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencjê klasy 'AnalysisData'
-        /// która przechowuje informacje o tablicach symboli
-        /// Sprawdza zgodnoœc typów, zmiennej do ktorej przypisujemy
-        /// oraz wyrazenia.
+        // Przechodzi przez drzewo skladniowe w gl¹b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencjê klasy 'AnalysisData'
+        // która przechowuje informacje o tablicach symboli
+        // Sprawdza zgodnoœc typów, zmiennej do ktorej przypisujemy
+        // oraz wyrazenia.
         virtual void analise( AnalysisData& __analysisData);
 
     protected:
-        /// WskaŸnik na identyfikator, zmienna do której przypisujemy
+        // WskaŸnik na identyfikator, zmienna do której przypisujemy
         Identyfikator* _identyfikator;
 
-        /// WskaŸnik na wyra¿enie, którego wartoœc bê¿dziemy przypisywac
+        // WskaŸnik na wyra¿enie, którego wartoœc bê¿dziemy przypisywac
         Wyrazenie* _wyrazenie;
 };
 

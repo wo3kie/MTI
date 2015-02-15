@@ -5,7 +5,7 @@
 
 #include "instrukcja.h"
 
-/// Nazwa typu zosta³a wprowadzona aby zachowac zgodnoœc z gramatyka
+// Nazwa typu zosta³a wprowadzona aby zachowac zgodnoœc z gramatyka
 typedef Instrukcja Czynnik;
 
 #endif

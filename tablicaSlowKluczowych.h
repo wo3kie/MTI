@@ -30,21 +30,21 @@ class TablicaSlowKluczowych{
 
         virtual int nieSlowo()const{ return _nieSlowo;}
 
-        /// Podajemy co ma zwr�cic tablica je�eli lekser znajdzie identyfikator
-        /// nie b�d�cy s�owem kluczowym
+        // Podajemy co ma zwr�cic tablica je�eli lekser znajdzie identyfikator
+        // nie b�d�cy s�owem kluczowym
         virtual void nieSlowo(int __nieSlowo){_nieSlowo=__nieSlowo;}
 
-        /// Dodajemy s�owo kluczowe oraz jego warto�c
+        // Dodajemy s�owo kluczowe oraz jego warto�c
         virtual bool dodajSlowo(const std::pair<const std::string, int>& __slowo){
             return (_slowaKluczowe.insert(__slowo)).second;
         }
 
-        /// Dodajemy s�owo kluczowe oraz jego warto�c
+        // Dodajemy s�owo kluczowe oraz jego warto�c
         virtual bool dodajSlowo(const char* __slowo, int __wartosc){
             return dodajSlowo( make_pair(std::string(__slowo),__wartosc));
         }
 
-        /// Sprawdzamy, czy znaleziony przez lekser identyfikator jest s�owem kluczowym
+        // Sprawdzamy, czy znaleziony przez lekser identyfikator jest s�owem kluczowym
         inline virtual int znajdzSlowo(const std::string& __slowo)const;
 
     protected:

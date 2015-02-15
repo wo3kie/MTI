@@ -10,10 +10,10 @@
 enum Typ{Void,Double,String};
 enum Access{ReadOnly,ReadWrite};
 
-/// Klasa interfejsu dla wartosci.
+// Klasa interfejsu dla wartosci.
 class Wartosc{
     public:
-        /// Konstruktor przyjmuje typ wartoœci oraz specyfikacje dostêpu
+        // Konstruktor przyjmuje typ wartoœci oraz specyfikacje dostêpu
         Wartosc(Typ __typ,Access __access)
         :_typ(__typ),
         _access(__access){
@@ -22,7 +22,7 @@ class Wartosc{
         virtual ~Wartosc(){
         };
 
-        /// Metody te s¹ wywolywane przez odpowiednie klasy 'Operator...'
+        // Metody te s¹ wywolywane przez odpowiednie klasy 'Operator...'
         virtual const Wartosc* operator+(const Wartosc*)const=0;
         virtual const Wartosc* operator+()const=0;
         virtual const Wartosc* operator-(const Wartosc*)const=0;
@@ -39,41 +39,41 @@ class Wartosc{
 
         virtual const Wartosc* operator=(const Wartosc*)=0;
 
-        /// Metody drukuj¹ce i wczytuj¹ce wartoœci
+        // Metody drukuj¹ce i wczytuj¹ce wartoœci
         virtual const Wartosc* printf()const=0;
         virtual const Wartosc* scanf()=0;
 
-        /// Metoda okreœla, czy wartoœc jest tylko do odczytu 'ReadOnly' czy
-        /// mo¿na do niej zapisywac 'ReadWrite'
+        // Metoda okreœla, czy wartoœc jest tylko do odczytu 'ReadOnly' czy
+        // mo¿na do niej zapisywac 'ReadWrite'
         Access access()const{return _access;}
 
-        /// Ustawia zmienn¹ tylko do odczytu
+        // Ustawia zmienn¹ tylko do odczytu
         void readOnly(){_access=ReadOnly;}
 
-        /// Zwraca typ wartoœci: 'Double', 'String'
+        // Zwraca typ wartoœci: 'Double', 'String'
         Typ typ()const{return _typ;}
 
-        /// Virtual constructor
+        // Virtual constructor
         virtual Wartosc* kopiuj()const=0;
 
     protected:
-        /// Przechowuje typ wartoœci
+        // Przechowuje typ wartoœci
         Typ _typ;
 
-        /// Przechowuje typ dostepu do wartoœci
+        // Przechowuje typ dostepu do wartoœci
         Access _access;
 };
 
-/// Wartoœc double reprezentuje liczby rzeczywiste w programie u¿ytkownika.
+// Wartoœc double reprezentuje liczby rzeczywiste w programie u¿ytkownika.
 class WartoscDouble:public Wartosc{
     public:
-        /// Konstruktor przyjmuje wartoœc oraz specyfikacjê dostêpu
+        // Konstruktor przyjmuje wartoœc oraz specyfikacjê dostêpu
         WartoscDouble(double __wartosc= 0,Access __access= ReadWrite)
         :Wartosc(Double,__access),
         _wartosc(__wartosc){
         }
 
-        /// Dodaje dwie wartoœci
+        // Dodaje dwie wartoœci
         virtual const Wartosc* operator+(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -81,12 +81,12 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( _wartosc+ wartoscDouble->execute());
         }
 
-        /// Nie robi nic
+        // Nie robi nic
         virtual const Wartosc* operator+()const{
             return this;
         }
 
-        /// Odejmuje dwie wartoœci
+        // Odejmuje dwie wartoœci
         virtual const Wartosc* operator-(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -94,12 +94,12 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( _wartosc- wartoscDouble->execute());
         }
 
-        /// Zwraca wartoœc o przeciwnym znaku
+        // Zwraca wartoœc o przeciwnym znaku
         virtual const Wartosc* operator-()const{
             return new WartoscDouble( -_wartosc);
         }
 
-        /// Mno¿y dwie wartoœci
+        // Mno¿y dwie wartoœci
         virtual const Wartosc* operator*(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -107,7 +107,7 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( _wartosc* wartoscDouble->execute());
         }
 
-        /// Dzieli dwie wartoœci
+        // Dzieli dwie wartoœci
         virtual const Wartosc* operator/(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -122,7 +122,7 @@ class WartoscDouble:public Wartosc{
             }
         }
 
-        /// Okreœla, czy wartoœci s¹ równe
+        // Okreœla, czy wartoœci s¹ równe
         virtual const Wartosc* operator==(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -130,7 +130,7 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( _wartosc== wartoscDouble->execute());
         }
 
-        /// Okreœla, czy wartoœci s¹ ró¿ne
+        // Okreœla, czy wartoœci s¹ ró¿ne
         virtual const Wartosc* operator!=(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -138,7 +138,7 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( _wartosc!= wartoscDouble->execute());
         }
 
-        /// Okreœla, czy wartoœc jest wiêksza
+        // Okreœla, czy wartoœc jest wiêksza
         virtual const Wartosc* operator>(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -146,7 +146,7 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( _wartosc> wartoscDouble->execute());
         }
 
-        /// Okreœla, czy wartoœci jest mniejsza
+        // Okreœla, czy wartoœci jest mniejsza
         virtual const Wartosc* operator<(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -154,7 +154,7 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( _wartosc< wartoscDouble->execute());
         }
 
-        /// Zwraca alternatywe dwóch wartoœci
+        // Zwraca alternatywe dwóch wartoœci
         virtual const Wartosc* operator||(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -166,7 +166,7 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( wartoscDouble->execute());
         }
 
-        /// Zwraca koniunkcje dwóch wartoœci
+        // Zwraca koniunkcje dwóch wartoœci
         virtual const Wartosc* operator&&(const Wartosc* __wartosc)const{
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -178,7 +178,7 @@ class WartoscDouble:public Wartosc{
             return new WartoscDouble( wartoscDouble->execute());
         }
 
-        /// Porównuje dwie wartoœci
+        // Porównuje dwie wartoœci
         virtual const Wartosc* operator=(const Wartosc* __wartosc){
             const WartoscDouble* wartoscDouble=
             dynamic_cast< const WartoscDouble*>( __wartosc);
@@ -188,20 +188,20 @@ class WartoscDouble:public Wartosc{
             return this;
         }
 
-        /// Drukuje wartoœc na stdout
+        // Drukuje wartoœc na stdout
         virtual const Wartosc* printf()const{
             std::cout<< _wartosc;
             std::cout.flush();
             return this;
         }
 
-        /// Wczytuje wartoœc z stdin
+        // Wczytuje wartoœc z stdin
         virtual const Wartosc* scanf(){
             std::cin>> _wartosc;
             return this;
         }
 
-        /// Zwraca wartoœc
+        // Zwraca wartoœc
         double execute()const{
             return _wartosc;
         }
@@ -210,86 +210,86 @@ class WartoscDouble:public Wartosc{
             return _wartosc;
         }
 
-        /// Virtual constructor
+        // Virtual constructor
         virtual WartoscDouble* kopiuj()const{
             return new WartoscDouble(*this);
         }
 
     private:
-        /// Przechowuje wartoœc rzeczywist¹
+        // Przechowuje wartoœc rzeczywist¹
         double _wartosc;
 };
 
-/// Wartosc string reprezentuje napisy w programie u¿ytkowanika
+// Wartosc string reprezentuje napisy w programie u¿ytkowanika
 class WartoscString:public Wartosc{
     public:
-        /// Konstruktor przyjmuje wartoœc oraz specyfikacje dostêpu
+        // Konstruktor przyjmuje wartoœc oraz specyfikacje dostêpu
         WartoscString(std::string __wartosc= "", Access __access= ReadWrite)
         :Wartosc(String, __access),
         _wartosc(__wartosc){
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator+(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator+()const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator-(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator-()const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator*(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator/(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator==(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator!=(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator>(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator<(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator||(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Operator nie jest zaimplementowany
+        // Operator nie jest zaimplementowany
         virtual const Wartosc* operator&&(const Wartosc* __wartosc)const{
             return 0x00;
         }
 
-        /// Porównuje dwie wartoœci
+        // Porównuje dwie wartoœci
         virtual const Wartosc* operator=(const Wartosc* __wartosc){
             const WartoscString* wartoscString=
             dynamic_cast< const WartoscString*>( __wartosc);
@@ -304,20 +304,20 @@ class WartoscString:public Wartosc{
             return this;
         }
 
-        /// Drukuje wartoœc na stdout
+        // Drukuje wartoœc na stdout
         virtual const Wartosc* printf()const{
             std::cout<< _wartosc;
             std::cout.flush();
             return this;
         }
 
-        /// Wczytuje wartoœc z stdin
+        // Wczytuje wartoœc z stdin
         virtual const Wartosc* scanf(){
             std::cin>> _wartosc;
             return this;
         }
 
-        /// Zwraca wartoœc
+        // Zwraca wartoœc
         std::string execute()const{
             return _wartosc;
         }
@@ -326,13 +326,13 @@ class WartoscString:public Wartosc{
             return _wartosc;
         }
 
-        /// Virtual constructor
+        // Virtual constructor
         virtual WartoscString* kopiuj()const{
             return new WartoscString(*this);
         }
 
     private:
-        /// Przechowuje wartoœc
+        // Przechowuje wartoœc
         std::string _wartosc;
 };
 

@@ -6,7 +6,7 @@
 
 #include "definicjaFunkcji.h"
 
-/// Nazwa typu wprowadzona, aby zachowac zgodno�c z gramatyk�
+// Nazwa typu wprowadzona, aby zachowac zgodno�c z gramatyk�
 typedef Lista< DefinicjaFunkcji> ListaFunkcji;
 
 #endif

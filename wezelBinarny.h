@@ -5,16 +5,16 @@
 
 #include "wezel.h"
 
-/// Klasa reprezentuje wêz³y drzewa binarnego, które mog¹ przechowywac jednego lub dwóch potomków
+// Klasa reprezentuje wêz³y drzewa binarnego, które mog¹ przechowywac jednego lub dwóch potomków
 template<typename O, typename P>
 class WezelBinarny:public Wezel{
     public:
         typedef O Operator;
         typedef P Prawy;
 
-        ///  Konstruktor dla wez³ów typu:   A         B
-        ///                                /|\       /|\
-        ///                               2 + 3     4 * 5
+        //  Konstruktor dla wez³ów typu:   A         B
+        //                                /|\       /|\
+        //                               2 + 3     4 * 5
         WezelBinarny(WezelBinarny* __lewy, Operator* __operator, Prawy* __prawy, int __numerLinii)
         :Wezel( Void, __numerLinii),
         _lewy(__lewy),
@@ -22,9 +22,9 @@ class WezelBinarny:public Wezel{
         _operator(__operator){
         }
 
-        ///  Konstruktor dla wez³ów typu:   A     B
-        ///                                 |     |
-        ///                                 2     8
+        //  Konstruktor dla wez³ów typu:   A     B
+        //                                 |     |
+        //                                 2     8
         WezelBinarny(Prawy* __prawy, int __numerLinii)
         :Wezel( Void, __numerLinii),
         _lewy(0x00),
@@ -34,7 +34,7 @@ class WezelBinarny:public Wezel{
 
         virtual ~WezelBinarny(){}
 
-        /// Wykonuje wezê³
+        // Wykonuje wezê³
         virtual const Wartosc* execute(RunTimeData& __runTimeData){
             if( _lewy){
                 return ( *_operator)( _lewy->execute(__runTimeData), _prawy->execute(__runTimeData));
@@ -42,7 +42,7 @@ class WezelBinarny:public Wezel{
             return _prawy->execute( __runTimeData);
         }
 
-        /// Analizuje wezê³ 'w glab'
+        // Analizuje wezê³ 'w glab'
         virtual void analise( AnalysisData& __analysisData) {
             if( _lewy) {_lewy->analise( __analysisData);}
 
@@ -58,13 +58,13 @@ class WezelBinarny:public Wezel{
         }
 
     protected:
-        /// Lewy potomek wêz³a
+        // Lewy potomek wêz³a
         WezelBinarny* _lewy;
 
-        /// Prawy potomek wêz³a
+        // Prawy potomek wêz³a
         Prawy* _prawy;
 
-        /// Operator u¿yty na wartoœciach potomków
+        // Operator u¿yty na wartoœciach potomków
         Operator* _operator;
 };
 

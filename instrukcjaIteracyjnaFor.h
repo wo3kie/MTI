@@ -8,23 +8,23 @@
 #include "instrukcjaZlozona.h"
 #include "wyrazenie.h"
 
-/// Reprezentuje instrukcje 'while'
+// Reprezentuje instrukcje 'while'
 class InstrukcjaIteracyjnaFor: public Instrukcja{
     public:
-        /// Konstruktor przyjmuje jako argumenty wyra�enie kt�re b�dzie sprawdzane
-        /// przed ka�d� iteracj� p�tli, instrukcje z�o�on� kt�ra jest tre�ci� p�tli,
-        /// oraz numer linii gdzie instrukcja warunkowa si� rozpoczyna
+        // Konstruktor przyjmuje jako argumenty wyra�enie kt�re b�dzie sprawdzane
+        // przed ka�d� iteracj� p�tli, instrukcje z�o�on� kt�ra jest tre�ci� p�tli,
+        // oraz numer linii gdzie instrukcja warunkowa si� rozpoczyna
         inline InstrukcjaIteracyjnaFor(
             Deklaracja* __deklaracja, Wyrazenie* __warunek, InstrukcjaPrzypisania* __przypisanie,
             Instrukcja* __instrukcja,int __numerLinii);
 
-        /// Wykonuje instrukcj�
+        // Wykonuje instrukcj�
         virtual Wartosc* execute( RunTimeData& __runTimeData);
 
-        /// Przechodzi przez drzewo sk�adniowe w gl�b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencje klasy 'AnalysisData'
-        /// kt�ra przechowuje informacje o tablicach symboli
+        // Przechodzi przez drzewo sk�adniowe w gl�b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // kt�ra przechowuje informacje o tablicach symboli
         virtual void analise( AnalysisData& __analysisData);
 
     private:
@@ -32,7 +32,7 @@ class InstrukcjaIteracyjnaFor: public Instrukcja{
         Wyrazenie* _warunek;// warunek konca petli
         InstrukcjaPrzypisania* _przypisanie;// inkrementacja
 
-        /// Instrukcja zlo�ona kt�ra wykona si� je�eli warunek b�dzie spe�niony
+        // Instrukcja zlo�ona kt�ra wykona si� je�eli warunek b�dzie spe�niony
         Instrukcja* _instrukcja;
 };
 

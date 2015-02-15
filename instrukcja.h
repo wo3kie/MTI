@@ -5,7 +5,7 @@
 
 #include "wezel.h"
 
-/// Nazwa typu wprowadzona aby zachowac zgodnoœc z gramatyk¹.
+// Nazwa typu wprowadzona aby zachowac zgodnoœc z gramatyk¹.
 typedef Wezel Instrukcja;
 
 // Klasa bazowa dla wszystkich instrukcji

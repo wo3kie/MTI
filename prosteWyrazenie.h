@@ -5,7 +5,7 @@
 
 #include "skladnik.h"
 
-/// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
+// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
 typedef WezelBinarny< OperatorAddytywnyBi, Skladnik> ProsteWyrazenie;
 
 #endif

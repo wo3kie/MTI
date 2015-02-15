@@ -5,27 +5,27 @@
 
 #include "czynnik.h"
 
-/// Reprezentuje liczbê
+// Reprezentuje liczbê
 class Liczba:public Czynnik{
     public:
-        /// Konstruktor przyjmuje wartoœc liczby,
-        /// oraz numer linii w której wyst¹pi³a liczba
+        // Konstruktor przyjmuje wartoœc liczby,
+        // oraz numer linii w której wyst¹pi³a liczba
         Liczba(double __wartosc, int __numerLinii)
         :Czynnik( Double, __numerLinii),
         _wartosc(__wartosc,ReadOnly){}
 
-        /// Zwraca wartosc liczby
+        // Zwraca wartosc liczby
         virtual const Wartosc* execute( RunTimeData& __runTimeData){
             return &_wartosc;
         }
 
-        /// Analizuje liczbê
+        // Analizuje liczbê
         void analise(AnalysisData& __analysisData){
-            /// Klasa 'Liczba' jest liœciem w drzewie sk³adniowym programu u¿ytkowanika
+            // Klasa 'Liczba' jest liœciem w drzewie sk³adniowym programu u¿ytkowanika
         }
 
     private:
-        /// Przechowuje wartoœc liczbow¹
+        // Przechowuje wartoœc liczbow¹
         WartoscDouble _wartosc;
 };
 

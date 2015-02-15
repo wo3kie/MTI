@@ -7,14 +7,14 @@
 
 #include <stack>
 
-/// AnalysisData przechowuje dane potrzebne w trakcie analizy drzewa sk³adniowego
+// AnalysisData przechowuje dane potrzebne w trakcie analizy drzewa sk³adniowego
 struct AnalysisData{
 	AnalysisData(): numerBloku(0),liczbaBledow( 0){}
 
-    /// Tablica zmiennych lokalnych
+    // Tablica zmiennych lokalnych
     TablicaZmiennych* tablicaZmiennychLokalnych;
 
-    /// Tablica zmiennych globalnych
+    // Tablica zmiennych globalnych
     TablicaZmiennych* tablicaZmiennychGlobalnych;
 
     // Stos widocznosci
@@ -34,18 +34,18 @@ struct AnalysisData{
     } // koniec zasiegu 2                    Stos: 0 <- wierzcholek
 
     */
-    /// Stos widocznosci
+    // Stos widocznosci
     std::stack<int>* stosWidocznosci;
 
-    /// Numer bloku ( zasieg widocznosci)
+    // Numer bloku ( zasieg widocznosci)
     int numerBloku;
 
-	/// WskaŸnik do tablicy funkcji
+	// WskaŸnik do tablicy funkcji
 	TablicaFunkcji* tablicaFunkcji;
 
-	/// Przechowuje liczbe b³edow semantycznych napotkanych w drzewie
-    /// Jezeli po analizie ta zmienna ma wartosc 0 oznacza, ze analiza odbyla sie bezblednie
-    /// i mozna wykonywac drzewo
+	// Przechowuje liczbe b³edow semantycznych napotkanych w drzewie
+    // Jezeli po analizie ta zmienna ma wartosc 0 oznacza, ze analiza odbyla sie bezblednie
+    // i mozna wykonywac drzewo
 	int liczbaBledow;
 };
 

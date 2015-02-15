@@ -8,11 +8,11 @@
 #include "czynnik.h"
 #include "tablicaSymboli.h"
 
-/// Reprezentuje identyfikator, zmienn¹ w programie uzytkownika
+// Reprezentuje identyfikator, zmienn¹ w programie uzytkownika
 class Identyfikator:public Czynnik{
     public:
-        /// Konstruktor przyjmuje nazwê zmiennej oraz numer linii
-        /// w której wyst¹pi³a zmienna
+        // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
+        // w której wyst¹pi³a zmienna
         Identyfikator(std::string __identyfikator, int __numerLinii)
         :Czynnik( Void, __numerLinii),
         _identyfikator( __identyfikator){
@@ -20,47 +20,47 @@ class Identyfikator:public Czynnik{
 
         virtual ~Identyfikator(){}
 
-        /// Klasa nie jest abstrakcyjna
+        // Klasa nie jest abstrakcyjna
         virtual const Wartosc* execute( RunTimeData& _runTimeData)=0;
         virtual Wartosc* assign( RunTimeData& _runTimeData)=0;
 
-        /// Przechodzi przez drzewo sk³adniowe w gl¹b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencje klasy 'AnalysisData'
-        /// ktora przechowuje informacje o tablicach symboli.
-        /// Dodaje zadeklarowana zmienna do tablicy symboli
+        // Przechodzi przez drzewo sk³adniowe w gl¹b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // ktora przechowuje informacje o tablicach symboli.
+        // Dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData)=0;
 
-        /// Zwraca typ
+        // Zwraca typ
         virtual Typ typ()const{ return _typ;}
 
     protected:
-        /// Nazwa zmiennej
+        // Nazwa zmiennej
         std::string _identyfikator;
 
-        /// TablicaSymboli
+        // TablicaSymboli
         TablicaZmiennych* _tablicaZmiennych;
 
         std::pair<unsigned,unsigned> _pozycja;    // pozycja.first - zasieg; pozycja.second - pozycja w zasiegu
 
-        /// Typ zmiennej
+        // Typ zmiennej
         Typ _typ;
 };
 
-/// Reprezentuje zmienne lokalne w programie uzytkownika
+// Reprezentuje zmienne lokalne w programie uzytkownika
 class ZmiennaLokalna: public Identyfikator{
     public:
-        /// Konstruktor przyjmuje nazwê zmiennej oraz numer linii
-        /// w której wyst¹pi³a zmienna
+        // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
+        // w której wyst¹pi³a zmienna
         ZmiennaLokalna( std::string __identyfikator, int __numerLinii)
         :Identyfikator( __identyfikator, __numerLinii){
         }
 
-        /// Przechodzi przez drzewo sk³adniowe w gl¹b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencje klasy 'AnalysisData'
-        /// ktora przechowuje informacje o tablicach symboli.
-        /// Dodaje zadeklarowana zmienna do tablicy symboli
+        // Przechodzi przez drzewo sk³adniowe w gl¹b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // ktora przechowuje informacje o tablicach symboli.
+        // Dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
 
             // Tworzymy kopie stosu widocznosci, zeby nie zmodyfikowac oryginalu
@@ -101,7 +101,7 @@ class ZmiennaLokalna: public Identyfikator{
             _typ= __analysisData.tablicaZmiennychGlobalnych->value( _pozycja)->typ();
         }
 
-        /// Zwraca r-wartosc
+        // Zwraca r-wartosc
         virtual const Wartosc* execute( RunTimeData& __runTimeData){
 
             // Zasieg globalny ma wartosc '0'. Jezeli pole '_pozycja.first' ma
@@ -111,7 +111,7 @@ class ZmiennaLokalna: public Identyfikator{
                 : __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
         }
 
-        /// Uzywane przez 'operator=' do przypisania wartoœci
+        // Uzywane przez 'operator=' do przypisania wartoœci
         virtual Wartosc* assign( RunTimeData& __runTimeData){
             return _pozycja.first ? __runTimeData.tablicaZmiennychLokalnych->value( _pozycja)
                 : __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
@@ -120,20 +120,20 @@ class ZmiennaLokalna: public Identyfikator{
 
 class ZmiennaGlobalna:public Identyfikator{
     public:
-        /// Konstruktor przyjmuje nazwê zmiennej oraz numer linii
-        /// w której wyst¹pi³a zmienna
+        // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
+        // w której wyst¹pi³a zmienna
         ZmiennaGlobalna( std::string __identyfikator, int __numerLinii)
         :Identyfikator( __identyfikator, __numerLinii){
         }
 
-        /// Destruktor
+        // Destruktor
         virtual ~ZmiennaGlobalna(){}
 
-        /// Przechodzi przez drzewo sk³adniowe w gl¹b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencje klasy 'AnalysisData'
-        /// ktora przechowuje informacje o tablicach symboli.
-        /// Dodaje zadeklarowana zmienna do tablicy symboli
+        // Przechodzi przez drzewo sk³adniowe w gl¹b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // ktora przechowuje informacje o tablicach symboli.
+        // Dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
             _pozycja= std::make_pair( Zasieg::zasiegGlobalny,
                 __analysisData.tablicaZmiennychGlobalnych->find( _identyfikator, Zasieg::zasiegGlobalny)
@@ -142,12 +142,12 @@ class ZmiennaGlobalna:public Identyfikator{
             _typ= __analysisData.tablicaZmiennychGlobalnych->value( _pozycja)->typ();
         }
 
-        /// Zwraca r-wartosc
+        // Zwraca r-wartosc
         virtual const Wartosc* execute( RunTimeData& __runTimeData){
             return __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
         }
 
-        /// Uzywane przez 'operator=' do przypisania wartoœci
+        // Uzywane przez 'operator=' do przypisania wartoœci
         virtual Wartosc* assign( RunTimeData& __runTimeData){
             return __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
         }

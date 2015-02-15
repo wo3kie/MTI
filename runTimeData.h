@@ -9,22 +9,22 @@
 struct RekordAktywacji;
 
 
-/// Przechowuje dane potrzebne w czasie wykonywania drzewa
+// Przechowuje dane potrzebne w czasie wykonywania drzewa
 struct RunTimeData{
     // mozna wrzucic parametry wywolania dla funkcji 'main'
 
-    /// Tablica zmiennych lokalnych
+    // Tablica zmiennych lokalnych
     TablicaZmiennych* tablicaZmiennychLokalnych;
 
-    /// Tablica zmiennych globalnych
+    // Tablica zmiennych globalnych
     TablicaZmiennych* tablicaZmiennychGlobalnych;
 
-    /// WskaŸœnik do globalnej tablicy funkcji
+    // WskaŸœnik do globalnej tablicy funkcji
     TablicaFunkcji* tablicaFunkcji;
 
-    /// Rekord aktywacji jest interfejsem funkcji. Klasa 'WywolanieFunkcji' wpisuje wartosci
-    /// parametrow do rekordu aktywacji, funkcja sie wykonuje i w rekordzie aktywacji
-    /// czeka zwracana przez funkcje wartosc
+    // Rekord aktywacji jest interfejsem funkcji. Klasa 'WywolanieFunkcji' wpisuje wartosci
+    // parametrow do rekordu aktywacji, funkcja sie wykonuje i w rekordzie aktywacji
+    // czeka zwracana przez funkcje wartosc
     RekordAktywacji* rekordAktywacji;
 };
 

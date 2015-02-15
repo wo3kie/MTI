@@ -6,7 +6,7 @@
 #include "deklaracja.h"
 #include "lista.h"
 
-/// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
+// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
 typedef Lista< Deklaracja> ListaDeklaracji;
 
 #endif

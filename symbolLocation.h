@@ -5,12 +5,12 @@
 
 #include <string>
 
-/// Struktura pamiêta polo¿enie symbolu leksykalnego oraz jego wartosc leksykalna
+// Struktura pamiêta polo¿enie symbolu leksykalnego oraz jego wartosc leksykalna
 struct SymbolLocation{
-    /// Przechowuje w ktorej linii byl symbol
+    // Przechowuje w ktorej linii byl symbol
     static int numerLinii;
 
-    /// Przechowuje leksem
+    // Przechowuje leksem
     static std::string leksem;
 };
 

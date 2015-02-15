@@ -26,11 +26,11 @@
 #include "lekser.h"
 #include "parser.h"
 
-/// Parser
+// Parser
 class MyParser : public Parser{
     public:
-        /// Przyjmuje wskaŸnik na strumieñ sk¹d bêdzie wczytywa³ dane
-        /// i gdzie je wypisywa³
+        // Przyjmuje wskaŸnik na strumieñ sk¹d bêdzie wczytywa³ dane
+        // i gdzie je wypisywa³
         MyParser( std::istream*, std::ostream*);
 };
 

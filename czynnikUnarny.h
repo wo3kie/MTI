@@ -5,27 +5,27 @@
 
 #include "operatory.h"
 
-/// Reprezentuje czynnik poprzedzony unarnym operatorem addytywnym
+// Reprezentuje czynnik poprzedzony unarnym operatorem addytywnym
 class CzynnikUnarny:public Czynnik{
     public:
-        /// Konstruktor przyjmuje czynnik i unarny operator addytywny oraz numer linii w kt�rej w�ze�
-        /// zosta� utworzony
+        // Konstruktor przyjmuje czynnik i unarny operator addytywny oraz numer linii w kt�rej w�ze�
+        // zosta� utworzony
         inline CzynnikUnarny(Czynnik* __czynnik, const OperatorUnarny* __operator, int __numerLinii);
 
-        /// Oblicza wartosc czynnika
+        // Oblicza wartosc czynnika
         virtual const Wartosc* execute(RunTimeData& __runTimeData);
 
-        /// Przechodzi przez drzewo skladniowe w gl�b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencje klasy 'AnalysisData'
-        /// kt�ra przechowuje informacje o tablicach symboli
+        // Przechodzi przez drzewo skladniowe w gl�b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // kt�ra przechowuje informacje o tablicach symboli
         virtual void analise( AnalysisData& __analysisData);
 
     private:
-        /// Operator unarny np.: +2, -3
+        // Operator unarny np.: +2, -3
         const OperatorUnarny* _operator;
 
-        /// Wska�nik na czynnik
+        // Wska�nik na czynnik
         Czynnik* _lewy;
 };
 

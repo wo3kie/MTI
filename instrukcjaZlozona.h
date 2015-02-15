@@ -5,27 +5,27 @@
 
 #include "listaInstrukcji.h"
 
-/// Reprezentuje instrukcje zlo¿ona. Instrukcja zlo¿¿ona jest to instrukcja zawarta w klamrach '{' i '}'
+// Reprezentuje instrukcje zlo¿ona. Instrukcja zlo¿¿ona jest to instrukcja zawarta w klamrach '{' i '}'
 class InstrukcjaZlozona:public Instrukcja{
     public:
-        /// Konstruktor przyjmuje liste instrukcji oraz numer linii w której zaczynaj¹ siê
-        /// instrukcje
+        // Konstruktor przyjmuje liste instrukcji oraz numer linii w której zaczynaj¹ siê
+        // instrukcje
         InstrukcjaZlozona(ListaInstrukcji* __instrukcje, int __numerLinii)
         :Instrukcja( Void, __numerLinii),
         _listaInstrukcji(__instrukcje){
         }
 
-        /// Wykonuje instrukcje zlozona
+        // Wykonuje instrukcje zlozona
         virtual const Wartosc* execute( RunTimeData& __runTimeData){
             _listaInstrukcji->execute( __runTimeData);
             return 0x00;
         }
 
-        /// Przechodzi przez drzewo sk³adniowe w gl¹b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencje klasy 'AnalysisData'
-        /// która przechowuje informacje o tablicach symboli.
-        /// Dodaje zadeklarowan¹ zmienna do tablicy symboli
+        // Przechodzi przez drzewo sk³adniowe w gl¹b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // która przechowuje informacje o tablicach symboli.
+        // Dodaje zadeklarowan¹ zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
             __analysisData.stosWidocznosci->push( ++__analysisData.numerBloku);
             /*
@@ -60,7 +60,7 @@ class InstrukcjaZlozona:public Instrukcja{
     private:
         int _numerBloku;
 
-        /// Lista instrukcji
+        // Lista instrukcji
         ListaInstrukcji* _listaInstrukcji;
 };
 

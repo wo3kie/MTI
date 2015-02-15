@@ -5,7 +5,7 @@
 
 #include "prosteWyrazenie.h"
 
-/// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
+// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
 typedef WezelBinarny< OperatorLogicznyBi, ProsteWyrazenie> Wyrazenie;
 
 #endif

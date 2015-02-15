@@ -6,7 +6,7 @@
 #include "czynnikUnarny.h"
 #include "wezelBinarny.h"
 
-/// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
+// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
 typedef WezelBinarny< OperatorMultiplikatywnyBi, CzynnikUnarny> Skladnik;
 
 #endif

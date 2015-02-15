@@ -5,19 +5,19 @@
 
 #include "identyfikator.h"
 
-/// Klasa bazowa dla wszystkich operatorow
+// Klasa bazowa dla wszystkich operatorow
 class Operator{
     public:
         virtual ~Operator(){};
 };
 
-/// Klasa bazowa dla wszystkich operatorow unarnych
+// Klasa bazowa dla wszystkich operatorow unarnych
 class OperatorUnarny:public Operator{
     public:
         virtual const Wartosc* operator()(const Wartosc*)const=0;
 };
 
-    /// Operator unarny minus
+    // Operator unarny minus
     class OperatorMinus: public OperatorUnarny{
         public:
             virtual const Wartosc* operator()(const Wartosc* __w1)const{
@@ -25,7 +25,7 @@ class OperatorUnarny:public Operator{
             }
     };
 
-    /// Operator unarny plus
+    // Operator unarny plus
     class OperatorPlus: public OperatorUnarny{
         public:
             virtual const Wartosc* operator()(const Wartosc* __w1)const{
@@ -33,19 +33,19 @@ class OperatorUnarny:public Operator{
             }
     };
 
-/// Klasa bazowa dla wszystkich operator�w binarnych
+// Klasa bazowa dla wszystkich operator�w binarnych
 class OperatorBinarny:public Operator{
     public:
         virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
 };
 
-    /// Klasa bazowa dla wszystkich operator�w logicznych
+    // Klasa bazowa dla wszystkich operator�w logicznych
     class OperatorLogicznyBi:public OperatorBinarny{
         public:
             virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
     };
 
-        /// Operator r�wno�ci
+        // Operator r�wno�ci
         class OperatorRownosci:public OperatorLogicznyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -53,7 +53,7 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-        /// Operator r�no�ci
+        // Operator r�no�ci
         class OperatorNierownosci:public OperatorLogicznyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -61,7 +61,7 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-        /// Operator wi�kszo�ci
+        // Operator wi�kszo�ci
         class OperatorWiekszosci:public OperatorLogicznyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -69,7 +69,7 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-        /// Operator mniejszo�ci
+        // Operator mniejszo�ci
         class OperatorMniejszosci:public OperatorLogicznyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -77,7 +77,7 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-        /// Operator alternatywy
+        // Operator alternatywy
         class OperatorAlternatywy:public OperatorLogicznyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -85,7 +85,7 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-        /// Operator koniunkcji
+        // Operator koniunkcji
         class OperatorKoniunkcji:public OperatorLogicznyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -93,13 +93,13 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-    /// Klasa bazowa dla wszystkich operator�w addytywnych: +, -
+    // Klasa bazowa dla wszystkich operator�w addytywnych: +, -
     class OperatorAddytywnyBi:public OperatorBinarny{
         public:
             virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
     };
 
-        /// Operator dodawania
+        // Operator dodawania
         class OperatorDodawania:public OperatorAddytywnyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -107,7 +107,7 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-        /// Operator odejmowania
+        // Operator odejmowania
         class OperatorOdejmowania:public OperatorAddytywnyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -115,13 +115,13 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-    /// Klasa bazowa dla wszystkich operator�w multiplikatywnych: *, /
+    // Klasa bazowa dla wszystkich operator�w multiplikatywnych: *, /
     class OperatorMultiplikatywnyBi:public OperatorBinarny{
         public:
             virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
     };
 
-        /// Operator dzielenia
+        // Operator dzielenia
         class OperatorDzielenia:public OperatorMultiplikatywnyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -129,7 +129,7 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-        /// Operator mno�e�nia
+        // Operator mno�e�nia
         class OperatorMnozenia:public OperatorMultiplikatywnyBi{
             public:
                 virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
@@ -137,8 +137,8 @@ class OperatorBinarny:public Operator{
                 }
         };
 
-    /// Operator przypisania. Nie dziedziczy po klasie 'OperatorBinarny' ze wzgl�du na niezgodno�c
-    /// interfejsu. Pierwszy argument kt�ry pobiera nie mo�e byc sta�y.
+    // Operator przypisania. Nie dziedziczy po klasie 'OperatorBinarny' ze wzgl�du na niezgodno�c
+    // interfejsu. Pierwszy argument kt�ry pobiera nie mo�e byc sta�y.
     class OperatorPrzypisania:public Operator{
         public:
             virtual const Wartosc* operator()(Wartosc* __w1,const Wartosc* __w2)const{

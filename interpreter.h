@@ -10,18 +10,18 @@
 #include "parametryWywolania.h"
     extern Parametry parametry;
 
-/// Podstawowa klasa programu
+// Podstawowa klasa programu
 class Interpreter{
     public:
-        /// Przyjmuje argumenty funkcji main( int argc, char** argv)
+        // Przyjmuje argumenty funkcji main( int argc, char** argv)
         Interpreter( int __argc, char** __argv);
 
-        /// Wczytuje plik, buduje, sprawdza i wykonuje drzewo sk³adniowe programu.
-        /// Zwraca 0 je¿eli nie napotkano na blêdy i wartosc ró¿na od zera w przeciwnym razie
+        // Wczytuje plik, buduje, sprawdza i wykonuje drzewo sk³adniowe programu.
+        // Zwraca 0 je¿eli nie napotkano na blêdy i wartosc ró¿na od zera w przeciwnym razie
         int run(){ return _parser->yyparse();}
 
     protected:
-        /// WskaŸnik na parser uzyty do budowy drzewa sk³adniowego
+        // WskaŸnik na parser uzyty do budowy drzewa sk³adniowego
         Parser* _parser;
 };
 

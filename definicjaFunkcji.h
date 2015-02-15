@@ -10,63 +10,63 @@
 
 #include <stack>
 
-/// 'RekordAktywacji' jest interfejsem funkcji. Aby wywolac funkcj�, musimy
-/// jako parametr przekazac jej rekord aktywacji.
-/// 'Rekord aktywacji' zawiera informacje o typach zwracanych i przyjmowanych
-/// przez funkcj�, oraz wartosci przyjmowane i zwracane przez funkcje.
-/// Ka�da funkcja ma sw�j indywidualny rekord aktywacji.
-/// Rekord aktywacji tworzy metoda DefinicjaFunkcji::rekordAktywacji.
+// 'RekordAktywacji' jest interfejsem funkcji. Aby wywolac funkcj�, musimy
+// jako parametr przekazac jej rekord aktywacji.
+// 'Rekord aktywacji' zawiera informacje o typach zwracanych i przyjmowanych
+// przez funkcj�, oraz wartosci przyjmowane i zwracane przez funkcje.
+// Ka�da funkcja ma sw�j indywidualny rekord aktywacji.
+// Rekord aktywacji tworzy metoda DefinicjaFunkcji::rekordAktywacji.
 
 struct RekordAktywacji {
-    /// Konstruktor przyjmuje nazwe funkcji, wartosc zwracana oraz liste parametrow
+    // Konstruktor przyjmuje nazwe funkcji, wartosc zwracana oraz liste parametrow
     RekordAktywacji( const std::string __nazwaFunkcji, Wartosc* __wartoscZwracana)
     :nazwaFunkcji( __nazwaFunkcji),
     wartoscZwracana( __wartoscZwracana){}
 
-    /// Nazwa funkcji
+    // Nazwa funkcji
     const std::string nazwaFunkcji;
 
-    /// Wartosc zwracana
+    // Wartosc zwracana
     Wartosc* wartoscZwracana;
 
-    /// Wartosci arguentow
+    // Wartosci arguentow
     std::vector< Wartosc*> listaWartosci;
 };
 
-/// Reprezentuje funkcje ktora zaimplementowal uzytkownik
+// Reprezentuje funkcje ktora zaimplementowal uzytkownik
 class DefinicjaFunkcji:public Wezel{
     public:
-        /// Konstruktor przyjmuje wartosc zwracana, nazwe funkcji, lista parametrow,
-        /// instrukcje (tresc funkcji) oraz numer linii w ktorej rozpoczela sie definicja funkcji
+        // Konstruktor przyjmuje wartosc zwracana, nazwe funkcji, lista parametrow,
+        // instrukcje (tresc funkcji) oraz numer linii w ktorej rozpoczela sie definicja funkcji
         DefinicjaFunkcji( Wartosc*__wartosc, std::string __identyfikator,
             ListaParametrow*__listaParametrow, Instrukcja*__instrukcja,int __numerLinii);
 
-        /// Wykonuje funkcje
+        // Wykonuje funkcje
         virtual const Wartosc* execute( RunTimeData& __runTimeData);
 
-        /// Analizuje funkcje
+        // Analizuje funkcje
         virtual void analise( AnalysisData& __analysisData);
 
-        /// Tworzy rekord aktywacji funkcji
+        // Tworzy rekord aktywacji funkcji
         virtual RekordAktywacji& rekordAktywacji(){ return _rekordAktywacji;}
 
     protected:
-        /// Rekord aktywacji funkcji
+        // Rekord aktywacji funkcji
         RekordAktywacji _rekordAktywacji;
 
-        /// Lista parametrow
+        // Lista parametrow
         ListaParametrow* _listaParametrow;
 
-        /// Instrukcja, tresc funkcji
+        // Instrukcja, tresc funkcji
         Instrukcja* _instrukcja;
 
-        /// Tablica zmiennych lokalnych
+        // Tablica zmiennych lokalnych
         TablicaZmiennych _tablicaZmiennychLokalnych;
 
-        /// Stos widocznosci, sluzy sledzeniu zasiegow
+        // Stos widocznosci, sluzy sledzeniu zasiegow
         std::stack<int> _stosWidocznosci;
 
-        /// Stos wywolan funkcji
+        // Stos wywolan funkcji
         // Kazde wywolanie funkcji jest osobnym obiektem. Zeby nie nadpisywac wartosci
         // zmiennych z poprzedniego wywolania, musza byc one zapamietane.
         // Wykorzystywane przy funkcjach rekurencyjnych

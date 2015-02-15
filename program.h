@@ -9,10 +9,10 @@ namespace NSInterpreter{
     const std::string funkcjaGlowna= "main";
 };
 
-/// Reprezentuje program
+// Reprezentuje program
 class Program{
     public:
-        /// Konstruktor przyjmuje listê deklaracji oraz listê funkcji
+        // Konstruktor przyjmuje listê deklaracji oraz listê funkcji
         Program( ListaDeklaracji* __listaDeklaracji, ListaFunkcji* __listaFunkcji)
         :_analizowany( false),
         _funkcjaGlowna( NSInterpreter::funkcjaGlowna),
@@ -21,7 +21,7 @@ class Program{
         {
         }
 
-        /// Konstruktor przyjmuje listê funkcji
+        // Konstruktor przyjmuje listê funkcji
         Program( ListaFunkcji* __listaFunkcji)
         :_analizowany( false),
         _funkcjaGlowna( NSInterpreter::funkcjaGlowna),
@@ -30,32 +30,32 @@ class Program{
         {
         }
 
-        /// Analizuje program
+        // Analizuje program
         void analise();
 
-        /// Analizuje i wykonuje program
+        // Analizuje i wykonuje program
         const Wartosc* execute();
 
-        /// Dodaje funkcje biblioteczne do tablicy symboli
+        // Dodaje funkcje biblioteczne do tablicy symboli
         void dodajFunkcjeBiblioteczne();
 
     protected:
-        /// czy analizowalismy juz program
+        // czy analizowalismy juz program
         bool _analizowany;
 
-        /// Nazwa funkcji g³ównej.
+        // Nazwa funkcji g³ównej.
         std::string _funkcjaGlowna;
 
-        /// Tablica zmiennych globalnych
+        // Tablica zmiennych globalnych
         TablicaZmiennych _tablicaZmiennychGlobalnych;
 
-        /// Tablica funkcji
+        // Tablica funkcji
         TablicaFunkcji _tablicaFunkcji;
 
-        /// Lista deklaracji zmiennych globalnych
+        // Lista deklaracji zmiennych globalnych
         ListaDeklaracji* _listaDeklaracji;
 
-        /// Lista funkcji
+        // Lista funkcji
         ListaFunkcji* _listaFunkcji;
 };
 

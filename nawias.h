@@ -5,26 +5,26 @@
 
 #include "wyrazenie.h"
 
-/// Reprezentuje nawias
+// Reprezentuje nawias
 class Nawias: public Czynnik{
     public:
-        /// Konstruktor przyjmuje wyra¿enie oraz numer linii w której wyst¹pi³
-        /// nawias
+        // Konstruktor przyjmuje wyra¿enie oraz numer linii w której wyst¹pi³
+        // nawias
         Nawias(Wyrazenie* __wyrazenie, int __numerLinii)
         :Czynnik( Void, __numerLinii),
         _lewy(__wyrazenie){}
         virtual ~Nawias(){}
 
-        /// Zwraca wartosc wyrazenia w nawiasach
+        // Zwraca wartosc wyrazenia w nawiasach
         virtual const Wartosc* execute( RunTimeData& __runTimeData){
             return _lewy->execute( __runTimeData);
         }
 
-        /// Analizuje wyrazenie zawarte w nawiasie
+        // Analizuje wyrazenie zawarte w nawiasie
         virtual void analise(AnalysisData& __analysisData);
 
     private:
-        /// Wyrazenie w nawiasie
+        // Wyrazenie w nawiasie
         Wyrazenie* _lewy;
 };
 

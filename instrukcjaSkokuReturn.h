@@ -5,20 +5,20 @@
 
 #include "wyrazenie.h"
 
-/// Instrukcja ta nie koñczy dzia³ania funkcji. Okreœla jak¹ wartoœc zwróci funkcja.
-/// Je¿eli w funkcji u¿yjemy instrukcji return wielokrotnie, funkcja zwróci wartoœc
-/// wyliczon¹ w ostatniej instrukcji return.
-///   Przyk³ad:
-///      double funkcja(){
-///         return 1;
-///         return 2;
-///     }
-///
-///     Funkcja zwróci wartoœc 2
+// Instrukcja ta nie koñczy dzia³ania funkcji. Okreœla jak¹ wartoœc zwróci funkcja.
+// Je¿eli w funkcji u¿yjemy instrukcji return wielokrotnie, funkcja zwróci wartoœc
+// wyliczon¹ w ostatniej instrukcji return.
+//   Przyk³ad:
+//      double funkcja(){
+//         return 1;
+//         return 2;
+//     }
+//
+//     Funkcja zwróci wartoœc 2
 class InstrukcjaSkokuReturn: public Instrukcja{
     public:
-        /// Konstruktor przyjmuje wyra¿enie którego wartoœc zwróci,
-        /// oraz numer linii w której wyst¹pi³a instrukcja
+        // Konstruktor przyjmuje wyra¿enie którego wartoœc zwróci,
+        // oraz numer linii w której wyst¹pi³a instrukcja
         InstrukcjaSkokuReturn( Wyrazenie* __wyrazenie, int __numerLinii)
         // Zmienna 'return' jest pierwszym wpisem w lokalnej tablicy zmiennych
         // i przechowuje zwracan¹ wartoœc
@@ -26,7 +26,7 @@ class InstrukcjaSkokuReturn: public Instrukcja{
         _wyrazenie(__wyrazenie){
         }
 
-        /// Kopiuje do pierwszej pozycji lokalnej tablicy symboli wartoœc wyrazenia
+        // Kopiuje do pierwszej pozycji lokalnej tablicy symboli wartoœc wyrazenia
         virtual const Wartosc* execute(RunTimeData& __runTimeData){
             // '::kopiuj' obiekt klasy 'OperatorPrzypisania' - plik operatory.h
 
@@ -41,17 +41,17 @@ class InstrukcjaSkokuReturn: public Instrukcja{
             return 0x00;
         }
 
-        /// Przechodzi przez drzewo sk³adniowe w gl¹b
-        /// w celu analizy semantycznej drzewa.
-        /// Jako parametr przyjmuje referencje klasy 'AnalysisData'
-        /// która przechowuje informacje o tablicach symboli.
-        /// Dodaje zadeklarowan¹ zmienna do tablicy symboli
+        // Przechodzi przez drzewo sk³adniowe w gl¹b
+        // w celu analizy semantycznej drzewa.
+        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // która przechowuje informacje o tablicach symboli.
+        // Dodaje zadeklarowan¹ zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
             _wyrazenie->analise( __analysisData);
         }
 
     protected:
-        /// Wyra¿enie po s³owie kluczowym 'return'
+        // Wyra¿enie po s³owie kluczowym 'return'
         Wyrazenie* _wyrazenie;
 };
 
