@@ -380,7 +380,7 @@ static int yy_flex_strlen (yyconst char * );
 #undef YY_DECL
 #endif
 
-#line 127 "interpreter.l"
+#line 127 "./interpreter.l"
 
 
 #line 387 "lexer.h"

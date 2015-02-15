@@ -1,7 +1,7 @@
 #define YY_Parser_h_included
 #define YY_USE_CLASS
 
-/*  A Bison++ parser, made from interpreter.y  */
+/*  A Bison++ parser, made from ./interpreter.y  */
 
  /* with Bison++ version bison++ Version 1.21.9-1, adapted from GNU bison by coetmeur@icdc.fr
 Maintained by Magnus Ekdahl <magnus@debian.org>
@@ -99,7 +99,7 @@ Maintained by Magnus Ekdahl <magnus@debian.org>
 #define YYBISON 1  
 
  #line 88 "/usr/share/bison++/bison.cc"
-#line 3 "interpreter.y"
+#line 3 "./interpreter.y"
 
 #include <iostream>
 #include <string>
@@ -124,7 +124,7 @@ Maintained by Magnus Ekdahl <magnus@debian.org>
 #include "expression.h"
 #include "functionCall.h"
 
-#line 30 "interpreter.y"
+#line 30 "./interpreter.y"
 typedef union {
     double _liczba;
     std::string* _napis;
@@ -1278,287 +1278,287 @@ YYLABEL(yyreduce)
   switch (yyn) {
 
 case 1:
-#line 123 "interpreter.y"
+#line 123 "./interpreter.y"
 {yyval._program= new Program( yyvsp[-1]._listaDeklaracji, yyvsp[0]._listaFunkcji);yyval._program->execute();;
     break;}
 case 2:
-#line 124 "interpreter.y"
+#line 124 "./interpreter.y"
 {yyval._program= new Program( yyvsp[0]._listaFunkcji);yyval._program->execute();;
     break;}
 case 3:
-#line 128 "interpreter.y"
+#line 128 "./interpreter.y"
 { yyval._listaDeklaracji= new ListaDeklaracji( yyvsp[-1]._listaDeklaracji, yyvsp[0]._deklaracja);;
     break;}
 case 4:
-#line 129 "interpreter.y"
+#line 129 "./interpreter.y"
 { yyval._listaDeklaracji= new ListaDeklaracji( yyvsp[0]._deklaracja);;
     break;}
 case 5:
-#line 133 "interpreter.y"
+#line 133 "./interpreter.y"
 { yyval._deklaracja= new DeklaracjaDouble( *( yyvsp[-1]._napis), 0, sLocation.numerLinii);;
     break;}
 case 6:
-#line 134 "interpreter.y"
+#line 134 "./interpreter.y"
 { yyval._deklaracja= new DeklaracjaDouble( *( yyvsp[-3]._napis), yyvsp[-1]._liczba, sLocation.numerLinii);;
     break;}
 case 7:
-#line 135 "interpreter.y"
+#line 135 "./interpreter.y"
 { yyval._deklaracja= new DeklaracjaString( *( yyvsp[-1]._napis), "", sLocation.numerLinii);;
     break;}
 case 8:
-#line 136 "interpreter.y"
+#line 136 "./interpreter.y"
 { yyval._deklaracja= new DeklaracjaString( *( yyvsp[-3]._napis), *( yyvsp[-1]._napis), sLocation.numerLinii);;
     break;}
 case 9:
-#line 140 "interpreter.y"
+#line 140 "./interpreter.y"
 { yyval._listaFunkcji= new ListaFunkcji( yyvsp[-1]._listaFunkcji, yyvsp[0]._definicjaFunkcji);;
     break;}
 case 10:
-#line 141 "interpreter.y"
+#line 141 "./interpreter.y"
 { yyval._listaFunkcji= new ListaFunkcji( yyvsp[0]._definicjaFunkcji);;
     break;}
 case 11:
-#line 146 "interpreter.y"
+#line 146 "./interpreter.y"
 { yyval._definicjaFunkcji= new DefinicjaFunkcji( new WartoscDouble(), *( yyvsp[-4]._napis), yyvsp[-2]._listaParametrow, yyvsp[0]._instrukcja, sLocation.numerLinii);;
     break;}
 case 12:
-#line 148 "interpreter.y"
+#line 148 "./interpreter.y"
 { yyval._definicjaFunkcji= new DefinicjaFunkcji( new WartoscString(), *( yyvsp[-4]._napis), yyvsp[-2]._listaParametrow, yyvsp[0]._instrukcja, sLocation.numerLinii);;
     break;}
 case 13:
-#line 152 "interpreter.y"
+#line 152 "./interpreter.y"
 { yyval._listaParametrow= new ListaParametrow( yyvsp[-2]._listaParametrow, yyvsp[0]._parametr);;
     break;}
 case 14:
-#line 153 "interpreter.y"
+#line 153 "./interpreter.y"
 { yyval._listaParametrow= new ListaParametrow( yyvsp[0]._parametr);;
     break;}
 case 15:
-#line 154 "interpreter.y"
+#line 154 "./interpreter.y"
 { yyval._listaParametrow= new ListaParametrow( 0x00);;
     break;}
 case 16:
-#line 158 "interpreter.y"
+#line 158 "./interpreter.y"
 { yyval._parametr= new ParametrDouble( *( yyvsp[0]._napis), 0, sLocation.numerLinii);;
     break;}
 case 17:
-#line 159 "interpreter.y"
+#line 159 "./interpreter.y"
 { yyval._parametr= new ParametrString( *( yyvsp[0]._napis), "", sLocation.numerLinii);;
     break;}
 case 18:
-#line 163 "interpreter.y"
+#line 163 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._instrukcjaPrzypisania;;
     break;}
 case 19:
-#line 164 "interpreter.y"
+#line 164 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._instrukcjaZlozona;;
     break;}
 case 20:
-#line 165 "interpreter.y"
+#line 165 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._instrukcjaWarunkowaIf;;
     break;}
 case 21:
-#line 166 "interpreter.y"
+#line 166 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._instrukcjaIteracyjnaWhile;;
     break;}
 case 22:
-#line 167 "interpreter.y"
+#line 167 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._instrukcjaSkokuReturn;;
     break;}
 case 23:
-#line 168 "interpreter.y"
+#line 168 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._instrukcjaDrukowania;;
     break;}
 case 24:
-#line 169 "interpreter.y"
+#line 169 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._instrukcjaWczytywania;;
     break;}
 case 25:
-#line 170 "interpreter.y"
+#line 170 "./interpreter.y"
 { yyval._instrukcja= yyvsp[0]._deklaracja;;
     break;}
 case 26:
-#line 171 "interpreter.y"
+#line 171 "./interpreter.y"
 { yyval._instrukcja= yyvsp[-1]._wywolanieFunkcji;;
     break;}
 case 27:
-#line 175 "interpreter.y"
+#line 175 "./interpreter.y"
 { yyval._instrukcjaZlozona= new InstrukcjaZlozona( yyvsp[-1]._listaInstrukcji, sLocation.numerLinii);;
     break;}
 case 28:
-#line 179 "interpreter.y"
+#line 179 "./interpreter.y"
 { yyval._listaInstrukcji= new ListaInstrukcji( yyvsp[-1]._listaInstrukcji, yyvsp[0]._instrukcja);;
     break;}
 case 29:
-#line 180 "interpreter.y"
+#line 180 "./interpreter.y"
 { yyval._listaInstrukcji= new ListaInstrukcji( yyvsp[0]._instrukcja);;
     break;}
 case 30:
-#line 184 "interpreter.y"
+#line 184 "./interpreter.y"
 { yyval._instrukcjaPrzypisania= new InstrukcjaPrzypisania( new ZmiennaLokalna( *( yyvsp[-3]._napis), sLocation.numerLinii), yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
     break;}
 case 31:
-#line 186 "interpreter.y"
+#line 186 "./interpreter.y"
 { yyval._instrukcjaPrzypisania= new InstrukcjaPrzypisania( new ZmiennaGlobalna( *( yyvsp[-3]._napis), sLocation.numerLinii), yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
     break;}
 case 32:
-#line 191 "interpreter.y"
+#line 191 "./interpreter.y"
 { yyval._instrukcjaWarunkowaIf= new InstrukcjaWarunkowaIf( yyvsp[-2]._wyrazenie, yyvsp[0]._instrukcja, sLocation.numerLinii);;
     break;}
 case 33:
-#line 193 "interpreter.y"
+#line 193 "./interpreter.y"
 { yyval._instrukcjaWarunkowaIf= new InstrukcjaWarunkowaIf( yyvsp[-4]._wyrazenie, yyvsp[-2]._instrukcja, yyvsp[0]._instrukcja, sLocation.numerLinii);;
     break;}
 case 34:
-#line 197 "interpreter.y"
+#line 197 "./interpreter.y"
 { yyval._instrukcjaIteracyjnaWhile= new InstrukcjaIteracyjnaWhile( yyvsp[-2]._wyrazenie, yyvsp[0]._instrukcja, sLocation.numerLinii);;
     break;}
 case 35:
-#line 201 "interpreter.y"
+#line 201 "./interpreter.y"
 { yyval._instrukcjaSkokuReturn= new InstrukcjaSkokuReturn( yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
     break;}
 case 36:
-#line 205 "interpreter.y"
+#line 205 "./interpreter.y"
 { yyval._instrukcjaDrukowania= new InstrukcjaDrukowania( yyvsp[-2]._wyrazenie, sLocation.numerLinii);;
     break;}
 case 37:
-#line 206 "interpreter.y"
+#line 206 "./interpreter.y"
 { yyval._instrukcjaDrukowania= new InstrukcjaEndl(sLocation.numerLinii);;
     break;}
 case 38:
-#line 210 "interpreter.y"
+#line 210 "./interpreter.y"
 { yyval._instrukcjaWczytywania= new InstrukcjaWczytywania( yyvsp[-2]._zmiennaLokalna, sLocation.numerLinii);;
     break;}
 case 39:
-#line 211 "interpreter.y"
+#line 211 "./interpreter.y"
 { yyval._instrukcjaWczytywania= new InstrukcjaWczytywania( yyvsp[-2]._zmiennaGlobalna, sLocation.numerLinii);;
     break;}
 case 40:
-#line 215 "interpreter.y"
+#line 215 "./interpreter.y"
 { yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorMniejszosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
     break;}
 case 41:
-#line 216 "interpreter.y"
+#line 216 "./interpreter.y"
 { yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorWiekszosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
     break;}
 case 42:
-#line 217 "interpreter.y"
+#line 217 "./interpreter.y"
 { yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorRownosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
     break;}
 case 43:
-#line 218 "interpreter.y"
+#line 218 "./interpreter.y"
 { yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorNierownosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
     break;}
 case 44:
-#line 219 "interpreter.y"
+#line 219 "./interpreter.y"
 { yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorAlternatywy(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
     break;}
 case 45:
-#line 220 "interpreter.y"
+#line 220 "./interpreter.y"
 { yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorKoniunkcji(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
     break;}
 case 46:
-#line 221 "interpreter.y"
+#line 221 "./interpreter.y"
 { yyval._wyrazenie= new Wyrazenie( yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
     break;}
 case 47:
-#line 225 "interpreter.y"
+#line 225 "./interpreter.y"
 { yyval._prosteWyrazenie= new ProsteWyrazenie( yyvsp[-2]._prosteWyrazenie, new OperatorDodawania(), yyvsp[0]._skladnik, sLocation.numerLinii);;
     break;}
 case 48:
-#line 226 "interpreter.y"
+#line 226 "./interpreter.y"
 { yyval._prosteWyrazenie= new ProsteWyrazenie( yyvsp[-2]._prosteWyrazenie, new OperatorOdejmowania(), yyvsp[0]._skladnik, sLocation.numerLinii);;
     break;}
 case 49:
-#line 227 "interpreter.y"
+#line 227 "./interpreter.y"
 { yyval._prosteWyrazenie= new ProsteWyrazenie( yyvsp[0]._skladnik, sLocation.numerLinii);;
     break;}
 case 50:
-#line 231 "interpreter.y"
+#line 231 "./interpreter.y"
 { yyval._skladnik= new Skladnik( yyvsp[-2]._skladnik, new OperatorMnozenia(), yyvsp[0]._czynnikUnarny, sLocation.numerLinii);;
     break;}
 case 51:
-#line 232 "interpreter.y"
+#line 232 "./interpreter.y"
 { yyval._skladnik= new Skladnik( yyvsp[-2]._skladnik, new OperatorDzielenia(), yyvsp[0]._czynnikUnarny, sLocation.numerLinii);;
     break;}
 case 52:
-#line 233 "interpreter.y"
+#line 233 "./interpreter.y"
 { yyval._skladnik= new Skladnik( yyvsp[0]._czynnikUnarny, sLocation.numerLinii);;
     break;}
 case 53:
-#line 237 "interpreter.y"
+#line 237 "./interpreter.y"
 { yyval._czynnikUnarny= new CzynnikUnarny( yyvsp[0]._czynnik, 0x00, sLocation.numerLinii);;
     break;}
 case 54:
-#line 238 "interpreter.y"
+#line 238 "./interpreter.y"
 { yyval._czynnikUnarny= new CzynnikUnarny( yyvsp[0]._czynnik, new OperatorPlus(), sLocation.numerLinii);;
     break;}
 case 55:
-#line 239 "interpreter.y"
+#line 239 "./interpreter.y"
 { yyval._czynnikUnarny= new CzynnikUnarny( yyvsp[0]._czynnik, new OperatorMinus(), sLocation.numerLinii);;
     break;}
 case 56:
-#line 243 "interpreter.y"
+#line 243 "./interpreter.y"
 { yyval._czynnik= yyvsp[0]._zmiennaLokalna;;
     break;}
 case 57:
-#line 244 "interpreter.y"
+#line 244 "./interpreter.y"
 { yyval._czynnik= yyvsp[0]._zmiennaGlobalna;;
     break;}
 case 58:
-#line 245 "interpreter.y"
+#line 245 "./interpreter.y"
 { yyval._czynnik= yyvsp[0]._wywolanieFunkcji;;
     break;}
 case 59:
-#line 246 "interpreter.y"
+#line 246 "./interpreter.y"
 { yyval._czynnik= new Liczba( yyvsp[0]._liczba, sLocation.numerLinii);;
     break;}
 case 60:
-#line 247 "interpreter.y"
+#line 247 "./interpreter.y"
 { yyval._czynnik= new LiteralNapisowy( *( yyvsp[0]._napis), sLocation.numerLinii);;
     break;}
 case 61:
-#line 248 "interpreter.y"
+#line 248 "./interpreter.y"
 { yyval._czynnik= yyvsp[0]._nawias;;
     break;}
 case 62:
-#line 252 "interpreter.y"
+#line 252 "./interpreter.y"
 { yyval._zmiennaLokalna= new ZmiennaLokalna( *( yyvsp[0]._napis), sLocation.numerLinii);;
     break;}
 case 63:
-#line 256 "interpreter.y"
+#line 256 "./interpreter.y"
 { yyval._zmiennaGlobalna= new ZmiennaGlobalna( *( yyvsp[0]._napis), sLocation.numerLinii);;
     break;}
 case 64:
-#line 260 "interpreter.y"
+#line 260 "./interpreter.y"
 { yyval._wywolanieFunkcji= new WywolanieFunkcji( *( yyvsp[-3]._napis), yyvsp[-1]._listaWyrazen, sLocation.numerLinii);;
     break;}
 case 65:
-#line 264 "interpreter.y"
+#line 264 "./interpreter.y"
 { yyval._listaWyrazen= new ListaWyrazen( yyvsp[-2]._listaWyrazen, yyvsp[0]._wyrazenie);;
     break;}
 case 66:
-#line 265 "interpreter.y"
+#line 265 "./interpreter.y"
 { yyval._listaWyrazen= new ListaWyrazen( yyvsp[0]._wyrazenie);;
     break;}
 case 67:
-#line 266 "interpreter.y"
+#line 266 "./interpreter.y"
 { yyval._listaWyrazen= new ListaWyrazen( 0x00);;
     break;}
 case 68:
-#line 270 "interpreter.y"
+#line 270 "./interpreter.y"
 { yyval._nawias= new Nawias( yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
     break;}
 case 69:
-#line 274 "interpreter.y"
+#line 274 "./interpreter.y"
 { yyval._napis= new std::string( m_lexer.YYText() ); ;
     break;}
 case 70:
-#line 277 "interpreter.y"
+#line 277 "./interpreter.y"
 { yyval._liczba= atoi( m_lexer.YYText() ); ;
     break;}
 case 71:
-#line 280 "interpreter.y"
+#line 280 "./interpreter.y"
 { yyval._napis= new std::string( m_lexer.YYText() ); ;
     break;}
 }
@@ -1765,6 +1765,6 @@ YYLABEL(yyerrhandle)
 /* END */
 
  #line 1038 "/usr/share/bison++/bison.cc"
-#line 282 "interpreter.y"
+#line 282 "./interpreter.y"
 
 

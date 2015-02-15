@@ -13,7 +13,7 @@
 
  #line 8 "/usr/share/bison++/bison.h"
 
-#line 30 "interpreter.y"
+#line 30 "./interpreter.y"
 typedef union {
     double _liczba;
     std::string* _napis;

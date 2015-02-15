@@ -513,12 +513,12 @@ static yyconst flex_int16_t yy_rule_linenum[14] =
 #define yymore() yymore_used_but_not_detected
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
-#line 1 "interpreter.l"
+#line 1 "./interpreter.l"
 /* TablicaSlowKluczowych _TSK_( Parser::IDENTYFIKATOR); */
 /* %name Lekser */
 /* %define IOSTREAM */
 /* %define LEX_PARAM YY_Parser_STYPE *val */
-#line 9 "interpreter.l"
+#line 9 "./interpreter.l"
 #include <stdlib.h>
 #include <string>
 
@@ -705,7 +705,7 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 51 "interpreter.l"
+#line 51 "./interpreter.l"
 
 
 #line 712 "lexer.cpp"
@@ -826,7 +826,7 @@ case 1:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 53 "interpreter.l"
+#line 53 "./interpreter.l"
 {
                                 /* ++sLocation.numerLinii; */
                             }
@@ -834,7 +834,7 @@ YY_RULE_SETUP
 /* napis */
 case 2:
 YY_RULE_SETUP
-#line 58 "interpreter.l"
+#line 58 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext;
 
@@ -847,7 +847,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 68 "interpreter.l"
+#line 68 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext;
 
@@ -858,7 +858,7 @@ YY_RULE_SETUP
 /* liczba */
 case 4:
 YY_RULE_SETUP
-#line 76 "interpreter.l"
+#line 76 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext;
 
@@ -868,7 +868,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 83 "interpreter.l"
+#line 83 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext; */
                                 return Parser::EQ;
@@ -876,7 +876,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 88 "interpreter.l"
+#line 88 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext; */
                                 return Parser::NEQ;
@@ -884,7 +884,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 93 "interpreter.l"
+#line 93 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext; */
                                 return Parser::OR;
@@ -892,7 +892,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 98 "interpreter.l"
+#line 98 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext; */
                                 return Parser::AND;
@@ -900,7 +900,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 103 "interpreter.l"
+#line 103 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext; */
                                 return Parser::OPERATOR_ZASIEGU;
@@ -910,7 +910,7 @@ YY_RULE_SETUP
 /* operatory */
 case 10:
 YY_RULE_SETUP
-#line 111 "interpreter.l"
+#line 111 "./interpreter.l"
 {
                                 /* sLocation.leksem= yytext; */
                                 return yytext[ 0];
@@ -919,27 +919,27 @@ YY_RULE_SETUP
 /*biale znaki*/
 case 11:
 YY_RULE_SETUP
-#line 118 "interpreter.l"
+#line 118 "./interpreter.l"
 {/* nie robi nic*/}
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 119 "interpreter.l"
+#line 119 "./interpreter.l"
 {
                                 /* ++sLocation.numerLinii; */
                             }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 123 "interpreter.l"
+#line 123 "./interpreter.l"
 {
                                 /* std::cerr<< "Linia "<< sLocation.numerLinii<< ": Niedozwolony znak: "<< yytext<< std::endl; */
                             }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 127 "interpreter.l"
+#line 127 "./interpreter.l"
 ECHO;
 	YY_BREAK
 #line 946 "lexer.cpp"
@@ -1990,7 +1990,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 127 "interpreter.l"
+#line 127 "./interpreter.l"
 
 
 
