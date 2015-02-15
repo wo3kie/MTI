@@ -3,9 +3,9 @@
 #ifndef _RUN_TIME_DATA_H_
 #define _RUN_TIME_DATA_H_
 
-#include "tablicaSymboli.h"
+#include "symbolTable.h"
 
-// 'RekordAktywacji' - definicja w pliku definicjaFunkcji.h
+// 'RekordAktywacji' - definicja w pliku functionDefinition.h
 struct RekordAktywacji;
 
 

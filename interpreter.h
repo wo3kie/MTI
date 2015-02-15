@@ -7,7 +7,7 @@
 #include <fstream>
 
 #include "myParser.h"
-#include "parametryWywolania.h"
+#include "callParameter.h"
     extern Parametry parametry;
 
 // Podstawowa klasa programu

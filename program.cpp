@@ -1,10 +1,10 @@
 // Version 1.0
 
-#include "funkcjeBiblioteczne.h"
-#include "parametryWywolania.h"
+#include "libraryFunctions.h"
+#include "callParameter.h"
     extern Parametry parametry;
 #include "program.h"
-#include "wywolanieFunkcji.h"
+#include "functionCall.h"
 
 void Program::dodajFunkcjeBiblioteczne(){
     _tablicaFunkcji.insert( "cos", &FunkcjeBiblioteczne::cos, Zasieg::zasiegGlobalny);

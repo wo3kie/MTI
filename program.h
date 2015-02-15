@@ -3,7 +3,7 @@
 #ifndef _PROGRAM_H_
 #define _PROGRAM_H_
 
-#include "listaFunkcji.h"
+#include "functionList.h"
 
 namespace NSInterpreter{
     const std::string funkcjaGlowna= "main";

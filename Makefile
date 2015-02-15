@@ -1,20 +1,20 @@
 PROJECT= Interpreter
 CXX=clang++
-OBJS= definicjaFunkcji.o \
-	identyfikator.o \
-	instrukcjaIteracyjnaDoWhile.o 	instrukcjaIteracyjnaFor.o instrukcjaIteracyjnaWhile.o \
-	instrukcjaPrzypisania.o \
-	instrukcjaSkokuReturn.o \
-	instrukcjaWarunkowaIf.o \
-	lekser.o \
+OBJS= functionDefinition.o \
+	identifier.o \
+	doWhileInstruction.o 	forInstruction.o whileInstruction.o \
+	assignmentInstruction.o \
+	returnInstruction.o \
+	ifStatement.o \
+	lexer.o \
 	main.o \
 	myParser.o \
-	operatory.o \
-	parametryWywolania.o \
+	operators.o \
+	callParameter.o \
 	parser.o \
 	program.o \
 	symbolLocation.o \
-	wywolanieFunkcji.o
+	functionCall.o
 CXXFLAGS= -g
 
 all: $(PROJECT)

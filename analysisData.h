@@ -3,7 +3,7 @@
 #ifndef _ANALIZATOR_H_
 #define _ANALIZATOR_H_
 
-#include "tablicaSymboli.h"
+#include "symbolTable.h"
 
 #include <stack>
 

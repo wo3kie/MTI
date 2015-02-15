@@ -1,7 +1,7 @@
 // Version 1.0
 
 #include "interpreter.h"
-#include "wyjatki.h"
+#include "exceptions.h"
 
 int main( int argc, char** argv){
     try{
