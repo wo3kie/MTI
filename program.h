@@ -13,7 +13,7 @@ namespace NSInterpreter{
 class Program{
     public:
         // Konstruktor przyjmuje listê deklaracji oraz listê funkcji
-        Program( ListaDeklaracji* __listaDeklaracji, ListaFunkcji* __listaFunkcji)
+        Program( DeclarationList* __listaDeklaracji, FunctionList* __listaFunkcji)
         :_analizowany( false),
         _funkcjaGlowna( NSInterpreter::funkcjaGlowna),
         _listaDeklaracji( __listaDeklaracji),
@@ -22,7 +22,7 @@ class Program{
         }
 
         // Konstruktor przyjmuje listê funkcji
-        Program( ListaFunkcji* __listaFunkcji)
+        Program( FunctionList* __listaFunkcji)
         :_analizowany( false),
         _funkcjaGlowna( NSInterpreter::funkcjaGlowna),
         _listaDeklaracji( 0x00),
@@ -34,7 +34,7 @@ class Program{
         void analise();
 
         // Analizuje i wykonuje program
-        const Wartosc* execute();
+        const Value* execute();
 
         // Dodaje funkcje biblioteczne do tablicy symboli
         void dodajFunkcjeBiblioteczne();
@@ -47,16 +47,16 @@ class Program{
         std::string _funkcjaGlowna;
 
         // Tablica zmiennych globalnych
-        TablicaZmiennych _tablicaZmiennychGlobalnych;
+        VariableTable _tablicaZmiennychGlobalnych;
 
         // Tablica funkcji
-        TablicaFunkcji _tablicaFunkcji;
+        FunctionTable _tablicaFunkcji;
 
-        // Lista deklaracji zmiennych globalnych
-        ListaDeklaracji* _listaDeklaracji;
+        // List deklaracji zmiennych globalnych
+        DeclarationList* _listaDeklaracji;
 
-        // Lista funkcji
-        ListaFunkcji* _listaFunkcji;
+        // List funkcji
+        FunctionList* _listaFunkcji;
 };
 
 #endif

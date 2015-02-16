@@ -28,70 +28,70 @@
 %name Parser
 
 %union {
-    double _liczba;
-    std::string* _napis;
+    double _number;
+    std::string* _text;
 
-    Czynnik* _czynnik;
-    CzynnikUnarny* _czynnikUnarny;
-    DefinicjaFunkcji* _definicjaFunkcji;
-    Deklaracja* _deklaracja;
-    Instrukcja* _instrukcja;
-    InstrukcjaDrukowania* _instrukcjaDrukowania;
-    InstrukcjaIteracyjnaWhile* _instrukcjaIteracyjnaWhile;
-    InstrukcjaPrzypisania* _instrukcjaPrzypisania;
-    InstrukcjaSkokuReturn* _instrukcjaSkokuReturn;
-    InstrukcjaWarunkowaIf* _instrukcjaWarunkowaIf;
-    InstrukcjaWczytywania* _instrukcjaWczytywania;
-    InstrukcjaZlozona* _instrukcjaZlozona;
-    ListaDeklaracji* _listaDeklaracji;
-    ListaFunkcji* _listaFunkcji;
-    ListaInstrukcji* _listaInstrukcji;
-    ListaParametrow* _listaParametrow;
-    ListaWyrazen* _listaWyrazen;
-    LiteralNapisowy* _literalNapisowy;
-    Nawias* _nawias;
-    Parametr* _parametr;
+    Factor* _factor;
+    UnaryFactor* _unaryFactor;
+    FunctionDefinition* _functionDefinition;
+    Declaration* _declaration;
+    Instruction* _instruction;
+    PrintInstruction* _printInstruction;
+    WhileInstruction* _whileInstruction;
+    AssignmentInstruction* _assignmentInstruction;
+    ReturnInstruction* _returnInstruction;
+    IfStatement* _ifStatement;
+    ScanInstruction* _scanInstruction;
+    ComplexInstrukction* _complexInstruction;
+    DeclarationList* _declarationList;
+    FunctionList* _functionList;
+    InstructionList* _instructionList;
+    ParameterList* _parameterList;
+    ExpressionList* _expressionList;
+    TextLiteral* _textLiteral;
+    Bracket* _bracket;
+    Parameter* _parameter;
     Program* _program;
-    ProsteWyrazenie* _prosteWyrazenie;
-    Skladnik* _skladnik;
-    Wyrazenie* _wyrazenie;
-    WywolanieFunkcji* _wywolanieFunkcji;
-    ZmiennaGlobalna* _zmiennaGlobalna;
-    ZmiennaLokalna* _zmiennaLokalna;
+    SimpleExpression* _simpleExpression;
+    Unit* _unit;
+    Expression* _expression;
+    FunctionCall* _functionCall;
+    GlobalVariable* _globalVariable;
+    LocalVariable* _localVariable;
 };
 
-%type<_czynnik> czynnik
-%type<_czynnikUnarny> czynnikUnarny
-%type<_definicjaFunkcji> definicjaFunkcji
-%type<_deklaracja> deklaracja
-%type<_instrukcja> instrukcja
-%type<_instrukcjaDrukowania> instrukcjaDrukowania
-%type<_instrukcjaIteracyjnaWhile> instrukcjaIteracyjnaWhile
-%type<_instrukcjaPrzypisania> instrukcjaPrzypisania
-%type<_instrukcjaSkokuReturn> instrukcjaSkokuReturn
-%type<_instrukcjaWarunkowaIf> instrukcjaWarunkowaIf
-%type<_instrukcjaWczytywania> instrukcjaWczytywania
-%type<_instrukcjaZlozona> instrukcjaZlozona
-%type<_listaDeklaracji> listaDeklaracji
-%type<_listaFunkcji> listaFunkcji
-%type<_listaInstrukcji> listaInstrukcji
-%type<_listaParametrow> listaParametrow
-%type<_listaWyrazen> listaWyrazen
-%type<_nawias> nawias
-%type<_parametr> parametr
+%type<_factor> factor
+%type<_unaryFactor> unaryFactor
+%type<_functionDefinition> functionDefinition
+%type<_declaration> declaration
+%type<_instruction> instruction
+%type<_printInstruction> printInstruction
+%type<_whileInstruction> whileInstruction
+%type<_assignmentInstruction> assignmentInstruction
+%type<_returnInstruction> returnInstruction
+%type<_ifStatement> ifStatement
+%type<_scanInstruction> scanInstruction
+%type<_complexInstruction> complexInstruction
+%type<_declarationList> declarationList
+%type<_functionList> functionList
+%type<_instructionList> instructionList
+%type<_parameterList> parameterList
+%type<_expressionList> expressionList
+%type<_bracket> bracket
+%type<_parameter> parameter
 %type<_program> program;
-%type<_prosteWyrazenie> prosteWyrazenie
-%type<_skladnik> skladnik
-%type<_wyrazenie> wyrazenie
-%type<_wywolanieFunkcji> wywolanieFunkcji
-%type<_zmiennaGlobalna> zmiennaGlobalna;
-%type<_zmiennaLokalna> zmiennaLokalna;
-%type<_napis> identyfikator;
-%type<_napis> lnapisowy;
-%type<_liczba> liczba;
+%type<_simpleExpression> simpleExpression
+%type<_unit> unit
+%type<_expression> expression
+%type<_functionCall> functionCall
+%type<_globalVariable> globalVariable;
+%type<_localVariable> localVariable;
+%type<_text> identifier;
+%type<_text> textLiteral;
+%type<_number> number;
 
-%token <_liczba> LICZBA
-%token <_napis>	IDENTYFIKATOR LNAPISOWY
+%token <_number> NUMBER
+%token <_text>	IDENTIFIER TEXTLITERAL
 %token DOUBLE STRING WHILE IF RETURN MAIN PRINTF SCANF ENDL
 %nonassoc IFX
 %nonassoc ELSE
@@ -100,7 +100,7 @@
 %left '+' '-'
 %left '*' '/'
 %nonassoc UMINUS
-%left OPERATOR_ZASIEGU
+%left SCOPE_OPERATOR
 
 %define CONSTRUCTOR_PARAM   std::istream* _in, std::ostream* _out
 %define CONSTRUCTOR_INIT    : m_lexer( _in, _out )
@@ -120,164 +120,164 @@
 %%
 
 program:
-    listaDeklaracji listaFunkcji                    {$$= new Program( $1, $2);$$->execute();}
-    | listaFunkcji                                  {$$= new Program( $1);$$->execute();}
+    declarationList functionList                        {$$= new Program( $1, $2);$$->execute();}
+    | functionList                                      {$$= new Program( $1);$$->execute();}
     ;
 
-listaDeklaracji:
-    listaDeklaracji deklaracja                      { $$= new ListaDeklaracji( $1, $2);}
-    | deklaracja                                    { $$= new ListaDeklaracji( $1);}
+declarationList:
+    declarationList declaration                         { $$= new DeclarationList( $1, $2);}
+    | declaration                                       { $$= new DeclarationList( $1);}
     ;
 
-deklaracja:
-    DOUBLE identyfikator ';'                        { $$= new DeklaracjaDouble( *( $2), 0, sLocation.numerLinii);}
-    | DOUBLE identyfikator '=' liczba ';'           { $$= new DeklaracjaDouble( *( $2), $4, sLocation.numerLinii);}
-    | STRING identyfikator ';'                      { $$= new DeklaracjaString( *( $2), "", sLocation.numerLinii);}
-    | STRING identyfikator '=' lnapisowy ';'        { $$= new DeklaracjaString( *( $2), *( $4), sLocation.numerLinii);}
+declaration:
+    DOUBLE identifier ';'                               { $$= new DoubleDeclaration( *( $2), 0, sLocation.lineNumber);}
+    | DOUBLE identifier '=' number ';'                  { $$= new DoubleDeclaration( *( $2), $4, sLocation.lineNumber);}
+    | STRING identifier ';'                             { $$= new StringDeclaration( *( $2), "", sLocation.lineNumber);}
+    | STRING identifier '=' textLiteral ';'             { $$= new StringDeclaration( *( $2), *( $4), sLocation.lineNumber);}
     ;
 
-listaFunkcji:
-    listaFunkcji definicjaFunkcji                   { $$= new ListaFunkcji( $1, $2);}
-    | definicjaFunkcji                              { $$= new ListaFunkcji( $1);}
+functionList:
+    functionList functionDefinition                     { $$= new FunctionList( $1, $2);}
+    | functionDefinition                                { $$= new FunctionList( $1);}
     ;
 
-definicjaFunkcji:
-    DOUBLE identyfikator '(' listaParametrow ')' instrukcja
-                                { $$= new DefinicjaFunkcji( new WartoscDouble(), *( $2), $4, $6, sLocation.numerLinii);}
-    | STRING identyfikator '(' listaParametrow ')' instrukcja
-                                { $$= new DefinicjaFunkcji( new WartoscString(), *( $2), $4, $6, sLocation.numerLinii);}
+functionDefinition:
+    DOUBLE identifier '(' parameterList ')' instruction
+                                { $$= new FunctionDefinition( new DoubleValue(), *( $2), $4, $6, sLocation.lineNumber);}
+    | STRING identifier '(' parameterList ')' instruction
+                                { $$= new FunctionDefinition( new StringValue(), *( $2), $4, $6, sLocation.lineNumber);}
     ;
 
-listaParametrow:
-    listaParametrow ',' parametr                    { $$= new ListaParametrow( $1, $3);}
-    | parametr                                      { $$= new ListaParametrow( $1);}
-    | /* NULL */                                    { $$= new ListaParametrow( 0x00);}
+parameterList:
+    parameterList ',' parameter                         { $$= new ParameterList( $1, $3);}
+    | parameter                                         { $$= new ParameterList( $1);}
+    | /* NULL */                                        { $$= new ParameterList( 0x00);}
     ;
 
-parametr:
-    DOUBLE identyfikator                            { $$= new ParametrDouble( *( $2), 0, sLocation.numerLinii);}
-    | STRING identyfikator                          { $$= new ParametrString( *( $2), "", sLocation.numerLinii);}
+parameter:
+    DOUBLE identifier                                   { $$= new ParametrDouble( *( $2), 0, sLocation.lineNumber);}
+    | STRING identifier                                 { $$= new ParametrString( *( $2), "", sLocation.lineNumber);}
     ;
 
-instrukcja:
-    instrukcjaPrzypisania                           { $$= $1;}
-    | instrukcjaZlozona                             { $$= $1;}
-    | instrukcjaWarunkowaIf                         { $$= $1;}
-    | instrukcjaIteracyjnaWhile                     { $$= $1;}
-    | instrukcjaSkokuReturn                         { $$= $1;}
-    | instrukcjaDrukowania                          { $$= $1;}
-    | instrukcjaWczytywania                         { $$= $1;}
-    | deklaracja                                    { $$= $1;}
-    | wywolanieFunkcji ';'                          { $$= $1;}
+instruction:
+    assignmentInstruction                               { $$= $1;}
+    | complexInstruction                                { $$= $1;}
+    | ifStatement                                       { $$= $1;}
+    | whileInstruction                                  { $$= $1;}
+    | returnInstruction                                 { $$= $1;}
+    | printInstruction                                  { $$= $1;}
+    | scanInstruction                                   { $$= $1;}
+    | declaration                                       { $$= $1;}
+    | functionCall ';'                                  { $$= $1;}
     ;
 
-instrukcjaZlozona:
-    '{' listaInstrukcji '}'                         { $$= new InstrukcjaZlozona( $2, sLocation.numerLinii);}
+complexInstruction:
+    '{' instructionList '}'                             { $$= new ComplexInstrukction( $2, sLocation.lineNumber);}
     ;
 
-listaInstrukcji:
-    listaInstrukcji instrukcja                      { $$= new ListaInstrukcji( $1, $2);}
-    | instrukcja                                    { $$= new ListaInstrukcji( $1);}
+instructionList:
+    instructionList instruction                         { $$= new InstructionList( $1, $2);}
+    | instruction                                       { $$= new InstructionList( $1);}
     ;
 
-instrukcjaPrzypisania:
-    identyfikator '=' wyrazenie ';'                 { $$= new InstrukcjaPrzypisania( new ZmiennaLokalna( *( $1), sLocation.numerLinii), $3, sLocation.numerLinii);}
-    | OPERATOR_ZASIEGU identyfikator '=' wyrazenie ';'
-                                                    { $$= new InstrukcjaPrzypisania( new ZmiennaGlobalna( *( $2), sLocation.numerLinii), $4, sLocation.numerLinii);}
+assignmentInstruction:
+    identifier '=' expression ';'                       { $$= new AssignmentInstruction( new LocalVariable( *( $1), sLocation.lineNumber), $3, sLocation.lineNumber);}
+    | SCOPE_OPERATOR identifier '=' expression ';'
+                                                        { $$= new AssignmentInstruction( new GlobalVariable( *( $2), sLocation.lineNumber), $4, sLocation.lineNumber);}
     ;
 
-instrukcjaWarunkowaIf:
-    IF '(' wyrazenie ')' instrukcja %prec IFX
-                                                    { $$= new InstrukcjaWarunkowaIf( $3, $5, sLocation.numerLinii);}
-    | IF '(' wyrazenie ')' instrukcja ELSE instrukcja
-                                                    { $$= new InstrukcjaWarunkowaIf( $3, $5, $7, sLocation.numerLinii);}
+ifStatement:
+    IF '(' expression ')' instruction %prec IFX
+                                                        { $$= new IfStatement( $3, $5, sLocation.lineNumber);}
+    | IF '(' expression ')' instruction ELSE instruction
+                                                        { $$= new IfStatement( $3, $5, $7, sLocation.lineNumber);}
     ;
 
-instrukcjaIteracyjnaWhile:
-    WHILE '(' wyrazenie ')' instrukcja       { $$= new InstrukcjaIteracyjnaWhile( $3, $5, sLocation.numerLinii);}
+whileInstruction:
+    WHILE '(' expression ')' instruction                { $$= new WhileInstruction( $3, $5, sLocation.lineNumber);}
     ;
 
-instrukcjaSkokuReturn:
-    RETURN wyrazenie ';'                            { $$= new InstrukcjaSkokuReturn( $2, sLocation.numerLinii);}
+returnInstruction:
+    RETURN expression ';'                               { $$= new ReturnInstruction( $2, sLocation.lineNumber);}
     ;
 
-instrukcjaDrukowania:
-    PRINTF '(' wyrazenie ')' ';'                    { $$= new InstrukcjaDrukowania( $3, sLocation.numerLinii);}
-    | PRINTF '(' ENDL ')' ';'                       { $$= new InstrukcjaEndl(sLocation.numerLinii);}
+printInstruction:
+    PRINTF '(' expression ')' ';'                       { $$= new PrintInstruction( $3, sLocation.lineNumber);}
+    | PRINTF '(' ENDL ')' ';'                           { $$= new EndlInstruction(sLocation.lineNumber);}
     ;
 
-instrukcjaWczytywania:
-    SCANF '(' zmiennaLokalna ')' ';'                { $$= new InstrukcjaWczytywania( $3, sLocation.numerLinii);}
-    | SCANF '(' zmiennaGlobalna ')' ';'             { $$= new InstrukcjaWczytywania( $3, sLocation.numerLinii);}
+scanInstruction:
+    SCANF '(' localVariable ')' ';'                     { $$= new ScanInstruction( $3, sLocation.lineNumber);}
+    | SCANF '(' globalVariable ')' ';'                  { $$= new ScanInstruction( $3, sLocation.lineNumber);}
     ;
 
-wyrazenie:
-    wyrazenie '<' prosteWyrazenie                   { $$= new Wyrazenie( $1, new OperatorMniejszosci(), $3, sLocation.numerLinii);}
-    | wyrazenie '>' prosteWyrazenie                 { $$= new Wyrazenie( $1, new OperatorWiekszosci(), $3, sLocation.numerLinii);}
-    | wyrazenie EQ prosteWyrazenie                  { $$= new Wyrazenie( $1, new OperatorRownosci(), $3, sLocation.numerLinii);}
-    | wyrazenie NEQ prosteWyrazenie                 { $$= new Wyrazenie( $1, new OperatorNierownosci(), $3, sLocation.numerLinii);}
-    | wyrazenie OR prosteWyrazenie                  { $$= new Wyrazenie( $1, new OperatorAlternatywy(), $3, sLocation.numerLinii);}
-    | wyrazenie AND prosteWyrazenie                 { $$= new Wyrazenie( $1, new OperatorKoniunkcji(), $3, sLocation.numerLinii);}
-    | prosteWyrazenie                               { $$= new Wyrazenie( $1, sLocation.numerLinii);}
+expression:
+    expression '<' simpleExpression                     { $$= new Expression( $1, new LessOperator(), $3, sLocation.lineNumber);}
+    | expression '>' simpleExpression                   { $$= new Expression( $1, new GreaterOperator(), $3, sLocation.lineNumber);}
+    | expression EQ simpleExpression                    { $$= new Expression( $1, new EqualOperator(), $3, sLocation.lineNumber);}
+    | expression NEQ simpleExpression                   { $$= new Expression( $1, new NotEqualOperator(), $3, sLocation.lineNumber);}
+    | expression OR simpleExpression                    { $$= new Expression( $1, new OrOperator(), $3, sLocation.lineNumber);}
+    | expression AND simpleExpression                   { $$= new Expression( $1, new AndOperator(), $3, sLocation.lineNumber);}
+    | simpleExpression                                  { $$= new Expression( $1, sLocation.lineNumber);}
     ;
 
-prosteWyrazenie:
-    prosteWyrazenie '+' skladnik                    { $$= new ProsteWyrazenie( $1, new OperatorDodawania(), $3, sLocation.numerLinii);}
-    | prosteWyrazenie '-' skladnik                  { $$= new ProsteWyrazenie( $1, new OperatorOdejmowania(), $3, sLocation.numerLinii);}
-    | skladnik                                      { $$= new ProsteWyrazenie( $1, sLocation.numerLinii);}
+simpleExpression:
+    simpleExpression '+' unit                           { $$= new SimpleExpression( $1, new AddOperator(), $3, sLocation.lineNumber);}
+    | simpleExpression '-' unit                         { $$= new SimpleExpression( $1, new SubOperator(), $3, sLocation.lineNumber);}
+    | unit                                              { $$= new SimpleExpression( $1, sLocation.lineNumber);}
     ;
 
-skladnik:
-    skladnik '*' czynnikUnarny                      { $$= new Skladnik( $1, new OperatorMnozenia(), $3, sLocation.numerLinii);}
-    | skladnik '/' czynnikUnarny                    { $$= new Skladnik( $1, new OperatorDzielenia(), $3, sLocation.numerLinii);}
-    | czynnikUnarny                                 { $$= new Skladnik( $1, sLocation.numerLinii);}
+unit:
+    unit '*' unaryFactor                                { $$= new Unit( $1, new MultiplicationOperator(), $3, sLocation.lineNumber);}
+    | unit '/' unaryFactor                              { $$= new Unit( $1, new DivisionOperator(), $3, sLocation.lineNumber);}
+    | unaryFactor                                       { $$= new Unit( $1, sLocation.lineNumber);}
     ;
 
-czynnikUnarny:
-    czynnik                                         { $$= new CzynnikUnarny( $1, 0x00, sLocation.numerLinii);}
-    | '+' czynnik                                   { $$= new CzynnikUnarny( $2, new OperatorPlus(), sLocation.numerLinii);}
-    | '-' czynnik                                   { $$= new CzynnikUnarny( $2, new OperatorMinus(), sLocation.numerLinii);}
+unaryFactor:
+    factor                                              { $$= new UnaryFactor( $1, 0x00, sLocation.lineNumber);}
+    | '+' factor                                        { $$= new UnaryFactor( $2, new OperatorPlus(), sLocation.lineNumber);}
+    | '-' factor                                        { $$= new UnaryFactor( $2, new OperatorMinus(), sLocation.lineNumber);}
     ;
 
-czynnik:
-    zmiennaLokalna                                  { $$= $1;}
-    | zmiennaGlobalna                               { $$= $1;}
-    | wywolanieFunkcji                              { $$= $1;}
-    | liczba                                        { $$= new Liczba( $1, sLocation.numerLinii);}
-    | lnapisowy                                     { $$= new LiteralNapisowy( *( $1), sLocation.numerLinii);}
-    | nawias                                        { $$= $1;}
+factor:
+    localVariable                                       { $$= $1;}
+    | globalVariable                                    { $$= $1;}
+    | functionCall                                      { $$= $1;}
+    | number                                            { $$= new Number( $1, sLocation.lineNumber);}
+    | textLiteral                                       { $$= new TextLiteral( *( $1), sLocation.lineNumber);}
+    | bracket                                           { $$= $1;}
     ;
 
-zmiennaLokalna:
-    identyfikator                                   { $$= new ZmiennaLokalna( *( $1), sLocation.numerLinii);}
+localVariable:
+    identifier                                          { $$= new LocalVariable( *( $1), sLocation.lineNumber);}
     ;
 
-zmiennaGlobalna:
-    OPERATOR_ZASIEGU identyfikator                  { $$= new ZmiennaGlobalna( *( $2), sLocation.numerLinii);}
+globalVariable:
+    SCOPE_OPERATOR identifier                           { $$= new GlobalVariable( *( $2), sLocation.lineNumber);}
     ;
 
-wywolanieFunkcji:
-    identyfikator '(' listaWyrazen ')'              { $$= new WywolanieFunkcji( *( $1), $3, sLocation.numerLinii);}
+functionCall:
+    identifier '(' expressionList ')'                   { $$= new FunctionCall( *( $1), $3, sLocation.lineNumber);}
     ;
 
-listaWyrazen:
-    listaWyrazen ',' wyrazenie                      { $$= new ListaWyrazen( $1, $3);}
-    | wyrazenie                                     { $$= new ListaWyrazen( $1);}
-    | /* NULL */                                    { $$= new ListaWyrazen( 0x00);}
+expressionList:
+    expressionList ',' expression                       { $$= new ExpressionList( $1, $3);}
+    | expression                                        { $$= new ExpressionList( $1);}
+    | /* NULL */                                        { $$= new ExpressionList( 0x00);}
     ;
 
-nawias:
-    '(' wyrazenie ')'                               { $$= new Nawias( $2, sLocation.numerLinii);}
+bracket:
+    '(' expression ')'                                  { $$= new Bracket( $2, sLocation.lineNumber);}
     ;
 
-lnapisowy:
-    LNAPISOWY                                       { $$= new std::string( m_lexer.YYText() ); }
+textLiteral:
+    TEXTLITERAL                                         { $$= new std::string( m_lexer.YYText() ); }
 
-liczba:
-    LICZBA                                          { $$= atoi( m_lexer.YYText() ); }
+number:
+    NUMBER                                              { $$= atoi( m_lexer.YYText() ); }
 
-identyfikator:
-    IDENTYFIKATOR                                   { $$= new std::string( m_lexer.YYText() ); }
+identifier:
+    IDENTIFIER                                          { $$= new std::string( m_lexer.YYText() ); }
 
 %%
 

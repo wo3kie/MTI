@@ -126,36 +126,36 @@ Maintained by Magnus Ekdahl <magnus@debian.org>
 
 #line 30 "./interpreter.y"
 typedef union {
-    double _liczba;
-    std::string* _napis;
+    double _number;
+    std::string* _text;
 
-    Czynnik* _czynnik;
-    CzynnikUnarny* _czynnikUnarny;
-    DefinicjaFunkcji* _definicjaFunkcji;
-    Deklaracja* _deklaracja;
-    Instrukcja* _instrukcja;
-    InstrukcjaDrukowania* _instrukcjaDrukowania;
-    InstrukcjaIteracyjnaWhile* _instrukcjaIteracyjnaWhile;
-    InstrukcjaPrzypisania* _instrukcjaPrzypisania;
-    InstrukcjaSkokuReturn* _instrukcjaSkokuReturn;
-    InstrukcjaWarunkowaIf* _instrukcjaWarunkowaIf;
-    InstrukcjaWczytywania* _instrukcjaWczytywania;
-    InstrukcjaZlozona* _instrukcjaZlozona;
-    ListaDeklaracji* _listaDeklaracji;
-    ListaFunkcji* _listaFunkcji;
-    ListaInstrukcji* _listaInstrukcji;
-    ListaParametrow* _listaParametrow;
-    ListaWyrazen* _listaWyrazen;
-    LiteralNapisowy* _literalNapisowy;
-    Nawias* _nawias;
-    Parametr* _parametr;
+    Factor* _factor;
+    UnaryFactor* _unaryFactor;
+    FunctionDefinition* _functionDefinition;
+    Declaration* _declaration;
+    Instruction* _instruction;
+    PrintInstruction* _printInstruction;
+    WhileInstruction* _whileInstruction;
+    AssignmentInstruction* _assignmentInstruction;
+    ReturnInstruction* _returnInstruction;
+    IfStatement* _ifStatement;
+    ScanInstruction* _scanInstruction;
+    ComplexInstrukction* _complexInstruction;
+    DeclarationList* _declarationList;
+    FunctionList* _functionList;
+    InstructionList* _instructionList;
+    ParameterList* _parameterList;
+    ExpressionList* _expressionList;
+    TextLiteral* _textLiteral;
+    Bracket* _bracket;
+    Parameter* _parameter;
     Program* _program;
-    ProsteWyrazenie* _prosteWyrazenie;
-    Skladnik* _skladnik;
-    Wyrazenie* _wyrazenie;
-    WywolanieFunkcji* _wywolanieFunkcji;
-    ZmiennaGlobalna* _zmiennaGlobalna;
-    ZmiennaLokalna* _zmiennaLokalna;
+    SimpleExpression* _simpleExpression;
+    Unit* _unit;
+    Expression* _expression;
+    FunctionCall* _functionCall;
+    GlobalVariable* _globalVariable;
+    LocalVariable* _localVariable;
 } yy_Parser_stype;
 #define YY_Parser_STYPE yy_Parser_stype
 #define YY_Parser_CONSTRUCTOR_PARAM    std::istream* _in, std::ostream* _out
@@ -365,9 +365,9 @@ typedef
 /* TOKEN C */
 
  #line 263 "/usr/share/bison++/bison.cc"
-#define	LICZBA	258
-#define	IDENTYFIKATOR	259
-#define	LNAPISOWY	260
+#define	NUMBER	258
+#define	IDENTIFIER	259
+#define	TEXTLITERAL	260
 #define	DOUBLE	261
 #define	STRING	262
 #define	WHILE	263
@@ -384,7 +384,7 @@ typedef
 #define	OR	274
 #define	AND	275
 #define	UMINUS	276
-#define	OPERATOR_ZASIEGU	277
+#define	SCOPE_OPERATOR	277
 
 
 #line 263 "/usr/share/bison++/bison.cc"
@@ -434,9 +434,9 @@ public:
 /* static const int token ... */
 
  #line 307 "/usr/share/bison++/bison.cc"
-static const int LICZBA;
-static const int IDENTYFIKATOR;
-static const int LNAPISOWY;
+static const int NUMBER;
+static const int IDENTIFIER;
+static const int TEXTLITERAL;
 static const int DOUBLE;
 static const int STRING;
 static const int WHILE;
@@ -453,7 +453,7 @@ static const int NEQ;
 static const int OR;
 static const int AND;
 static const int UMINUS;
-static const int OPERATOR_ZASIEGU;
+static const int SCOPE_OPERATOR;
 
 
 #line 307 "/usr/share/bison++/bison.cc"
@@ -462,9 +462,9 @@ static const int OPERATOR_ZASIEGU;
 enum YY_Parser_ENUM_TOKEN { YY_Parser_NULL_TOKEN=0
 
  #line 310 "/usr/share/bison++/bison.cc"
-	,LICZBA=258
-	,IDENTYFIKATOR=259
-	,LNAPISOWY=260
+	,NUMBER=258
+	,IDENTIFIER=259
+	,TEXTLITERAL=260
 	,DOUBLE=261
 	,STRING=262
 	,WHILE=263
@@ -481,7 +481,7 @@ enum YY_Parser_ENUM_TOKEN { YY_Parser_NULL_TOKEN=0
 	,OR=274
 	,AND=275
 	,UMINUS=276
-	,OPERATOR_ZASIEGU=277
+	,SCOPE_OPERATOR=277
 
 
 #line 310 "/usr/share/bison++/bison.cc"
@@ -518,9 +518,9 @@ public:
 #if YY_Parser_USE_CONST_TOKEN != 0
 
  #line 341 "/usr/share/bison++/bison.cc"
-const int YY_Parser_CLASS::LICZBA=258;
-const int YY_Parser_CLASS::IDENTYFIKATOR=259;
-const int YY_Parser_CLASS::LNAPISOWY=260;
+const int YY_Parser_CLASS::NUMBER=258;
+const int YY_Parser_CLASS::IDENTIFIER=259;
+const int YY_Parser_CLASS::TEXTLITERAL=260;
 const int YY_Parser_CLASS::DOUBLE=261;
 const int YY_Parser_CLASS::STRING=262;
 const int YY_Parser_CLASS::WHILE=263;
@@ -537,7 +537,7 @@ const int YY_Parser_CLASS::NEQ=273;
 const int YY_Parser_CLASS::OR=274;
 const int YY_Parser_CLASS::AND=275;
 const int YY_Parser_CLASS::UMINUS=276;
-const int YY_Parser_CLASS::OPERATOR_ZASIEGU=277;
+const int YY_Parser_CLASS::SCOPE_OPERATOR=277;
 
 
 #line 341 "/usr/share/bison++/bison.cc"
@@ -647,16 +647,16 @@ static const short yyrline[] = { 0,
    279
 };
 
-static const char * const yytname[] = {   "$","error","$illegal.","LICZBA","IDENTYFIKATOR",
-"LNAPISOWY","DOUBLE","STRING","WHILE","IF","RETURN","MAIN","PRINTF","SCANF",
+static const char * const yytname[] = {   "$","error","$illegal.","NUMBER","IDENTIFIER",
+"TEXTLITERAL","DOUBLE","STRING","WHILE","IF","RETURN","MAIN","PRINTF","SCANF",
 "ENDL","IFX","ELSE","'>'","'<'","EQ","NEQ","OR","AND","'+'","'-'","'*'","'/'",
-"UMINUS","OPERATOR_ZASIEGU","';'","'='","'('","')'","','","'{'","'}'","program",
-"listaDeklaracji","deklaracja","listaFunkcji","definicjaFunkcji","listaParametrow",
-"parametr","instrukcja","instrukcjaZlozona","listaInstrukcji","instrukcjaPrzypisania",
-"instrukcjaWarunkowaIf","instrukcjaIteracyjnaWhile","instrukcjaSkokuReturn",
-"instrukcjaDrukowania","instrukcjaWczytywania","wyrazenie","prosteWyrazenie",
-"skladnik","czynnikUnarny","czynnik","zmiennaLokalna","zmiennaGlobalna","wywolanieFunkcji",
-"listaWyrazen","nawias","lnapisowy","liczba","identyfikator",""
+"UMINUS","SCOPE_OPERATOR","';'","'='","'('","')'","','","'{'","'}'","program",
+"declarationList","declaration","functionList","functionDefinition","parameterList",
+"parameter","instruction","complexInstruction","instructionList","assignmentInstruction",
+"ifStatement","whileInstruction","returnInstruction","printInstruction","scanInstruction",
+"expression","simpleExpression","unit","unaryFactor","factor","localVariable",
+"globalVariable","functionCall","expressionList","bracket","textLiteral","number",
+"identifier",""
 };
 #endif
 
@@ -1279,287 +1279,287 @@ YYLABEL(yyreduce)
 
 case 1:
 #line 123 "./interpreter.y"
-{yyval._program= new Program( yyvsp[-1]._listaDeklaracji, yyvsp[0]._listaFunkcji);yyval._program->execute();;
+{yyval._program= new Program( yyvsp[-1]._declarationList, yyvsp[0]._functionList);yyval._program->execute();;
     break;}
 case 2:
 #line 124 "./interpreter.y"
-{yyval._program= new Program( yyvsp[0]._listaFunkcji);yyval._program->execute();;
+{yyval._program= new Program( yyvsp[0]._functionList);yyval._program->execute();;
     break;}
 case 3:
 #line 128 "./interpreter.y"
-{ yyval._listaDeklaracji= new ListaDeklaracji( yyvsp[-1]._listaDeklaracji, yyvsp[0]._deklaracja);;
+{ yyval._declarationList= new DeclarationList( yyvsp[-1]._declarationList, yyvsp[0]._declaration);;
     break;}
 case 4:
 #line 129 "./interpreter.y"
-{ yyval._listaDeklaracji= new ListaDeklaracji( yyvsp[0]._deklaracja);;
+{ yyval._declarationList= new DeclarationList( yyvsp[0]._declaration);;
     break;}
 case 5:
 #line 133 "./interpreter.y"
-{ yyval._deklaracja= new DeklaracjaDouble( *( yyvsp[-1]._napis), 0, sLocation.numerLinii);;
+{ yyval._declaration= new DoubleDeclaration( *( yyvsp[-1]._text), 0, sLocation.lineNumber);;
     break;}
 case 6:
 #line 134 "./interpreter.y"
-{ yyval._deklaracja= new DeklaracjaDouble( *( yyvsp[-3]._napis), yyvsp[-1]._liczba, sLocation.numerLinii);;
+{ yyval._declaration= new DoubleDeclaration( *( yyvsp[-3]._text), yyvsp[-1]._number, sLocation.lineNumber);;
     break;}
 case 7:
 #line 135 "./interpreter.y"
-{ yyval._deklaracja= new DeklaracjaString( *( yyvsp[-1]._napis), "", sLocation.numerLinii);;
+{ yyval._declaration= new StringDeclaration( *( yyvsp[-1]._text), "", sLocation.lineNumber);;
     break;}
 case 8:
 #line 136 "./interpreter.y"
-{ yyval._deklaracja= new DeklaracjaString( *( yyvsp[-3]._napis), *( yyvsp[-1]._napis), sLocation.numerLinii);;
+{ yyval._declaration= new StringDeclaration( *( yyvsp[-3]._text), *( yyvsp[-1]._text), sLocation.lineNumber);;
     break;}
 case 9:
 #line 140 "./interpreter.y"
-{ yyval._listaFunkcji= new ListaFunkcji( yyvsp[-1]._listaFunkcji, yyvsp[0]._definicjaFunkcji);;
+{ yyval._functionList= new FunctionList( yyvsp[-1]._functionList, yyvsp[0]._functionDefinition);;
     break;}
 case 10:
 #line 141 "./interpreter.y"
-{ yyval._listaFunkcji= new ListaFunkcji( yyvsp[0]._definicjaFunkcji);;
+{ yyval._functionList= new FunctionList( yyvsp[0]._functionDefinition);;
     break;}
 case 11:
 #line 146 "./interpreter.y"
-{ yyval._definicjaFunkcji= new DefinicjaFunkcji( new WartoscDouble(), *( yyvsp[-4]._napis), yyvsp[-2]._listaParametrow, yyvsp[0]._instrukcja, sLocation.numerLinii);;
+{ yyval._functionDefinition= new FunctionDefinition( new DoubleValue(), *( yyvsp[-4]._text), yyvsp[-2]._parameterList, yyvsp[0]._instruction, sLocation.lineNumber);;
     break;}
 case 12:
 #line 148 "./interpreter.y"
-{ yyval._definicjaFunkcji= new DefinicjaFunkcji( new WartoscString(), *( yyvsp[-4]._napis), yyvsp[-2]._listaParametrow, yyvsp[0]._instrukcja, sLocation.numerLinii);;
+{ yyval._functionDefinition= new FunctionDefinition( new StringValue(), *( yyvsp[-4]._text), yyvsp[-2]._parameterList, yyvsp[0]._instruction, sLocation.lineNumber);;
     break;}
 case 13:
 #line 152 "./interpreter.y"
-{ yyval._listaParametrow= new ListaParametrow( yyvsp[-2]._listaParametrow, yyvsp[0]._parametr);;
+{ yyval._parameterList= new ParameterList( yyvsp[-2]._parameterList, yyvsp[0]._parameter);;
     break;}
 case 14:
 #line 153 "./interpreter.y"
-{ yyval._listaParametrow= new ListaParametrow( yyvsp[0]._parametr);;
+{ yyval._parameterList= new ParameterList( yyvsp[0]._parameter);;
     break;}
 case 15:
 #line 154 "./interpreter.y"
-{ yyval._listaParametrow= new ListaParametrow( 0x00);;
+{ yyval._parameterList= new ParameterList( 0x00);;
     break;}
 case 16:
 #line 158 "./interpreter.y"
-{ yyval._parametr= new ParametrDouble( *( yyvsp[0]._napis), 0, sLocation.numerLinii);;
+{ yyval._parameter= new ParametrDouble( *( yyvsp[0]._text), 0, sLocation.lineNumber);;
     break;}
 case 17:
 #line 159 "./interpreter.y"
-{ yyval._parametr= new ParametrString( *( yyvsp[0]._napis), "", sLocation.numerLinii);;
+{ yyval._parameter= new ParametrString( *( yyvsp[0]._text), "", sLocation.lineNumber);;
     break;}
 case 18:
 #line 163 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._instrukcjaPrzypisania;;
+{ yyval._instruction= yyvsp[0]._assignmentInstruction;;
     break;}
 case 19:
 #line 164 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._instrukcjaZlozona;;
+{ yyval._instruction= yyvsp[0]._complexInstruction;;
     break;}
 case 20:
 #line 165 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._instrukcjaWarunkowaIf;;
+{ yyval._instruction= yyvsp[0]._ifStatement;;
     break;}
 case 21:
 #line 166 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._instrukcjaIteracyjnaWhile;;
+{ yyval._instruction= yyvsp[0]._whileInstruction;;
     break;}
 case 22:
 #line 167 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._instrukcjaSkokuReturn;;
+{ yyval._instruction= yyvsp[0]._returnInstruction;;
     break;}
 case 23:
 #line 168 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._instrukcjaDrukowania;;
+{ yyval._instruction= yyvsp[0]._printInstruction;;
     break;}
 case 24:
 #line 169 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._instrukcjaWczytywania;;
+{ yyval._instruction= yyvsp[0]._scanInstruction;;
     break;}
 case 25:
 #line 170 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[0]._deklaracja;;
+{ yyval._instruction= yyvsp[0]._declaration;;
     break;}
 case 26:
 #line 171 "./interpreter.y"
-{ yyval._instrukcja= yyvsp[-1]._wywolanieFunkcji;;
+{ yyval._instruction= yyvsp[-1]._functionCall;;
     break;}
 case 27:
 #line 175 "./interpreter.y"
-{ yyval._instrukcjaZlozona= new InstrukcjaZlozona( yyvsp[-1]._listaInstrukcji, sLocation.numerLinii);;
+{ yyval._complexInstruction= new ComplexInstrukction( yyvsp[-1]._instructionList, sLocation.lineNumber);;
     break;}
 case 28:
 #line 179 "./interpreter.y"
-{ yyval._listaInstrukcji= new ListaInstrukcji( yyvsp[-1]._listaInstrukcji, yyvsp[0]._instrukcja);;
+{ yyval._instructionList= new InstructionList( yyvsp[-1]._instructionList, yyvsp[0]._instruction);;
     break;}
 case 29:
 #line 180 "./interpreter.y"
-{ yyval._listaInstrukcji= new ListaInstrukcji( yyvsp[0]._instrukcja);;
+{ yyval._instructionList= new InstructionList( yyvsp[0]._instruction);;
     break;}
 case 30:
 #line 184 "./interpreter.y"
-{ yyval._instrukcjaPrzypisania= new InstrukcjaPrzypisania( new ZmiennaLokalna( *( yyvsp[-3]._napis), sLocation.numerLinii), yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
+{ yyval._assignmentInstruction= new AssignmentInstruction( new LocalVariable( *( yyvsp[-3]._text), sLocation.lineNumber), yyvsp[-1]._expression, sLocation.lineNumber);;
     break;}
 case 31:
 #line 186 "./interpreter.y"
-{ yyval._instrukcjaPrzypisania= new InstrukcjaPrzypisania( new ZmiennaGlobalna( *( yyvsp[-3]._napis), sLocation.numerLinii), yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
+{ yyval._assignmentInstruction= new AssignmentInstruction( new GlobalVariable( *( yyvsp[-3]._text), sLocation.lineNumber), yyvsp[-1]._expression, sLocation.lineNumber);;
     break;}
 case 32:
 #line 191 "./interpreter.y"
-{ yyval._instrukcjaWarunkowaIf= new InstrukcjaWarunkowaIf( yyvsp[-2]._wyrazenie, yyvsp[0]._instrukcja, sLocation.numerLinii);;
+{ yyval._ifStatement= new IfStatement( yyvsp[-2]._expression, yyvsp[0]._instruction, sLocation.lineNumber);;
     break;}
 case 33:
 #line 193 "./interpreter.y"
-{ yyval._instrukcjaWarunkowaIf= new InstrukcjaWarunkowaIf( yyvsp[-4]._wyrazenie, yyvsp[-2]._instrukcja, yyvsp[0]._instrukcja, sLocation.numerLinii);;
+{ yyval._ifStatement= new IfStatement( yyvsp[-4]._expression, yyvsp[-2]._instruction, yyvsp[0]._instruction, sLocation.lineNumber);;
     break;}
 case 34:
 #line 197 "./interpreter.y"
-{ yyval._instrukcjaIteracyjnaWhile= new InstrukcjaIteracyjnaWhile( yyvsp[-2]._wyrazenie, yyvsp[0]._instrukcja, sLocation.numerLinii);;
+{ yyval._whileInstruction= new WhileInstruction( yyvsp[-2]._expression, yyvsp[0]._instruction, sLocation.lineNumber);;
     break;}
 case 35:
 #line 201 "./interpreter.y"
-{ yyval._instrukcjaSkokuReturn= new InstrukcjaSkokuReturn( yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
+{ yyval._returnInstruction= new ReturnInstruction( yyvsp[-1]._expression, sLocation.lineNumber);;
     break;}
 case 36:
 #line 205 "./interpreter.y"
-{ yyval._instrukcjaDrukowania= new InstrukcjaDrukowania( yyvsp[-2]._wyrazenie, sLocation.numerLinii);;
+{ yyval._printInstruction= new PrintInstruction( yyvsp[-2]._expression, sLocation.lineNumber);;
     break;}
 case 37:
 #line 206 "./interpreter.y"
-{ yyval._instrukcjaDrukowania= new InstrukcjaEndl(sLocation.numerLinii);;
+{ yyval._printInstruction= new EndlInstruction(sLocation.lineNumber);;
     break;}
 case 38:
 #line 210 "./interpreter.y"
-{ yyval._instrukcjaWczytywania= new InstrukcjaWczytywania( yyvsp[-2]._zmiennaLokalna, sLocation.numerLinii);;
+{ yyval._scanInstruction= new ScanInstruction( yyvsp[-2]._localVariable, sLocation.lineNumber);;
     break;}
 case 39:
 #line 211 "./interpreter.y"
-{ yyval._instrukcjaWczytywania= new InstrukcjaWczytywania( yyvsp[-2]._zmiennaGlobalna, sLocation.numerLinii);;
+{ yyval._scanInstruction= new ScanInstruction( yyvsp[-2]._globalVariable, sLocation.lineNumber);;
     break;}
 case 40:
 #line 215 "./interpreter.y"
-{ yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorMniejszosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
+{ yyval._expression= new Expression( yyvsp[-2]._expression, new LessOperator(), yyvsp[0]._simpleExpression, sLocation.lineNumber);;
     break;}
 case 41:
 #line 216 "./interpreter.y"
-{ yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorWiekszosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
+{ yyval._expression= new Expression( yyvsp[-2]._expression, new GreaterOperator(), yyvsp[0]._simpleExpression, sLocation.lineNumber);;
     break;}
 case 42:
 #line 217 "./interpreter.y"
-{ yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorRownosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
+{ yyval._expression= new Expression( yyvsp[-2]._expression, new EqualOperator(), yyvsp[0]._simpleExpression, sLocation.lineNumber);;
     break;}
 case 43:
 #line 218 "./interpreter.y"
-{ yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorNierownosci(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
+{ yyval._expression= new Expression( yyvsp[-2]._expression, new NotEqualOperator(), yyvsp[0]._simpleExpression, sLocation.lineNumber);;
     break;}
 case 44:
 #line 219 "./interpreter.y"
-{ yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorAlternatywy(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
+{ yyval._expression= new Expression( yyvsp[-2]._expression, new OrOperator(), yyvsp[0]._simpleExpression, sLocation.lineNumber);;
     break;}
 case 45:
 #line 220 "./interpreter.y"
-{ yyval._wyrazenie= new Wyrazenie( yyvsp[-2]._wyrazenie, new OperatorKoniunkcji(), yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
+{ yyval._expression= new Expression( yyvsp[-2]._expression, new AndOperator(), yyvsp[0]._simpleExpression, sLocation.lineNumber);;
     break;}
 case 46:
 #line 221 "./interpreter.y"
-{ yyval._wyrazenie= new Wyrazenie( yyvsp[0]._prosteWyrazenie, sLocation.numerLinii);;
+{ yyval._expression= new Expression( yyvsp[0]._simpleExpression, sLocation.lineNumber);;
     break;}
 case 47:
 #line 225 "./interpreter.y"
-{ yyval._prosteWyrazenie= new ProsteWyrazenie( yyvsp[-2]._prosteWyrazenie, new OperatorDodawania(), yyvsp[0]._skladnik, sLocation.numerLinii);;
+{ yyval._simpleExpression= new SimpleExpression( yyvsp[-2]._simpleExpression, new AddOperator(), yyvsp[0]._unit, sLocation.lineNumber);;
     break;}
 case 48:
 #line 226 "./interpreter.y"
-{ yyval._prosteWyrazenie= new ProsteWyrazenie( yyvsp[-2]._prosteWyrazenie, new OperatorOdejmowania(), yyvsp[0]._skladnik, sLocation.numerLinii);;
+{ yyval._simpleExpression= new SimpleExpression( yyvsp[-2]._simpleExpression, new SubOperator(), yyvsp[0]._unit, sLocation.lineNumber);;
     break;}
 case 49:
 #line 227 "./interpreter.y"
-{ yyval._prosteWyrazenie= new ProsteWyrazenie( yyvsp[0]._skladnik, sLocation.numerLinii);;
+{ yyval._simpleExpression= new SimpleExpression( yyvsp[0]._unit, sLocation.lineNumber);;
     break;}
 case 50:
 #line 231 "./interpreter.y"
-{ yyval._skladnik= new Skladnik( yyvsp[-2]._skladnik, new OperatorMnozenia(), yyvsp[0]._czynnikUnarny, sLocation.numerLinii);;
+{ yyval._unit= new Unit( yyvsp[-2]._unit, new MultiplicationOperator(), yyvsp[0]._unaryFactor, sLocation.lineNumber);;
     break;}
 case 51:
 #line 232 "./interpreter.y"
-{ yyval._skladnik= new Skladnik( yyvsp[-2]._skladnik, new OperatorDzielenia(), yyvsp[0]._czynnikUnarny, sLocation.numerLinii);;
+{ yyval._unit= new Unit( yyvsp[-2]._unit, new DivisionOperator(), yyvsp[0]._unaryFactor, sLocation.lineNumber);;
     break;}
 case 52:
 #line 233 "./interpreter.y"
-{ yyval._skladnik= new Skladnik( yyvsp[0]._czynnikUnarny, sLocation.numerLinii);;
+{ yyval._unit= new Unit( yyvsp[0]._unaryFactor, sLocation.lineNumber);;
     break;}
 case 53:
 #line 237 "./interpreter.y"
-{ yyval._czynnikUnarny= new CzynnikUnarny( yyvsp[0]._czynnik, 0x00, sLocation.numerLinii);;
+{ yyval._unaryFactor= new UnaryFactor( yyvsp[0]._factor, 0x00, sLocation.lineNumber);;
     break;}
 case 54:
 #line 238 "./interpreter.y"
-{ yyval._czynnikUnarny= new CzynnikUnarny( yyvsp[0]._czynnik, new OperatorPlus(), sLocation.numerLinii);;
+{ yyval._unaryFactor= new UnaryFactor( yyvsp[0]._factor, new OperatorPlus(), sLocation.lineNumber);;
     break;}
 case 55:
 #line 239 "./interpreter.y"
-{ yyval._czynnikUnarny= new CzynnikUnarny( yyvsp[0]._czynnik, new OperatorMinus(), sLocation.numerLinii);;
+{ yyval._unaryFactor= new UnaryFactor( yyvsp[0]._factor, new OperatorMinus(), sLocation.lineNumber);;
     break;}
 case 56:
 #line 243 "./interpreter.y"
-{ yyval._czynnik= yyvsp[0]._zmiennaLokalna;;
+{ yyval._factor= yyvsp[0]._localVariable;;
     break;}
 case 57:
 #line 244 "./interpreter.y"
-{ yyval._czynnik= yyvsp[0]._zmiennaGlobalna;;
+{ yyval._factor= yyvsp[0]._globalVariable;;
     break;}
 case 58:
 #line 245 "./interpreter.y"
-{ yyval._czynnik= yyvsp[0]._wywolanieFunkcji;;
+{ yyval._factor= yyvsp[0]._functionCall;;
     break;}
 case 59:
 #line 246 "./interpreter.y"
-{ yyval._czynnik= new Liczba( yyvsp[0]._liczba, sLocation.numerLinii);;
+{ yyval._factor= new Number( yyvsp[0]._number, sLocation.lineNumber);;
     break;}
 case 60:
 #line 247 "./interpreter.y"
-{ yyval._czynnik= new LiteralNapisowy( *( yyvsp[0]._napis), sLocation.numerLinii);;
+{ yyval._factor= new TextLiteral( *( yyvsp[0]._text), sLocation.lineNumber);;
     break;}
 case 61:
 #line 248 "./interpreter.y"
-{ yyval._czynnik= yyvsp[0]._nawias;;
+{ yyval._factor= yyvsp[0]._bracket;;
     break;}
 case 62:
 #line 252 "./interpreter.y"
-{ yyval._zmiennaLokalna= new ZmiennaLokalna( *( yyvsp[0]._napis), sLocation.numerLinii);;
+{ yyval._localVariable= new LocalVariable( *( yyvsp[0]._text), sLocation.lineNumber);;
     break;}
 case 63:
 #line 256 "./interpreter.y"
-{ yyval._zmiennaGlobalna= new ZmiennaGlobalna( *( yyvsp[0]._napis), sLocation.numerLinii);;
+{ yyval._globalVariable= new GlobalVariable( *( yyvsp[0]._text), sLocation.lineNumber);;
     break;}
 case 64:
 #line 260 "./interpreter.y"
-{ yyval._wywolanieFunkcji= new WywolanieFunkcji( *( yyvsp[-3]._napis), yyvsp[-1]._listaWyrazen, sLocation.numerLinii);;
+{ yyval._functionCall= new FunctionCall( *( yyvsp[-3]._text), yyvsp[-1]._expressionList, sLocation.lineNumber);;
     break;}
 case 65:
 #line 264 "./interpreter.y"
-{ yyval._listaWyrazen= new ListaWyrazen( yyvsp[-2]._listaWyrazen, yyvsp[0]._wyrazenie);;
+{ yyval._expressionList= new ExpressionList( yyvsp[-2]._expressionList, yyvsp[0]._expression);;
     break;}
 case 66:
 #line 265 "./interpreter.y"
-{ yyval._listaWyrazen= new ListaWyrazen( yyvsp[0]._wyrazenie);;
+{ yyval._expressionList= new ExpressionList( yyvsp[0]._expression);;
     break;}
 case 67:
 #line 266 "./interpreter.y"
-{ yyval._listaWyrazen= new ListaWyrazen( 0x00);;
+{ yyval._expressionList= new ExpressionList( 0x00);;
     break;}
 case 68:
 #line 270 "./interpreter.y"
-{ yyval._nawias= new Nawias( yyvsp[-1]._wyrazenie, sLocation.numerLinii);;
+{ yyval._bracket= new Bracket( yyvsp[-1]._expression, sLocation.lineNumber);;
     break;}
 case 69:
 #line 274 "./interpreter.y"
-{ yyval._napis= new std::string( m_lexer.YYText() ); ;
+{ yyval._text= new std::string( m_lexer.YYText() ); ;
     break;}
 case 70:
 #line 277 "./interpreter.y"
-{ yyval._liczba= atoi( m_lexer.YYText() ); ;
+{ yyval._number= atoi( m_lexer.YYText() ); ;
     break;}
 case 71:
 #line 280 "./interpreter.y"
-{ yyval._napis= new std::string( m_lexer.YYText() ); ;
+{ yyval._text= new std::string( m_lexer.YYText() ); ;
     break;}
 }
 

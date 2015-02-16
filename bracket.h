@@ -5,33 +5,33 @@
 
 #include "expression.h"
 
-// Reprezentuje nawias
-class Nawias: public Czynnik{
+// Reprezentuje bracket
+class Bracket: public Factor{
     public:
         // Konstruktor przyjmuje wyra¿enie oraz numer linii w której wyst¹pi³
-        // nawias
-        Nawias(Wyrazenie* __wyrazenie, int __numerLinii)
-        :Czynnik( Void, __numerLinii),
-        _lewy(__wyrazenie){}
-        virtual ~Nawias(){}
+        // bracket
+        Bracket(Expression* __expression, int __lineNumber)
+        :Factor( Void, __lineNumber),
+        _left(__expression){}
+        virtual ~Bracket(){}
 
-        // Zwraca wartosc wyrazenia w nawiasach
-        virtual const Wartosc* execute( RunTimeData& __runTimeData){
-            return _lewy->execute( __runTimeData);
+        // Zwraca value wyrazenia w nawiasach
+        virtual const Value* execute( RunTimeData& __runTimeData){
+            return _left->execute( __runTimeData);
         }
 
-        // Analizuje wyrazenie zawarte w nawiasie
+        // Analizuje expression zawarte w nawiasie
         virtual void analise(AnalysisData& __analysisData);
 
     private:
-        // Wyrazenie w nawiasie
-        Wyrazenie* _lewy;
+        // Expression w nawiasie
+        Expression* _left;
 };
 
 /* ================================================================== analise */
-inline void Nawias::analise(AnalysisData& __analysisData){
-    _lewy->analise( __analysisData);
-    _typ= _lewy->typ();
+inline void Bracket::analise(AnalysisData& __analysisData){
+    _left->analise( __analysisData);
+    _type= _left->type();
 }
 
 #endif

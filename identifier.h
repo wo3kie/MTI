@@ -8,148 +8,148 @@
 #include "factor.h"
 #include "symbolTable.h"
 
-// Reprezentuje identyfikator, zmienn¹ w programie uzytkownika
-class Identyfikator:public Czynnik{
+// Reprezentuje identifier, zmienn¹ w programie uzytkownika
+class Identifier:public Factor{
     public:
         // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
         // w której wyst¹pi³a zmienna
-        Identyfikator(std::string __identyfikator, int __numerLinii)
-        :Czynnik( Void, __numerLinii),
-        _identyfikator( __identyfikator){
+        Identifier(std::string __identifier, int __lineNumber)
+        :Factor( Void, __lineNumber),
+        _identifier( __identifier){
         }
 
-        virtual ~Identyfikator(){}
+        virtual ~Identifier(){}
 
         // Klasa nie jest abstrakcyjna
-        virtual const Wartosc* execute( RunTimeData& _runTimeData)=0;
-        virtual Wartosc* assign( RunTimeData& _runTimeData)=0;
+        virtual const Value* execute( RunTimeData& _runTimeData)=0;
+        virtual Value* assign( RunTimeData& _runTimeData)=0;
 
         // Przechodzi przez drzewo sk³adniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // ktora przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData)=0;
 
-        // Zwraca typ
-        virtual Typ typ()const{ return _typ;}
+        // Zwraca type
+        virtual Type type()const{ return _type;}
 
     protected:
         // Nazwa zmiennej
-        std::string _identyfikator;
+        std::string _identifier;
 
         // TablicaSymboli
-        TablicaZmiennych* _tablicaZmiennych;
+        VariableTable* _variableTable;
 
-        std::pair<unsigned,unsigned> _pozycja;    // pozycja.first - zasieg; pozycja.second - pozycja w zasiegu
+        std::pair<unsigned,unsigned> _position;    // position.first - scope; position.second - position w zasiegu
 
-        // Typ zmiennej
-        Typ _typ;
+        // Type zmiennej
+        Type _type;
 };
 
 // Reprezentuje zmienne lokalne w programie uzytkownika
-class ZmiennaLokalna: public Identyfikator{
+class LocalVariable: public Identifier{
     public:
         // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
         // w której wyst¹pi³a zmienna
-        ZmiennaLokalna( std::string __identyfikator, int __numerLinii)
-        :Identyfikator( __identyfikator, __numerLinii){
+        LocalVariable( std::string __identifier, int __lineNumber)
+        :Identifier( __identifier, __lineNumber){
         }
 
         // Przechodzi przez drzewo sk³adniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // ktora przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
 
             // Tworzymy kopie stosu widocznosci, zeby nie zmodyfikowac oryginalu
-            std::stack<int> stosWidocznosci( *__analysisData.stosWidocznosci);
+            std::stack<int> visibilityStack( *__analysisData.visibilityStack);
 
             // Przeszukujemy najpierw lokalne tablice symboli. Jezeli nie znajdziemy tam
             // poszukiwanej zmiennej szukamy w globalnej tablicy symboli.
             // Jezeli nie uda nam sie odnalezc zmiennej zglaszamy wyjatek 'UndefinedSymbol'
 
-            while( !stosWidocznosci.empty()){   // Przeszukujemy zasiegi w ktorych jestesmy
+            while( !visibilityStack.empty()){   // Przeszukujemy zasiegi w ktorych jestesmy
                 try{
-                    _pozycja= std::make_pair(
-                        stosWidocznosci.top(),
-                        __analysisData.tablicaZmiennychLokalnych->find(
-                            _identyfikator,
-                            stosWidocznosci.top()
+                    _position= std::make_pair(
+                        visibilityStack.top(),
+                        __analysisData.localVariableTable->find(
+                            _identifier,
+                            visibilityStack.top()
                         )
                     );
                 }
                 catch( const UndefinedSymbol& __error){
-                    stosWidocznosci.pop();
+                    visibilityStack.pop();
                     continue;
                 }
 
-                _typ= __analysisData.tablicaZmiennychLokalnych->value( _pozycja)->typ();
+                _type= __analysisData.localVariableTable->value( _position)->type();
                 return;
             }
 
             try{
-                _pozycja= std::make_pair( 0,
-                    __analysisData.tablicaZmiennychGlobalnych->find( _identyfikator, 0)
+                _position= std::make_pair( 0,
+                    __analysisData.globalVariableTable->find( _identifier, 0)
                 );
             }
             catch( const UndefinedSymbol& __error){
-                throw UndefinedSymbol( std::string("Undefined symbol: ")+ _identyfikator);
+                throw UndefinedSymbol( std::string("Undefined symbol: ")+ _identifier);
             }
 
-            _typ= __analysisData.tablicaZmiennychGlobalnych->value( _pozycja)->typ();
+            _type= __analysisData.globalVariableTable->value( _position)->type();
         }
 
-        // Zwraca r-wartosc
-        virtual const Wartosc* execute( RunTimeData& __runTimeData){
+        // Zwraca r-value
+        virtual const Value* execute( RunTimeData& __runTimeData){
 
-            // Zasieg globalny ma wartosc '0'. Jezeli pole '_pozycja.first' ma
-            // wartosc 0 oznacza to, ze jest to zmienna globalna
+            // Scope globalny ma value '0'. Jezeli pole '_position.first' ma
+            // value 0 oznacza to, ze jest to zmienna globalna
 
-            return _pozycja.first ? __runTimeData.tablicaZmiennychLokalnych->value( _pozycja)
-                : __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
+            return _position.first ? __runTimeData.localVariableTable->value( _position)
+                : __runTimeData.globalVariableTable->value( _position);
         }
 
         // Uzywane przez 'operator=' do przypisania wartoœci
-        virtual Wartosc* assign( RunTimeData& __runTimeData){
-            return _pozycja.first ? __runTimeData.tablicaZmiennychLokalnych->value( _pozycja)
-                : __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
+        virtual Value* assign( RunTimeData& __runTimeData){
+            return _position.first ? __runTimeData.localVariableTable->value( _position)
+                : __runTimeData.globalVariableTable->value( _position);
         }
 };
 
-class ZmiennaGlobalna:public Identyfikator{
+class GlobalVariable:public Identifier{
     public:
         // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
         // w której wyst¹pi³a zmienna
-        ZmiennaGlobalna( std::string __identyfikator, int __numerLinii)
-        :Identyfikator( __identyfikator, __numerLinii){
+        GlobalVariable( std::string __identifier, int __lineNumber)
+        :Identifier( __identifier, __lineNumber){
         }
 
         // Destruktor
-        virtual ~ZmiennaGlobalna(){}
+        virtual ~GlobalVariable(){}
 
         // Przechodzi przez drzewo sk³adniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // ktora przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
-            _pozycja= std::make_pair( Zasieg::zasiegGlobalny,
-                __analysisData.tablicaZmiennychGlobalnych->find( _identyfikator, Zasieg::zasiegGlobalny)
+            _position= std::make_pair( Scope::globalScope,
+                __analysisData.globalVariableTable->find( _identifier, Scope::globalScope)
             );
 
-            _typ= __analysisData.tablicaZmiennychGlobalnych->value( _pozycja)->typ();
+            _type= __analysisData.globalVariableTable->value( _position)->type();
         }
 
-        // Zwraca r-wartosc
-        virtual const Wartosc* execute( RunTimeData& __runTimeData){
-            return __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
+        // Zwraca r-value
+        virtual const Value* execute( RunTimeData& __runTimeData){
+            return __runTimeData.globalVariableTable->value( _position);
         }
 
         // Uzywane przez 'operator=' do przypisania wartoœci
-        virtual Wartosc* assign( RunTimeData& __runTimeData){
-            return __runTimeData.tablicaZmiennychGlobalnych->value( _pozycja);
+        virtual Value* assign( RunTimeData& __runTimeData){
+            return __runTimeData.globalVariableTable->value( _position);
         }
 };
 

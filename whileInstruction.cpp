@@ -3,14 +3,14 @@
 #include "whileInstruction.h"
 
 /* ================================================================== execute */
-Wartosc* InstrukcjaIteracyjnaWhile::execute( RunTimeData& __runTimeData){
+Value* WhileInstruction::execute( RunTimeData& __runTimeData){
 	while( true){
-		const WartoscDouble* wartosc=
-		    dynamic_cast<const WartoscDouble*>( _wyrazenie->execute( __runTimeData));
-                // Konwersja Wartosc* -> WartoscDouble*
+		const DoubleValue* value=
+		    dynamic_cast<const DoubleValue*>( _expression->execute( __runTimeData));
+                // Konwersja Value* -> DoubleValue*
 
-		if( static_cast<bool>(wartosc->execute(/* __runTimeData*/))){
-			_instrukcja->execute( __runTimeData);
+		if( static_cast<bool>(value->execute(/* __runTimeData*/))){
+			_instruction->execute( __runTimeData);
 		}
 		else{
 			break;
@@ -21,7 +21,7 @@ Wartosc* InstrukcjaIteracyjnaWhile::execute( RunTimeData& __runTimeData){
 }
 
 /* ================================================================== analise */
-void InstrukcjaIteracyjnaWhile::analise( AnalysisData& __analysisData){
-    _wyrazenie->analise( __analysisData);
-    _instrukcja->analise( __analysisData);
+void WhileInstruction::analise( AnalysisData& __analysisData){
+    _expression->analise( __analysisData);
+    _instruction->analise( __analysisData);
 }

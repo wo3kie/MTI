@@ -11,58 +11,58 @@
 #include <algorithm>
 #include <utility>
 
-class TablicaSlowKluczowych{
+class KeywordTable{
     public:
-        explicit TablicaSlowKluczowych(int __nieSlowo)
-        :_nieSlowo(__nieSlowo){
-            dodajSlowo( "double", Parser::DOUBLE );
-            dodajSlowo( "string", Parser::STRING );
-            dodajSlowo( "while", Parser::WHILE );
-            dodajSlowo( "if", Parser::IF );
-            dodajSlowo( "return", Parser::RETURN );
-            dodajSlowo( "printf", Parser::PRINTF );
-            dodajSlowo( "scanf", Parser::SCANF );
-            dodajSlowo( "else", Parser::ELSE );
-            dodajSlowo( "endl",Parser::ENDL );
+        explicit KeywordTable(int __notKeyword)
+        :_notKeyword(__notKeyword){
+            addKeyword( "double", Parser::DOUBLE );
+            addKeyword( "string", Parser::STRING );
+            addKeyword( "while", Parser::WHILE );
+            addKeyword( "if", Parser::IF );
+            addKeyword( "return", Parser::RETURN );
+            addKeyword( "printf", Parser::PRINTF );
+            addKeyword( "scanf", Parser::SCANF );
+            addKeyword( "else", Parser::ELSE );
+            addKeyword( "endl",Parser::ENDL );
         }
 
-        virtual ~TablicaSlowKluczowych(){}
+        virtual ~KeywordTable(){}
 
-        virtual int nieSlowo()const{ return _nieSlowo;}
+        virtual int notKeyword()const{ return _notKeyword;}
 
-        // Podajemy co ma zwr�cic tablica je�eli lekser znajdzie identyfikator
+        // Podajemy co ma zwr�cic tablica je�eli lekser znajdzie identifier
         // nie b�d�cy s�owem kluczowym
-        virtual void nieSlowo(int __nieSlowo){_nieSlowo=__nieSlowo;}
+        virtual void notKeyword(int __notKeyword){_notKeyword=__notKeyword;}
 
         // Dodajemy s�owo kluczowe oraz jego warto�c
-        virtual bool dodajSlowo(const std::pair<const std::string, int>& __slowo){
-            return (_slowaKluczowe.insert(__slowo)).second;
+        virtual bool addKeyword(const std::pair<const std::string, int>& __keyword){
+            return (_keywords.insert(__keyword)).second;
         }
 
         // Dodajemy s�owo kluczowe oraz jego warto�c
-        virtual bool dodajSlowo(const char* __slowo, int __wartosc){
-            return dodajSlowo( make_pair(std::string(__slowo),__wartosc));
+        virtual bool addKeyword(const char* __keyword, int __value){
+            return addKeyword( make_pair(std::string(__keyword),__value));
         }
 
-        // Sprawdzamy, czy znaleziony przez lekser identyfikator jest s�owem kluczowym
-        inline virtual int znajdzSlowo(const std::string& __slowo)const;
+        // Sprawdzamy, czy znaleziony przez lekser identifier jest s�owem kluczowym
+        inline virtual int findKeyword(const std::string& __keyword)const;
 
     protected:
-        int _nieSlowo;
+        int _notKeyword;
 
     private:
-        std::map<const std::string, int> _slowaKluczowe;
+        std::map<const std::string, int> _keywords;
 };
 
-/* ============================================================== znajdzSlowo */
-inline int TablicaSlowKluczowych::znajdzSlowo(const std::string& __slowo)const{
-    std::map<const std::string,int>::const_iterator p= _slowaKluczowe.find(__slowo);
+/* ============================================================== findKeyword */
+inline int KeywordTable::findKeyword(const std::string& __keyword)const{
+    std::map<const std::string,int>::const_iterator p= _keywords.find(__keyword);
 
-    if(p!= _slowaKluczowe.end()){
+    if(p!= _keywords.end()){
         return p->second;
     }
     else{
-        return _nieSlowo;
+        return _notKeyword;
     }
 }
 

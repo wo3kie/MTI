@@ -8,37 +8,37 @@
 #include "expression.h"
 
 // Reprezentuje instrukcje 'while'
-class InstrukcjaIteracyjnaDoWhile: public Instrukcja{
+class DoWhileInstruction: public Instruction{
     public:
         // Konstruktor przyjmuje jako argumenty wyra�enie kt�re b�dzie sprawdzane
         // przed ka�d� iteracj� p�tli, instrukcje z�o�on� kt�ra jest tre�ci� p�tli,
-        // oraz numer linii gdzie instrukcja warunkowa si� rozpoczyna
-        inline InstrukcjaIteracyjnaDoWhile(
-            ListaInstrukcji* __listaInstrukcji,Wyrazenie* __wyrazenie,int __numerLinii);
+        // oraz numer linii gdzie instruction warunkowa si� rozpoczyna
+        inline DoWhileInstruction(
+            InstructionList* __listaInstrukcji,Expression* __expression,int __lineNumber);
 
         // Wykonuje instrukcj�
-        virtual Wartosc* execute( RunTimeData& __runTimeData);
+        virtual Value* execute( RunTimeData& __runTimeData);
 
         // Przechodzi przez drzewo sk�adniowe w gl�b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // kt�ra przechowuje informacje o tablicach symboli
         virtual void analise( AnalysisData& __analysisData);
 
     private:
         // Wyra�enie testowane przy ka�dym wykonaniu p�tli
-        Wyrazenie* _wyrazenie;
+        Expression* _expression;
 
-        // Instrukcja zlo�ona kt�ra wykona si� je�eli warunek b�dzie spe�niony
-        ListaInstrukcji* _listaInstrukcji;
+        // Instruction zlo�ona kt�ra wykona si� je�eli warunek b�dzie spe�niony
+        InstructionList* _instructionList;
 };
 
-/* ================================================ InstrukcjaIteracyjnaWhile */
-inline InstrukcjaIteracyjnaDoWhile::InstrukcjaIteracyjnaDoWhile(
-    ListaInstrukcji* __listaInstrukcji,Wyrazenie* __wyrazenie,int __numerLinii)
-:Instrukcja( Void, __numerLinii),
-_wyrazenie(__wyrazenie),
-_listaInstrukcji(__listaInstrukcji){
+/* ================================================ WhileInstruction */
+inline DoWhileInstruction::DoWhileInstruction(
+    InstructionList* __listaInstrukcji,Expression* __expression,int __lineNumber)
+:Instruction( Void, __lineNumber),
+_expression(__expression),
+_instructionList(__listaInstrukcji){
 }
 
 #endif

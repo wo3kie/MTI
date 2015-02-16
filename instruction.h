@@ -6,7 +6,7 @@
 #include "node.h"
 
 // Nazwa typu wprowadzona aby zachowac zgodnoœc z gramatyk¹.
-typedef Wezel Instrukcja;
+typedef Node Instruction;
 
 // Klasa bazowa dla wszystkich instrukcji
 

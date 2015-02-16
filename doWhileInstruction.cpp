@@ -3,14 +3,14 @@
 #include "doWhileInstruction.h"
 
 /* ================================================================== execute */
-Wartosc* InstrukcjaIteracyjnaDoWhile::execute( RunTimeData& __runTimeData){
+Value* DoWhileInstruction::execute( RunTimeData& __runTimeData){
         while( true){
-            _listaInstrukcji->execute( __runTimeData);
+            _instructionList->execute( __runTimeData);
 
-            const WartoscDouble* wartosc=
-                dynamic_cast<const WartoscDouble*>( _wyrazenie->execute( __runTimeData));
+            const DoubleValue* value=
+                dynamic_cast<const DoubleValue*>( _expression->execute( __runTimeData));
 
-            if( !static_cast<bool>(wartosc->execute())){
+            if( !static_cast<bool>(value->execute())){
                 break;
             }
         }
@@ -19,7 +19,7 @@ Wartosc* InstrukcjaIteracyjnaDoWhile::execute( RunTimeData& __runTimeData){
 }
 
 /* ================================================================== analise */
-void InstrukcjaIteracyjnaDoWhile::analise( AnalysisData& __analysisData){
-    _listaInstrukcji->analise( __analysisData);
-    _wyrazenie->analise( __analysisData);
+void DoWhileInstruction::analise( AnalysisData& __analysisData){
+    _instructionList->analise( __analysisData);
+    _expression->analise( __analysisData);
 }

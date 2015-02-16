@@ -6,27 +6,27 @@
 #include "factor.h"
 
 // Reprezentuje liczbê
-class Liczba:public Czynnik{
+class Number:public Factor{
     public:
         // Konstruktor przyjmuje wartoœc liczby,
-        // oraz numer linii w której wyst¹pi³a liczba
-        Liczba(double __wartosc, int __numerLinii)
-        :Czynnik( Double, __numerLinii),
-        _wartosc(__wartosc,ReadOnly){}
+        // oraz numer linii w której wyst¹pi³a number
+        Number(double __value, int __lineNumber)
+        :Factor( Double, __lineNumber),
+        _value(__value,ReadOnly){}
 
-        // Zwraca wartosc liczby
-        virtual const Wartosc* execute( RunTimeData& __runTimeData){
-            return &_wartosc;
+        // Zwraca value liczby
+        virtual const Value* execute( RunTimeData& __runTimeData){
+            return &_value;
         }
 
         // Analizuje liczbê
         void analise(AnalysisData& __analysisData){
-            // Klasa 'Liczba' jest liœciem w drzewie sk³adniowym programu u¿ytkowanika
+            // Klasa 'Number' jest liœciem w drzewie sk³adniowym programu u¿ytkowanika
         }
 
     private:
         // Przechowuje wartoœc liczbow¹
-        WartoscDouble _wartosc;
+        DoubleValue _value;
 };
 
 #endif

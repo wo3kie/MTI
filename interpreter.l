@@ -1,4 +1,4 @@
-/* TablicaSlowKluczowych _TSK_( Parser::IDENTYFIKATOR); */
+/* KeywordTable _TSK_( Parser::IDENTIFIER); */
 
 /* %name Lekser */
 /* %define IOSTREAM */
@@ -36,92 +36,92 @@
 
 /* %define MEMBERS public: SymbolLocation sLocation; */
 
-bialyZnak                   [ \t]
-nowaLinia                   \n
+whiteChar                   [ \t]
+newLine                     \n
 
-litera                      [_a-zA-Z]
+letter                      [_a-zA-Z]
 
-cyfra			            [0-9]
+digit			            [0-9]
 
-identyfikator               {litera}({litera}|{cyfra})*
-literalNapisowy             \"[^"\n]*\"
+identifier                  {letter}({letter}|{digit})*
+testLiteral                 \"[^"\n]*\"
 
-liczba                      {cyfra}+(\.{cyfra}*)?([eE][-+]?{cyfra}+)?
+number                      {digit}+(\.{digit}*)?([eE][-+]?{digit}+)?
 
 %%
 
 "//".*$                     {
-                                /* ++sLocation.numerLinii; */
+                                /* ++sLocation.lineNumber; */
                             }
 
     /* napis */
-{identyfikator}             {
-                                /* sLocation.leksem= yytext;
+{identifier}             {
+                                /* sLocation.token= yytext;
 
-                                val->_napis= new std::string( yytext); */
+                                val->_text= new std::string( yytext); */
 
-                                TablicaSlowKluczowych _TSK_( Parser::IDENTYFIKATOR);
+                                KeywordTable _TSK_( Parser::IDENTIFIER);
 
-                                return _TSK_.znajdzSlowo( yytext);
+                                return _TSK_.findKeyword( yytext);
                             }
 
-{literalNapisowy}           {
-                                /* sLocation.leksem= yytext;
+{testLiteral}           {
+                                /* sLocation.token= yytext;
 
-                                val->_napis= new std::string( yytext); */
-                                return Parser::LNAPISOWY;
+                                val->_text= new std::string( yytext); */
+                                return Parser::TEXTLITERAL;
                             }
 
-    /* liczba */
-{liczba}                    {
-                                /* sLocation.leksem= yytext;
+    /* number */
+{number}                    {
+                                /* sLocation.token= yytext;
 
-                                val->_liczba= atof( yytext); */
-                                return Parser::LICZBA;
+                                val->_number= atof( yytext); */
+                                return Parser::NUMBER;
                             }
 
 "=="                        {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::EQ;
                             }
 
 "!="                        {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::NEQ;
                             }
 
 "||"                        {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::OR;
                             }
 
 "&&"                        {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::AND;
                             }
 
 "::"                        {
-                                /* sLocation.leksem= yytext; */
-                                return Parser::OPERATOR_ZASIEGU;
+                                /* sLocation.token= yytext; */
+                                return Parser::SCOPE_OPERATOR;
 
                             }
 
 
     /* operatory */
 [-()<>=+*/;{}.,]            {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return yytext[ 0];
                             }
 
 
     /*biale znaki*/
-{bialyZnak}                 {/* nie robi nic*/}
-{nowaLinia}                 {
-                                /* ++sLocation.numerLinii; */
+{whiteChar}                 {/* nie robi nic*/}
+{newLine}                 {
+                                /* ++sLocation.lineNumber; */
                             }
 
 .                           {
-                                /* std::cerr<< "Linia "<< sLocation.numerLinii<< ": Niedozwolony znak: "<< yytext<< std::endl; */
+                                /* std::cerr<< "Linia "<< sLocation.lineNumber<< ": Niedozwolony znak: "<< yytext<< std::endl; */
                             }
 
 %%

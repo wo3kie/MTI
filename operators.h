@@ -12,142 +12,142 @@ class Operator{
 };
 
 // Klasa bazowa dla wszystkich operatorow unarnych
-class OperatorUnarny:public Operator{
+class UnaryOperator:public Operator{
     public:
-        virtual const Wartosc* operator()(const Wartosc*)const=0;
+        virtual const Value* operator()(const Value*)const=0;
 };
 
     // Operator unarny minus
-    class OperatorMinus: public OperatorUnarny{
+    class OperatorMinus: public UnaryOperator{
         public:
-            virtual const Wartosc* operator()(const Wartosc* __w1)const{
+            virtual const Value* operator()(const Value* __w1)const{
                 return __w1->operator-();
             }
     };
 
     // Operator unarny plus
-    class OperatorPlus: public OperatorUnarny{
+    class OperatorPlus: public UnaryOperator{
         public:
-            virtual const Wartosc* operator()(const Wartosc* __w1)const{
+            virtual const Value* operator()(const Value* __w1)const{
                 return __w1->operator+();
             }
     };
 
 // Klasa bazowa dla wszystkich operator�w binarnych
-class OperatorBinarny:public Operator{
+class BinaryOperator:public Operator{
     public:
-        virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
+        virtual const Value* operator()(const Value*,const Value*)const=0;
 };
 
     // Klasa bazowa dla wszystkich operator�w logicznych
-    class OperatorLogicznyBi:public OperatorBinarny{
+    class BinaryLogicalOperator:public BinaryOperator{
         public:
-            virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
+            virtual const Value* operator()(const Value*,const Value*)const=0;
     };
 
         // Operator r�wno�ci
-        class OperatorRownosci:public OperatorLogicznyBi{
+        class EqualOperator:public BinaryLogicalOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator==( __w2);
                 }
         };
 
         // Operator r�no�ci
-        class OperatorNierownosci:public OperatorLogicznyBi{
+        class NotEqualOperator:public BinaryLogicalOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator!=( __w2);
                 }
         };
 
         // Operator wi�kszo�ci
-        class OperatorWiekszosci:public OperatorLogicznyBi{
+        class GreaterOperator:public BinaryLogicalOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator>( __w2);
                 }
         };
 
         // Operator mniejszo�ci
-        class OperatorMniejszosci:public OperatorLogicznyBi{
+        class LessOperator:public BinaryLogicalOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator<( __w2);
                 }
         };
 
         // Operator alternatywy
-        class OperatorAlternatywy:public OperatorLogicznyBi{
+        class OrOperator:public BinaryLogicalOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator||( __w2);
                 }
         };
 
         // Operator koniunkcji
-        class OperatorKoniunkcji:public OperatorLogicznyBi{
+        class AndOperator:public BinaryLogicalOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator&&( __w2);
                 }
         };
 
     // Klasa bazowa dla wszystkich operator�w addytywnych: +, -
-    class OperatorAddytywnyBi:public OperatorBinarny{
+    class BiAdditiveOperator:public BinaryOperator{
         public:
-            virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
+            virtual const Value* operator()(const Value*,const Value*)const=0;
     };
 
         // Operator dodawania
-        class OperatorDodawania:public OperatorAddytywnyBi{
+        class AddOperator:public BiAdditiveOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator+( __w2);
                 }
         };
 
         // Operator odejmowania
-        class OperatorOdejmowania:public OperatorAddytywnyBi{
+        class SubOperator:public BiAdditiveOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator-( __w2);
                 }
         };
 
     // Klasa bazowa dla wszystkich operator�w multiplikatywnych: *, /
-    class OperatorMultiplikatywnyBi:public OperatorBinarny{
+    class BiMultiplicativeOperator:public BinaryOperator{
         public:
-            virtual const Wartosc* operator()(const Wartosc*,const Wartosc*)const=0;
+            virtual const Value* operator()(const Value*,const Value*)const=0;
     };
 
         // Operator dzielenia
-        class OperatorDzielenia:public OperatorMultiplikatywnyBi{
+        class DivisionOperator:public BiMultiplicativeOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator/( __w2);
                 }
         };
 
         // Operator mno�e�nia
-        class OperatorMnozenia:public OperatorMultiplikatywnyBi{
+        class MultiplicationOperator:public BiMultiplicativeOperator{
             public:
-                virtual const Wartosc* operator()(const Wartosc* __w1,const Wartosc* __w2)const{
+                virtual const Value* operator()(const Value* __w1,const Value* __w2)const{
                     return __w1->operator*( __w2);
                 }
         };
 
-    // Operator przypisania. Nie dziedziczy po klasie 'OperatorBinarny' ze wzgl�du na niezgodno�c
+    // Operator przypisania. Nie dziedziczy po klasie 'BinaryOperator' ze wzgl�du na niezgodno�c
     // interfejsu. Pierwszy argument kt�ry pobiera nie mo�e byc sta�y.
-    class OperatorPrzypisania:public Operator{
+    class AssignmentOperator:public Operator{
         public:
-            virtual const Wartosc* operator()(Wartosc* __w1,const Wartosc* __w2)const{
+            virtual const Value* operator()(Value* __w1,const Value* __w2)const{
                 return __w1->operator=( __w2);
             }
     };
 
-namespace Operatory{
-    extern OperatorPrzypisania kopiuj;
+namespace Operators{
+    extern AssignmentOperator copy;
 };
 
 #endif

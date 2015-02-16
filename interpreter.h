@@ -8,7 +8,7 @@
 
 #include "myParser.h"
 #include "callParameter.h"
-    extern Parametry parametry;
+    extern Parameters parameters;
 
 // Podstawowa klasa programu
 class Interpreter{
@@ -17,7 +17,7 @@ class Interpreter{
         Interpreter( int __argc, char** __argv);
 
         // Wczytuje plik, buduje, sprawdza i wykonuje drzewo sk³adniowe programu.
-        // Zwraca 0 je¿eli nie napotkano na blêdy i wartosc ró¿na od zera w przeciwnym razie
+        // Zwraca 0 je¿eli nie napotkano na blêdy i value ró¿na od zera w przeciwnym razie
         int run(){ return _parser->yyparse();}
 
     protected:
@@ -34,11 +34,11 @@ Interpreter::Interpreter( int argc, char** argv){
             throw UnableToOpenFile( argv[1]);
         }
 
-        // parametry wywolania
-        parametry.argc= argc- 2;
+        // parameters wywolania
+        parameters.argc= argc- 2;
 
-        for( int parametr= 0; parametr< parametry.argc; ++parametr){
-            parametry.argv.push_back( new WartoscDouble( atof( argv[ parametr+2])));
+        for( int parameter= 0; parameter< parameters.argc; ++parameter){
+            parameters.argv.push_back( new DoubleValue( atof( argv[ parameter+2])));
         }
 
         _parser= new MyParser( plik, &std::cerr);

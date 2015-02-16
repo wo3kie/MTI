@@ -3,17 +3,17 @@
 #include "forInstruction.h"
 
 /* ================================================================== execute */
-Wartosc* InstrukcjaIteracyjnaFor::execute( RunTimeData& __runTimeData){
-        _deklaracja->execute( __runTimeData);
+Value* ForInstruction::execute( RunTimeData& __runTimeData){
+        _declaration->execute( __runTimeData);
 
         while( true){
-                const WartoscDouble* wartosc=
-                    dynamic_cast<const WartoscDouble*>( _warunek->execute( __runTimeData));
-                // Konwersja Wartosc* -> WartoscDouble*
+                const DoubleValue* value=
+                    dynamic_cast<const DoubleValue*>( _condition->execute( __runTimeData));
+                // Konwersja Value* -> DoubleValue*
 
-                if( static_cast<bool>(wartosc->execute(/* __runTimeData*/))){
-                        _instrukcja->execute( __runTimeData);
-                        _przypisanie->execute( __runTimeData);
+                if( static_cast<bool>(value->execute(/* __runTimeData*/))){
+                        _instruction->execute( __runTimeData);
+                        _assignment->execute( __runTimeData);
                 }
                 else{
                         break;
@@ -24,11 +24,11 @@ Wartosc* InstrukcjaIteracyjnaFor::execute( RunTimeData& __runTimeData){
 }
 
 /* ================================================================== analise */
-void InstrukcjaIteracyjnaFor::analise( AnalysisData& __analysisData){
-    __analysisData.stosWidocznosci->push( ++__analysisData.numerBloku);
-    _deklaracja->analise( __analysisData);
-    _warunek->analise( __analysisData);
-    _przypisanie->analise( __analysisData);
-    _instrukcja->analise( __analysisData);
-    __analysisData.stosWidocznosci->pop();
+void ForInstruction::analise( AnalysisData& __analysisData){
+    __analysisData.visibilityStack->push( ++__analysisData.blockNumber);
+    _declaration->analise( __analysisData);
+    _condition->analise( __analysisData);
+    _assignment->analise( __analysisData);
+    _instruction->analise( __analysisData);
+    __analysisData.visibilityStack->pop();
 }

@@ -10,20 +10,20 @@
 // InterpreterException, wyj¹tki zg³aszane przez aplikacje
 class IException:public std::exception{
     public:
-        IException( const std::string& __komunikat= ""):_komunikat( __komunikat){}
+        IException( const std::string& __message= ""):_message( __message){}
 
         virtual ~IException()throw(){}
-        virtual const char* what()const throw(){ return _komunikat.c_str();}
+        virtual const char* what()const throw(){ return _message.c_str();}
 
     protected:
-        std::string _komunikat;
+        std::string _message;
 };
 
 // Wyjatek zglaszamy gdy nie mozna wywolac funkcji
 class CannotCallFunction:public IException{
     public:
-        CannotCallFunction( const std::string& __funkcja)
-        :IException( std::string("Cannot call function: '")+ __funkcja+ std::string("'")){}
+        CannotCallFunction( const std::string& __function)
+        :IException( std::string("Cannot call function: '")+ __function+ std::string("'")){}
 
         virtual ~CannotCallFunction() throw() {}
 };
@@ -31,7 +31,7 @@ class CannotCallFunction:public IException{
 // Wyj¹tek zg³aszany je¿eli próbujemy dzielic przez zero
 class DividedByZero:public IException{
     public:
-        DividedByZero( const std::string& __komunikat= "Divided by zero"): IException( __komunikat){}
+        DividedByZero( const std::string& __message= "Divided by zero"): IException( __message){}
 
         virtual ~DividedByZero() throw() { }
 };
@@ -45,7 +45,7 @@ class UnableToOpenFile:public IException{
 
         virtual ~UnableToOpenFile()throw(){}
 
-        virtual const char* what()const throw(){ return _komunikat.c_str();}
+        virtual const char* what()const throw(){ return _message.c_str();}
 };
 
 // Wyj¹tek zg³aszany jeŸeli podano zl¹ liczbê parametrów wywo³ania programu
@@ -62,12 +62,12 @@ class UndefinedSymbol:public IException{
     public:
         UndefinedSymbol( const std::string& __symbol)
         :IException( "Undefined symbol: "){
-            _komunikat+= __symbol;
+            _message+= __symbol;
         }
 
         virtual ~UndefinedSymbol()throw(){}
 
-        virtual const char* what()const throw(){ return _komunikat.c_str();}
+        virtual const char* what()const throw(){ return _message.c_str();}
 
 };
 
@@ -80,7 +80,7 @@ class MultipleDeclaration:public IException{
 
         virtual ~MultipleDeclaration()throw(){}
 
-        virtual const char* what()const throw(){ return _komunikat.c_str();}
+        virtual const char* what()const throw(){ return _message.c_str();}
 };
 
 // Wyj¹tek zg³aszany je¿eli s¹ niezgodne typy

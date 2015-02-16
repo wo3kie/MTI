@@ -6,12 +6,12 @@
 #include "declaration.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef Deklaracja Parametr;
+typedef Declaration Parameter;
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef DeklaracjaDouble ParametrDouble;
+typedef DoubleDeclaration ParametrDouble;
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef DeklaracjaString ParametrString;
+typedef StringDeclaration ParametrString;
 
 #endif

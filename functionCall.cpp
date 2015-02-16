@@ -3,58 +3,58 @@
 #include "functionCall.h"
 
 /* ================================================================== execute */
-const Wartosc* WywolanieFunkcji::execute(RunTimeData& __runTimeData){
+const Value* FunctionCall::execute(RunTimeData& __runTimeData){
     // kopiuje wartosci parametrow do rekordu aktywacji
-    RekordAktywacji& rekordAktywacji=
-        __runTimeData.tablicaFunkcji->value( Zasieg::zasiegGlobalny, _pozycja)->rekordAktywacji();
+    ActivationRecord& activationRecord=
+        __runTimeData.functionTable->value( Scope::globalScope, _position)->activationRecord();
 
-    for( unsigned parametr= 0; parametr< _listaWyrazen->size(); ++parametr){
-        Operatory::kopiuj( rekordAktywacji.listaWartosci[ parametr],
-            (*_listaWyrazen)[ parametr]->execute( __runTimeData)
+    for( unsigned parameter= 0; parameter< _expressionList->size(); ++parameter){
+        Operators::copy( activationRecord.valueList[ parameter],
+            (*_expressionList)[ parameter]->execute( __runTimeData)
         );
     }
 
-    TablicaZmiennych* tymczasowa= __runTimeData.tablicaZmiennychLokalnych;
+    VariableTable* temporary= __runTimeData.localVariableTable;
 
     // uruchamia funkcje
-    __runTimeData.tablicaFunkcji->value( Zasieg::zasiegGlobalny, _pozycja)->execute( __runTimeData);
+    __runTimeData.functionTable->value( Scope::globalScope, _position)->execute( __runTimeData);
 
-    __runTimeData.tablicaZmiennychLokalnych= tymczasowa;
+    __runTimeData.localVariableTable= temporary;
 
-    return rekordAktywacji.wartoscZwracana;
+    return activationRecord.returnValue;
 }
 
 /* ================================================================== analise */
-void WywolanieFunkcji::analise( AnalysisData& __analysisData){
+void FunctionCall::analise( AnalysisData& __analysisData){
     // znajduje funkcje w tablicy funkcji
     try{
-        _pozycja= __analysisData.tablicaFunkcji->find( _identyfikator, Zasieg::zasiegGlobalny);   // 0 bo zasieg globalny
+        _position= __analysisData.functionTable->find( _identifier, Scope::globalScope);   // 0 bo scope globalny
     }
     catch( const UndefinedSymbol& __error){
-        throw UndefinedSymbol( std::string("Cannot find function: '")+ _identyfikator+ std::string("'"));
+        throw UndefinedSymbol( std::string("Cannot find function: '")+ _identifier+ std::string("'"));
     }
 
     // pobieramy rekord aktywacji
-    RekordAktywacji& rekordAktywacji= __analysisData.tablicaFunkcji->value( 0, _pozycja)->rekordAktywacji();
+    ActivationRecord& activationRecord= __analysisData.functionTable->value( 0, _position)->activationRecord();
 
     // sprawdzam czy zgadza sie ilosc parametrow oraz ich typy
-    if( _listaWyrazen->size()!= rekordAktywacji.listaWartosci.size()){
+    if( _expressionList->size()!= activationRecord.valueList.size()){
 
-        std::cout<<"LW: "<<_listaWyrazen->size()<<std::endl
-            <<"RA: "<<rekordAktywacji.listaWartosci.size()<<std::endl;
+        std::cout<<"LW: "<<_expressionList->size()<<std::endl
+            <<"RA: "<<activationRecord.valueList.size()<<std::endl;
 
-        throw CannotCallFunction( _identyfikator);
+        throw CannotCallFunction( _identifier);
     }
 
-    for( unsigned parametr=0; parametr< _listaWyrazen->size(); ++parametr){
+    for( unsigned parameter=0; parameter< _expressionList->size(); ++parameter){
         // Analizujemy wyrazenia
-        _listaWyrazen->analise( __analysisData);
+        _expressionList->analise( __analysisData);
 
-        if( (*_listaWyrazen)[ parametr]->typ()!= rekordAktywacji.listaWartosci[ parametr]->typ()){
-            throw CannotCallFunction( _identyfikator);
+        if( (*_expressionList)[ parameter]->type()!= activationRecord.valueList[ parameter]->type()){
+            throw CannotCallFunction( _identifier);
         }
     }
 
-    // obliczam jaki typ zwroci funkcja
-    _typ= rekordAktywacji.wartoscZwracana->typ();
+    // obliczam jaki type zwroci funkcja
+    _type= activationRecord.returnValue->type();
 }

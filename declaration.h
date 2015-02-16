@@ -6,90 +6,90 @@
 #include "instruction.h"
 
 // Reprezetuje deklaracje zmiennej
-class Deklaracja: public Instrukcja{
+class Declaration: public Instruction{
     public:
-        // Przyjmuje typ zmiennej i jej nazw� oraz numer linii w kt�rej utworzono w�ze�
-        inline Deklaracja(Typ __typ,const std::string& __identyfikator, int __numerLinii)
-        :Instrukcja(__typ, __numerLinii),
-        _identyfikator(__identyfikator){
+        // Przyjmuje type zmiennej i jej nazw� oraz numer linii w kt�rej utworzono w�ze�
+        inline Declaration(Type __type,const std::string& __identifier, int __lineNumber)
+        :Instruction(__type, __lineNumber),
+        _identifier(__identifier){
         }
 
-        virtual ~Deklaracja(){}
+        virtual ~Declaration(){}
 
         // Zwraca nazw� zmiennej
-        virtual const std::string identyfikator()const{ return _identyfikator;}
+        virtual const std::string identifier()const{ return _identifier;}
 
         // Zwraca r-warto�c
-        virtual const Wartosc* execute( RunTimeData& __runTimeData)=0;
-        virtual const Wartosc* execute()=0;
+        virtual const Value* execute( RunTimeData& __runTimeData)=0;
+        virtual const Value* execute()=0;
 
         // Przechodzi przez drzewo skladniowe w gl�b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // kt�ra przechowuje informacje o tablicach symboli
         virtual void analise( AnalysisData& __analysisData)=0;
 
     protected:
         // Nazwa zmiennej
-        const std::string _identyfikator;
+        const std::string _identifier;
 };
 
 // Reprezentuje deklaracje zemiennej typu double
-class DeklaracjaDouble:public Deklaracja{
+class DoubleDeclaration:public Declaration{
     public:
         // Konstruktor przyjmuje nazwe zmiennej i zainicjowanie oraz numer linii w kt�rej w�ze�
         // zosta� utworzony
-        DeklaracjaDouble(const std::string& __identyfikator,double __inicjator, int __numerLinii)
-        :Deklaracja(Double,__identyfikator,__numerLinii),
-        _wartosc(__inicjator){
+        DoubleDeclaration(const std::string& __identifier,double __init, int __lineNumber)
+        :Declaration(Double,__identifier,__lineNumber),
+        _value(__init){
         }
 
-        virtual ~DeklaracjaDouble(){}
+        virtual ~DoubleDeclaration(){}
 
-        virtual const WartoscDouble* execute( RunTimeData& __runTimeData){ return &_wartosc;}
-        virtual const WartoscDouble* execute(){return &_wartosc;}
+        virtual const DoubleValue* execute( RunTimeData& __runTimeData){ return &_value;}
+        virtual const DoubleValue* execute(){return &_value;}
 
         // Przechodzi przez drzewo skladniowe w gl�b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // kt�ra przechowuje informacje o tablicach symboli.
         // dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
-            __analysisData.tablicaZmiennychLokalnych->insert( _identyfikator, &_wartosc, __analysisData.stosWidocznosci->top());
+            __analysisData.localVariableTable->insert( _identifier, &_value, __analysisData.visibilityStack->top());
         }
 
     protected:
         // Przechowuje r-warto�c zmiennej
-        WartoscDouble _wartosc;
+        DoubleValue _value;
 };
 
 // Reprezentuje deklaracje zemiennej typu string
-class DeklaracjaString:public Deklaracja{
+class StringDeclaration:public Declaration{
     public:
-        // Konstruktor przyjmuje jako parametr nazwe zmiennej i zainicjowanie oraz numer linii
+        // Konstruktor przyjmuje jako parameter nazwe zmiennej i zainicjowanie oraz numer linii
         // w kt�rej utworzone w�ze�
-        DeklaracjaString(const std::string& __identyfikator,std::string __inicjator, int __numerLinii)
-        :Deklaracja(String,__identyfikator,__numerLinii),
-        _wartosc(__inicjator){
+        StringDeclaration(const std::string& __identifier,std::string __init, int __lineNumber)
+        :Declaration(String,__identifier,__lineNumber),
+        _value(__init){
         }
 
-        virtual ~DeklaracjaString(){}
+        virtual ~StringDeclaration(){}
 
-        virtual const WartoscString* execute( RunTimeData& __runTimeData){ return &_wartosc;}
-        virtual const WartoscString* execute(){ return &_wartosc;}
+        virtual const StringValue* execute( RunTimeData& __runTimeData){ return &_value;}
+        virtual const StringValue* execute(){ return &_value;}
 
         // Przechodzi przez drzewo skladniowe w gl�b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // kt�ra przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowana zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
-            __analysisData.tablicaZmiennychLokalnych->insert( _identyfikator, &_wartosc, __analysisData.stosWidocznosci->top());
+            __analysisData.localVariableTable->insert( _identifier, &_value, __analysisData.visibilityStack->top());
         }
 
     protected:
         // Przechowuje r-warto�c zmiennej
-        WartoscString _wartosc;
+        StringValue _value;
 };
 
 #endif

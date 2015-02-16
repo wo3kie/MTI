@@ -6,6 +6,6 @@
 #include "instruction.h"
 
 // Nazwa typu zosta³a wprowadzona aby zachowac zgodnoœc z gramatyka
-typedef Instrukcja Czynnik;
+typedef Instruction Factor;
 
 #endif

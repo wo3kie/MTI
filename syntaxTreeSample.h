@@ -30,16 +30,16 @@ int main() {
 	* /
 
 // ** Zmienna globalna *********************************************************
-	ListaDeklaracji* listaDeklaracji1= new ListaDeklaracji(
-		new DeklaracjaDouble(
+	DeclarationList* listaDeklaracji1= new DeclarationList(
+		new DoubleDeclaration(
 			"a", 3
 		)
 	);
 
 // ** Funkcja 'swap' ***********************************************************
 
-	ListaParametrow* listaParametrow1= new ListaParametrow(
-		new ListaParametrow(
+	ParameterList* listaParametrow1= new ParameterList(
+		new ParameterList(
 			new ParametrDouble(
 				"a"
 			)
@@ -49,27 +49,27 @@ int main() {
 		)
 	);
 
-	ListaDeklaracji* listaDeklaracji2= new ListaDeklaracji(
-		new DeklaracjaDouble(
+	DeclarationList* listaDeklaracji2= new DeclarationList(
+		new DoubleDeclaration(
 			"c"
 		)
 	);
 
-	InstrukcjaZlozona* instrukcjaZlozona1= new InstrukcjaZlozona(
+	ComplexInstrukction* instrukcjaZlozona1= new ComplexInstrukction(
 		new OpcjonalneInstrukcje(
-			new ListaInstrukcji(
-				new ListaInstrukcji(
-					new ListaInstrukcji(
-						new ListaInstrukcji(
-							new InstrukcjaPrzypisania(
-								new ZmiennaLokalna(
+			new InstructionList(
+				new InstructionList(
+					new InstructionList(
+						new InstructionList(
+							new AssignmentInstruction(
+								new LocalVariable(
 									"c"
 								)
-								,new Wyrazenie(
-									new ProsteWyrazenie(
-										new Skladnik(
-											new CzynnikUnarny(
-												new ZmiennaLokalna(
+								,new Expression(
+									new SimpleExpression(
+										new Unit(
+											new UnaryFactor(
+												new LocalVariable(
 													"a"
 												)
 											)
@@ -78,15 +78,15 @@ int main() {
 								)
 							)
 						)
-						,new InstrukcjaPrzypisania(
-							new ZmiennaLokalna(
+						,new AssignmentInstruction(
+							new LocalVariable(
 								"a"
 							)
-							,new Wyrazenie(
-								new ProsteWyrazenie(
-									new Skladnik(
-										new CzynnikUnarny(
-											new ZmiennaLokalna(
+							,new Expression(
+								new SimpleExpression(
+									new Unit(
+										new UnaryFactor(
+											new LocalVariable(
 												"b"
 											)
 										)
@@ -95,15 +95,15 @@ int main() {
 							)
 						)
 					)
-					,new InstrukcjaPrzypisania(
-						new ZmiennaLokalna(
+					,new AssignmentInstruction(
+						new LocalVariable(
 							"b"
 						)
-						,new Wyrazenie(
-							new ProsteWyrazenie(
-								new Skladnik(
-									new CzynnikUnarny(
-										new ZmiennaLokalna(
+						,new Expression(
+							new SimpleExpression(
+								new Unit(
+									new UnaryFactor(
+										new LocalVariable(
 											"c"
 										)
 									)
@@ -112,12 +112,12 @@ int main() {
 						)
 					)
 				)
-				,new InstrukcjaSkokuReturn(
-					new Wyrazenie(
-						new ProsteWyrazenie(
-							new Skladnik(
-								new CzynnikUnarny(
-									new ZmiennaLokalna(
+				,new ReturnInstruction(
+					new Expression(
+						new SimpleExpression(
+							new Unit(
+								new UnaryFactor(
+									new LocalVariable(
 										"b"
 									)
 								)
@@ -129,48 +129,48 @@ int main() {
 		)
 	);
 
-	DefinicjaFunkcji* definicjaFunkcji1= new DefinicjaFunkcji(
-		new WartoscDouble(), "swap", listaParametrow1, listaDeklaracji2, instrukcjaZlozona1
+	FunctionDefinition* definicjaFunkcji1= new FunctionDefinition(
+		new DoubleValue(), "swap", listaParametrow1, listaDeklaracji2, instrukcjaZlozona1
 	);
 
 // ** Funkcja 'main' ***********************************************************
 
-	ListaParametrow* listaParametrow2= new ListaParametrow();
+	ParameterList* listaParametrow2= new ParameterList();
 
-	ListaDeklaracji* listaDeklaracji3= new ListaDeklaracji(
-		new ListaDeklaracji(
-			new DeklaracjaDouble(
+	DeclarationList* listaDeklaracji3= new DeclarationList(
+		new DeclarationList(
+			new DoubleDeclaration(
 				"a", 1
 			)
 		)
-		,new DeklaracjaDouble(
+		,new DoubleDeclaration(
 			"b", 2
 		)
 	);
 
-	InstrukcjaZlozona* instrukcjaZlozona2= new InstrukcjaZlozona(
+	ComplexInstrukction* instrukcjaZlozona2= new ComplexInstrukction(
 		new OpcjonalneInstrukcje(
-			new ListaInstrukcji(
-				new ListaInstrukcji(
-					new ListaInstrukcji(
-						new ListaInstrukcji(
-							new InstrukcjaPrzypisania(
-								new ZmiennaGlobalna(
+			new InstructionList(
+				new InstructionList(
+					new InstructionList(
+						new InstructionList(
+							new AssignmentInstruction(
+								new GlobalVariable(
 									"a"
 								)
-								,new Wyrazenie(
-									new ProsteWyrazenie(
-										new Skladnik(
-											new CzynnikUnarny(
-												new WywolanieFunkcji(
+								,new Expression(
+									new SimpleExpression(
+										new Unit(
+											new UnaryFactor(
+												new FunctionCall(
 													"swap"
-													, new ListaWyrazen(
-														new ListaWyrazen(
-															new Wyrazenie(
-																new ProsteWyrazenie(
-																	new Skladnik(
-																		new CzynnikUnarny(
-																			new ZmiennaLokalna(
+													, new ExpressionList(
+														new ExpressionList(
+															new Expression(
+																new SimpleExpression(
+																	new Unit(
+																		new UnaryFactor(
+																			new LocalVariable(
 																				"a"
 																			)
 																		)
@@ -178,11 +178,11 @@ int main() {
 																)
 															)
 														)
-														,new Wyrazenie(
-															new ProsteWyrazenie(
-																new Skladnik(
-																	new CzynnikUnarny(
-																		new ZmiennaLokalna(
+														,new Expression(
+															new SimpleExpression(
+																new Unit(
+																	new UnaryFactor(
+																		new LocalVariable(
 																			"b"
 																		)
 																	)
@@ -197,12 +197,12 @@ int main() {
 								)
 							)
 						)
-						,new InstrukcjaDrukowania(
-							new Wyrazenie(
-								new ProsteWyrazenie(
-									new Skladnik(
-										new CzynnikUnarny(
-											new ZmiennaLokalna(
+						,new PrintInstruction(
+							new Expression(
+								new SimpleExpression(
+									new Unit(
+										new UnaryFactor(
+											new LocalVariable(
 												"a"
 											)
 										)
@@ -211,12 +211,12 @@ int main() {
 							)
 						)
 					)
-					,new InstrukcjaDrukowania(
-						new Wyrazenie(
-							new ProsteWyrazenie(
-								new Skladnik(
-									new CzynnikUnarny(
-										new ZmiennaLokalna(
+					,new PrintInstruction(
+						new Expression(
+							new SimpleExpression(
+								new Unit(
+									new UnaryFactor(
+										new LocalVariable(
 											"b"
 										)
 									)
@@ -225,12 +225,12 @@ int main() {
 						)
 					)
 				)
-				,new InstrukcjaDrukowania(
-					new Wyrazenie(
-						new ProsteWyrazenie(
-							new Skladnik(
-								new CzynnikUnarny(
-									new ZmiennaGlobalna(
+				,new PrintInstruction(
+					new Expression(
+						new SimpleExpression(
+							new Unit(
+								new UnaryFactor(
+									new GlobalVariable(
 										"a"
 									)
 								)
@@ -242,13 +242,13 @@ int main() {
 		)
 	);
 
-	DefinicjaFunkcji* definicjaFunkcji2= new DefinicjaFunkcji(
-		new WartoscDouble(), "main",  listaParametrow2, listaDeklaracji3, instrukcjaZlozona2
+	FunctionDefinition* definicjaFunkcji2= new FunctionDefinition(
+		new DoubleValue(), "main",  listaParametrow2, listaDeklaracji3, instrukcjaZlozona2
 	);
 
 //** Program *******************************************************************
-	ListaFunkcji* listaFunkcji1= new ListaFunkcji(
-		new ListaFunkcji(
+	FunctionList* listaFunkcji1= new FunctionList(
+		new FunctionList(
 			definicjaFunkcji1
 		)
 		,definicjaFunkcji2

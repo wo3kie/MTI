@@ -1,4 +1,4 @@
 #include "callParameter.h"
 
-Parametry parametry;
+Parameters parameters;
 

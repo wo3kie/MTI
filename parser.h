@@ -15,36 +15,36 @@
 
 #line 30 "./interpreter.y"
 typedef union {
-    double _liczba;
-    std::string* _napis;
+    double _number;
+    std::string* _text;
 
-    Czynnik* _czynnik;
-    CzynnikUnarny* _czynnikUnarny;
-    DefinicjaFunkcji* _definicjaFunkcji;
-    Deklaracja* _deklaracja;
-    Instrukcja* _instrukcja;
-    InstrukcjaDrukowania* _instrukcjaDrukowania;
-    InstrukcjaIteracyjnaWhile* _instrukcjaIteracyjnaWhile;
-    InstrukcjaPrzypisania* _instrukcjaPrzypisania;
-    InstrukcjaSkokuReturn* _instrukcjaSkokuReturn;
-    InstrukcjaWarunkowaIf* _instrukcjaWarunkowaIf;
-    InstrukcjaWczytywania* _instrukcjaWczytywania;
-    InstrukcjaZlozona* _instrukcjaZlozona;
-    ListaDeklaracji* _listaDeklaracji;
-    ListaFunkcji* _listaFunkcji;
-    ListaInstrukcji* _listaInstrukcji;
-    ListaParametrow* _listaParametrow;
-    ListaWyrazen* _listaWyrazen;
-    LiteralNapisowy* _literalNapisowy;
-    Nawias* _nawias;
-    Parametr* _parametr;
+    Factor* _factor;
+    UnaryFactor* _unaryFactor;
+    FunctionDefinition* _functionDefinition;
+    Declaration* _declaration;
+    Instruction* _instruction;
+    PrintInstruction* _printInstruction;
+    WhileInstruction* _whileInstruction;
+    AssignmentInstruction* _assignmentInstruction;
+    ReturnInstruction* _returnInstruction;
+    IfStatement* _ifStatement;
+    ScanInstruction* _scanInstruction;
+    ComplexInstrukction* _complexInstruction;
+    DeclarationList* _declarationList;
+    FunctionList* _functionList;
+    InstructionList* _instructionList;
+    ParameterList* _parameterList;
+    ExpressionList* _expressionList;
+    TextLiteral* _textLiteral;
+    Bracket* _bracket;
+    Parameter* _parameter;
     Program* _program;
-    ProsteWyrazenie* _prosteWyrazenie;
-    Skladnik* _skladnik;
-    Wyrazenie* _wyrazenie;
-    WywolanieFunkcji* _wywolanieFunkcji;
-    ZmiennaGlobalna* _zmiennaGlobalna;
-    ZmiennaLokalna* _zmiennaLokalna;
+    SimpleExpression* _simpleExpression;
+    Unit* _unit;
+    Expression* _expression;
+    FunctionCall* _functionCall;
+    GlobalVariable* _globalVariable;
+    LocalVariable* _localVariable;
 } yy_Parser_stype;
 #define YY_Parser_STYPE yy_Parser_stype
 #define YY_Parser_CONSTRUCTOR_PARAM    std::istream* _in, std::ostream* _out
@@ -227,9 +227,9 @@ typedef
 
 
  #line 169 "/usr/share/bison++/bison.h"
-#define	LICZBA	258
-#define	IDENTYFIKATOR	259
-#define	LNAPISOWY	260
+#define	NUMBER	258
+#define	IDENTIFIER	259
+#define	TEXTLITERAL	260
 #define	DOUBLE	261
 #define	STRING	262
 #define	WHILE	263
@@ -246,7 +246,7 @@ typedef
 #define	OR	274
 #define	AND	275
 #define	UMINUS	276
-#define	OPERATOR_ZASIEGU	277
+#define	SCOPE_OPERATOR	277
 
 
 #line 169 "/usr/share/bison++/bison.h"
@@ -295,9 +295,9 @@ public:
   /* static const int token ... */
   
  #line 212 "/usr/share/bison++/bison.h"
-static const int LICZBA;
-static const int IDENTYFIKATOR;
-static const int LNAPISOWY;
+static const int NUMBER;
+static const int IDENTIFIER;
+static const int TEXTLITERAL;
 static const int DOUBLE;
 static const int STRING;
 static const int WHILE;
@@ -314,7 +314,7 @@ static const int NEQ;
 static const int OR;
 static const int AND;
 static const int UMINUS;
-static const int OPERATOR_ZASIEGU;
+static const int SCOPE_OPERATOR;
 
 
 #line 212 "/usr/share/bison++/bison.h"
@@ -323,9 +323,9 @@ static const int OPERATOR_ZASIEGU;
   enum YY_Parser_ENUM_TOKEN { YY_Parser_NULL_TOKEN=0
   
  #line 215 "/usr/share/bison++/bison.h"
-	,LICZBA=258
-	,IDENTYFIKATOR=259
-	,LNAPISOWY=260
+	,NUMBER=258
+	,IDENTIFIER=259
+	,TEXTLITERAL=260
 	,DOUBLE=261
 	,STRING=262
 	,WHILE=263
@@ -342,7 +342,7 @@ static const int OPERATOR_ZASIEGU;
 	,OR=274
 	,AND=275
 	,UMINUS=276
-	,OPERATOR_ZASIEGU=277
+	,SCOPE_OPERATOR=277
 
 
 #line 215 "/usr/share/bison++/bison.h"

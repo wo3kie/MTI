@@ -3,18 +3,18 @@
 #include "assignmentInstruction.h"
 
 /* ================================================================== execute */
-const Wartosc* InstrukcjaPrzypisania::execute(RunTimeData& __runTimeData){
+const Value* AssignmentInstruction::execute(RunTimeData& __runTimeData){
 
-    // '::kopiuj' obiekt klasy 'OperatorPrzypisania' - plik operators.h
-    return Operatory::kopiuj( _identyfikator->assign(__runTimeData), _wyrazenie->execute(__runTimeData));
+    // '::copy' obiekt klasy 'AssignmentOperator' - plik operators.h
+    return Operators::copy( _identifier->assign(__runTimeData), _expression->execute(__runTimeData));
 }
 
 /* ================================================================== analise */
-void InstrukcjaPrzypisania::analise( AnalysisData& __analysisData){
-    _identyfikator->analise( __analysisData);
-    _wyrazenie->analise( __analysisData);
+void AssignmentInstruction::analise( AnalysisData& __analysisData){
+    _identifier->analise( __analysisData);
+    _expression->analise( __analysisData);
 
-    if( ( _typ= _identyfikator->typ())!= _wyrazenie->typ()){
+    if( ( _type= _identifier->type())!= _expression->type()){
         throw IncorectTypes();
     }
 }

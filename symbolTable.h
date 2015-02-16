@@ -9,7 +9,7 @@
 
 #include "value.h"
 
-class DefinicjaFunkcji;
+class FunctionDefinition;
 
 template< typename T>
 class Tablica{
@@ -19,39 +19,39 @@ class Tablica{
         Tablica(){}
         virtual ~Tablica(){}
 
-        int size()const{return _tablica.size();}
+        int size()const{return _table.size();}
 
-        virtual int insert( std::string __identyfikator, T* __wartosc, int __zasieg) {
-            int pozycja=0;
+        virtual int insert( std::string __identifier, T* __value, int __zasieg) {
+            int position=0;
 
-            for( int a=0; a<(int) _tablica.size(); ++a){
-                if( _tablica[a].zasieg== __zasieg){
-                    ++pozycja;
-                    if( _tablica[a].identyfikator== __identyfikator){
-                        throw MultipleDeclaration( __identyfikator);
+            for( int a=0; a<(int) _table.size(); ++a){
+                if( _table[a].scope== __zasieg){
+                    ++position;
+                    if( _table[a].identifier== __identifier){
+                        throw MultipleDeclaration( __identifier);
                     }
                 }
             }
 
-            _tablica.push_back( _Symbol(__identyfikator, __wartosc, __zasieg, pozycja));
-            return pozycja;
+            _table.push_back( _Symbol(__identifier, __value, __zasieg, position));
+            return position;
         }
 
-        virtual int find( std::string __identyfikator, int __zasieg) const {
-            for( int a=0; a<(int) _tablica.size(); ++a){
-                if( _tablica[a].identyfikator== __identyfikator && _tablica[a].zasieg== __zasieg){
-                    return _tablica[a].pozycja;
+        virtual int find( std::string __identifier, int __zasieg) const {
+            for( int a=0; a<(int) _table.size(); ++a){
+                if( _table[a].identifier== __identifier && _table[a].scope== __zasieg){
+                    return _table[a].position;
                 }
             }
 
-            throw UndefinedSymbol( __identyfikator);
+            throw UndefinedSymbol( __identifier);
         }
 
         virtual T* value(int __zasieg, int __pozycja) {
-            for( int a=0; a<(int) _tablica.size(); ++a){
+            for( int a=0; a<(int) _table.size(); ++a){
 
-                if( _tablica[a].zasieg== __zasieg && _tablica[a].pozycja== __pozycja){
-                    return _tablica[a].wartosc;
+                if( _table[a].scope== __zasieg && _table[a].position== __pozycja){
+                    return _table[a].value;
                 }
             }
             
@@ -64,64 +64,64 @@ class Tablica{
 
     protected:
         struct _Symbol{
-            _Symbol( std::string __identyfikator, T* __wartosc, int __zasieg, int __pozycja)
-            :identyfikator( __identyfikator),wartosc( __wartosc), zasieg( __zasieg), pozycja( __pozycja){}
+            _Symbol( std::string __identifier, T* __value, int __zasieg, int __pozycja)
+            :identifier( __identifier),value( __value), scope( __zasieg), position( __pozycja){}
 
             _Symbol()
-            :identyfikator(""),wartosc(0),zasieg(0),pozycja(0){}
+            :identifier(""),value(0),scope(0),position(0){}
 
-            std::string identyfikator;
-            T* wartosc;
-            int zasieg;
-            int pozycja;
+            std::string identifier;
+            T* value;
+            int scope;
+            int position;
         };
 
-        std::vector< _Symbol> _tablica;
+        std::vector< _Symbol> _table;
 };
 
-class TablicaFunkcji:public Tablica< DefinicjaFunkcji>{
+class FunctionTable:public Tablica< FunctionDefinition>{
     public:
-        TablicaFunkcji(){}
-        virtual ~TablicaFunkcji(){}
+        FunctionTable(){}
+        virtual ~FunctionTable(){}
 
     private:
 // nie mozna kopiowac
-    TablicaFunkcji( const TablicaFunkcji&);
-    const TablicaFunkcji operator=( const TablicaFunkcji&);
+    FunctionTable( const FunctionTable&);
+    const FunctionTable operator=( const FunctionTable&);
 };
 
-class TablicaZmiennych:public Tablica< Wartosc>{
+class VariableTable:public Tablica< Value>{
     public:
-        TablicaZmiennych(){}
+        VariableTable(){}
 
-        virtual ~TablicaZmiennych(){}
+        virtual ~VariableTable(){}
 
-        TablicaZmiennych( const TablicaZmiennych& __tablica){
-            _kopiuj( __tablica);
+        VariableTable( const VariableTable& __table){
+            _copy( __table);
         }
 
-        const TablicaZmiennych& operator=(const TablicaZmiennych& __tablica){
-            _kopiuj( __tablica);
+        const VariableTable& operator=(const VariableTable& __table){
+            _copy( __table);
             return *this;
         }
 
     private:
-        void _kopiuj( const TablicaZmiennych& __tablica){
-            _tablica.resize( __tablica.size());
+        void _copy( const VariableTable& __table){
+            _table.resize( __table.size());
 
-            for( int a=0; a< (int)__tablica.size(); ++a){
-                _tablica[a].identyfikator= __tablica._tablica[a].identyfikator;
-                _tablica[a].wartosc= __tablica._tablica[a].wartosc->kopiuj();
-                _tablica[a].zasieg= __tablica._tablica[a].zasieg;
-                _tablica[a].pozycja= __tablica._tablica[a].pozycja;
+            for( int a=0; a< (int)__table.size(); ++a){
+                _table[a].identifier= __table._table[a].identifier;
+                _table[a].value= __table._table[a].value->copy();
+                _table[a].scope= __table._table[a].scope;
+                _table[a].position= __table._table[a].position;
             }
         }
 };
 
-namespace Zasieg{
-    const int zasiegGlobalny= 0;
-    const int zasiegParametrow= 1;
-    const int pozycjaReturn= 0;
+namespace Scope{
+    const int globalScope= 0;
+    const int parameterScope= 1;
+    const int returnPosition= 0;
 }
 
 #endif

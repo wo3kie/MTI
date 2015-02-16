@@ -2,5 +2,5 @@
 
 #include "symbolLocation.h"
 
-int SymbolLocation::numerLinii= 1;
-std::string SymbolLocation::leksem= "";
+int SymbolLocation::lineNumber= 1;
+std::string SymbolLocation::token= "";

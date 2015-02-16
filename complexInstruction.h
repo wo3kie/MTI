@@ -5,41 +5,41 @@
 
 #include "instrunctionList.h"
 
-// Reprezentuje instrukcje zlo¿ona. Instrukcja zlo¿¿ona jest to instrukcja zawarta w klamrach '{' i '}'
-class InstrukcjaZlozona:public Instrukcja{
+// Reprezentuje instrukcje zlo¿ona. Instruction zlo¿¿ona jest to instruction zawarta w klamrach '{' i '}'
+class ComplexInstrukction:public Instruction{
     public:
         // Konstruktor przyjmuje liste instrukcji oraz numer linii w której zaczynaj¹ siê
         // instrukcje
-        InstrukcjaZlozona(ListaInstrukcji* __instrukcje, int __numerLinii)
-        :Instrukcja( Void, __numerLinii),
-        _listaInstrukcji(__instrukcje){
+        ComplexInstrukction(InstructionList* __instructions, int __lineNumber)
+        :Instruction( Void, __lineNumber),
+        _instructionList(__instructions){
         }
 
         // Wykonuje instrukcje zlozona
-        virtual const Wartosc* execute( RunTimeData& __runTimeData){
-            _listaInstrukcji->execute( __runTimeData);
+        virtual const Value* execute( RunTimeData& __runTimeData){
+            _instructionList->execute( __runTimeData);
             return 0x00;
         }
 
         // Przechodzi przez drzewo sk³adniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // która przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowan¹ zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
-            __analysisData.stosWidocznosci->push( ++__analysisData.numerBloku);
+            __analysisData.visibilityStack->push( ++__analysisData.blockNumber);
             /*
-            Wchodzac do zasiegu inkrementujemy wartosc __analysisData.numerBloku,
+            Wchodzac do zasiegu inkrementujemy value __analysisData.blockNumber,
             wychodzac dekrementujemy
 
-            {   // ++__analysisData.numerBloku
+            {   // ++__analysisData.blockNumber
 
-            }   // --__analysisData.numerBloku
+            }   // --__analysisData.blockNumber
 
             */
 
             /*
-            // zasieg globalny ma wartosc 0          Stos: 0 <- wierzcholek
+            // scope globalny ma value 0          Stos: 0 <- wierzcholek
 
             { // poczatek zasiegu 1                  Stos : 0 1 <- wierzcholek
 
@@ -52,16 +52,16 @@ class InstrukcjaZlozona:public Instrukcja{
 
             */
 
-            _listaInstrukcji->analise( __analysisData);
+            _instructionList->analise( __analysisData);
 
-            __analysisData.stosWidocznosci->pop();
+            __analysisData.visibilityStack->pop();
         }
 
     private:
         int _numerBloku;
 
-        // Lista instrukcji
-        ListaInstrukcji* _listaInstrukcji;
+        // List instrukcji
+        InstructionList* _instructionList;
 };
 
 #endif

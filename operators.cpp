@@ -1,5 +1,5 @@
 #include"operators.h"
 
-namespace Operatory{
-    OperatorPrzypisania kopiuj;
+namespace Operators{
+    AssignmentOperator copy;
 }

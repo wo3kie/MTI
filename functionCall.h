@@ -6,27 +6,27 @@
 #include "functionDefinition.h"
 
 // Reprezentuje wywolanie funkcji
-class WywolanieFunkcji:public Czynnik{
+class FunctionCall:public Factor{
     public:
-        // Konstruktor przyjmuje identyfikator wywo³ywanej funkcji, listê wyra¿eñ oraz numer linii
-        WywolanieFunkcji( std::string __identyfikator, ListaWyrazen* __listaWyrazen, int __numerLinii)
-        :Czynnik( Void, __numerLinii),
-        _listaWyrazen( __listaWyrazen),
-        _identyfikator( __identyfikator){
+        // Konstruktor przyjmuje identifier wywo³ywanej funkcji, listê wyra¿eñ oraz numer linii
+        FunctionCall( std::string __identifier, ExpressionList* __expressionList, int __lineNumber)
+        :Factor( Void, __lineNumber),
+        _expressionList( __expressionList),
+        _identifier( __identifier){
         }
 
         // Sprawdza czy iloœc oraz typy argumentów funkcji i parametrów wywo³ania s¹ zgodne
         virtual void analise( AnalysisData& __analysisData);
 
         // Wywo³uje funkcjê
-        virtual const Wartosc* execute( RunTimeData& _runTimeData);
+        virtual const Value* execute( RunTimeData& _runTimeData);
 
     private:
         // Wyra¿enia w wywo³aniu funkcji
-        ListaWyrazen* _listaWyrazen;
+        ExpressionList* _expressionList;
 
-        std::string _identyfikator;
-        unsigned _pozycja;
+        std::string _identifier;
+        unsigned _position;
 };
 
 #endif

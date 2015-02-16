@@ -514,7 +514,7 @@ static yyconst flex_int16_t yy_rule_linenum[14] =
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 #line 1 "./interpreter.l"
-/* TablicaSlowKluczowych _TSK_( Parser::IDENTYFIKATOR); */
+/* KeywordTable _TSK_( Parser::IDENTIFIER); */
 /* %name Lekser */
 /* %define IOSTREAM */
 /* %define LEX_PARAM YY_Parser_STYPE *val */
@@ -828,7 +828,7 @@ YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
 #line 53 "./interpreter.l"
 {
-                                /* ++sLocation.numerLinii; */
+                                /* ++sLocation.lineNumber; */
                             }
 	YY_BREAK
 /* napis */
@@ -836,41 +836,41 @@ case 2:
 YY_RULE_SETUP
 #line 58 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext;
+                                /* sLocation.token= yytext;
 
-                                val->_napis= new std::string( yytext); */
+                                val->_text= new std::string( yytext); */
 
-                                TablicaSlowKluczowych _TSK_( Parser::IDENTYFIKATOR);
+                                KeywordTable _TSK_( Parser::IDENTIFIER);
 
-                                return _TSK_.znajdzSlowo( yytext);
+                                return _TSK_.findKeyword( yytext);
                             }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 68 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext;
+                                /* sLocation.token= yytext;
 
-                                val->_napis= new std::string( yytext); */
-                                return Parser::LNAPISOWY;
+                                val->_text= new std::string( yytext); */
+                                return Parser::TEXTLITERAL;
                             }
 	YY_BREAK
-/* liczba */
+/* number */
 case 4:
 YY_RULE_SETUP
 #line 76 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext;
+                                /* sLocation.token= yytext;
 
-                                val->_liczba= atof( yytext); */
-                                return Parser::LICZBA;
+                                val->_number= atof( yytext); */
+                                return Parser::NUMBER;
                             }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 83 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::EQ;
                             }
 	YY_BREAK
@@ -878,7 +878,7 @@ case 6:
 YY_RULE_SETUP
 #line 88 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::NEQ;
                             }
 	YY_BREAK
@@ -886,7 +886,7 @@ case 7:
 YY_RULE_SETUP
 #line 93 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::OR;
                             }
 	YY_BREAK
@@ -894,7 +894,7 @@ case 8:
 YY_RULE_SETUP
 #line 98 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return Parser::AND;
                             }
 	YY_BREAK
@@ -902,8 +902,8 @@ case 9:
 YY_RULE_SETUP
 #line 103 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext; */
-                                return Parser::OPERATOR_ZASIEGU;
+                                /* sLocation.token= yytext; */
+                                return Parser::SCOPE_OPERATOR;
 
                             }
 	YY_BREAK
@@ -912,7 +912,7 @@ case 10:
 YY_RULE_SETUP
 #line 111 "./interpreter.l"
 {
-                                /* sLocation.leksem= yytext; */
+                                /* sLocation.token= yytext; */
                                 return yytext[ 0];
                             }
 	YY_BREAK
@@ -927,14 +927,14 @@ case 12:
 YY_RULE_SETUP
 #line 119 "./interpreter.l"
 {
-                                /* ++sLocation.numerLinii; */
+                                /* ++sLocation.lineNumber; */
                             }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 123 "./interpreter.l"
 {
-                                /* std::cerr<< "Linia "<< sLocation.numerLinii<< ": Niedozwolony znak: "<< yytext<< std::endl; */
+                                /* std::cerr<< "Linia "<< sLocation.lineNumber<< ": Niedozwolony znak: "<< yytext<< std::endl; */
                             }
 	YY_BREAK
 case 14:

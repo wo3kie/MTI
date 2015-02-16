@@ -5,34 +5,34 @@
 
 #include "factor.h"
 
-// Reprezentuje litera³ napisowy
+// Reprezentuje letter³ napisowy
 // Litera³ napisowy jest ci¹giem znaków zawartych pomiêdzy cudzys³owami
 // Litera³ napisowy nie mo¿e byc dlu¿szy ni¿ jedna linia
-class LiteralNapisowy: public Czynnik{
+class TextLiteral: public Factor{
     public:
-        // Konstruktor przyjmuje wartoœc litera³u napisowego
+        // Konstruktor przyjmuje wartoœc letter³u napisowego
         // oraz numer linii w której on wyst¹pi³
         // Usuwa cudzys³ów z napisów.: "kasia" -> kasia
-        inline LiteralNapisowy(const std::string& __napis, int __numerLinii)
-        :Czynnik( String, __numerLinii),
-        _wartosc(__napis.substr( 1, __napis.size()- 2)){
+        inline TextLiteral(const std::string& __text, int __lineNumber)
+        :Factor( String, __lineNumber),
+        _value(__text.substr( 1, __text.size()- 2)){
         }
 
-        // Zwraca litera³ napisowy
-        virtual const Wartosc* execute(RunTimeData& _runTimeData){ return &_wartosc;}
+        // Zwraca letter³ napisowy
+        virtual const Value* execute(RunTimeData& _runTimeData){ return &_value;}
 
-        // Analizuje litera³ napisowy
+        // Analizuje letter³ napisowy
         virtual void analise(AnalysisData&){
             // Ta klasa jest liœciem drzewa sk³adniowego. Metoda 'analise' nie robi nic.
             // Na niej koñczy siê przechodzenie drzewa sk³adniowego 'w gl¹b'.
         }
 
-        // Zwraca typ litera³u. Zawsze jest to string
-        virtual Typ typ()const{ return String;}
+        // Zwraca type letter³u. Zawsze jest to string
+        virtual Type type()const{ return String;}
 
     protected:
-        // Przechowuje litera³ napisowy
-        WartoscString _wartosc;
+        // Przechowuje letter³ napisowy
+        StringValue _value;
 };
 
 #endif

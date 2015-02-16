@@ -7,37 +7,37 @@
 #include "expression.h"
 
 // Reprezentuje instrukcje przypisania
-class InstrukcjaPrzypisania:public Instrukcja{
+class AssignmentInstruction:public Instruction{
     public:
-        // Konstruktor przyjmuje jako parametr nazwe zmiennej do której bêdziemy przypisywac,
-        // wyra¿enie którego wartoœc przypiszemy oraz numer linii, w której by³a instrukcja przypisania
-        inline InstrukcjaPrzypisania( Identyfikator* __identyfikator, Wyrazenie* __wyrazenie, int __numerLinii);
+        // Konstruktor przyjmuje jako parameter nazwe zmiennej do której bêdziemy przypisywac,
+        // wyra¿enie którego wartoœc przypiszemy oraz numer linii, w której by³a instruction przypisania
+        inline AssignmentInstruction( Identifier* __identifier, Expression* __expression, int __lineNumber);
 
         // Wykonuje instrukcjê
-        virtual const Wartosc* execute(RunTimeData& __runTimeData);
+        virtual const Value* execute(RunTimeData& __runTimeData);
 
         // Przechodzi przez drzewo skladniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencjê klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencjê klasy 'AnalysisData'
         // która przechowuje informacje o tablicach symboli
         // Sprawdza zgodnoœc typów, zmiennej do ktorej przypisujemy
         // oraz wyrazenia.
         virtual void analise( AnalysisData& __analysisData);
 
     protected:
-        // WskaŸnik na identyfikator, zmienna do której przypisujemy
-        Identyfikator* _identyfikator;
+        // WskaŸnik na identifier, zmienna do której przypisujemy
+        Identifier* _identifier;
 
         // WskaŸnik na wyra¿enie, którego wartoœc bê¿dziemy przypisywac
-        Wyrazenie* _wyrazenie;
+        Expression* _expression;
 };
 
-/* ==================================================== InstrukcjaPrzypisania */
-inline InstrukcjaPrzypisania::InstrukcjaPrzypisania(
-    Identyfikator* __identyfikator, Wyrazenie* __wyrazenie,int __numerLinii)
-:Instrukcja( Void, __numerLinii),
-_identyfikator( __identyfikator),
-_wyrazenie( __wyrazenie){
+/* ==================================================== AssignmentInstruction */
+inline AssignmentInstruction::AssignmentInstruction(
+    Identifier* __identifier, Expression* __expression,int __lineNumber)
+:Instruction( Void, __lineNumber),
+_identifier( __identifier),
+_expression( __expression){
 }
 
 #endif

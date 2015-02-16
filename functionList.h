@@ -7,6 +7,6 @@
 #include "functionDefinition.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodno�c z gramatyk�
-typedef Lista< DefinicjaFunkcji> ListaFunkcji;
+typedef List< FunctionDefinition> FunctionList;
 
 #endif

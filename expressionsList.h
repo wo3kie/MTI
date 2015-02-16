@@ -7,6 +7,6 @@
 #include "expression.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef Lista< Wyrazenie> ListaWyrazen;
+typedef List< Expression> ExpressionList;
 
 #endif

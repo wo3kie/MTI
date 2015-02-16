@@ -3,17 +3,17 @@
 #include "ifStatement.h"
 
 /* ================================================================== execute */
-const Wartosc* InstrukcjaWarunkowaIf::execute( RunTimeData& __runTimeData){
-    const WartoscDouble* wartosc=
-        dynamic_cast<const WartoscDouble*>( _wyrazenie->execute( __runTimeData));
+const Value* IfStatement::execute( RunTimeData& __runTimeData){
+    const DoubleValue* value=
+        dynamic_cast<const DoubleValue*>( _expression->execute( __runTimeData));
 
-    if( static_cast<bool>(wartosc->execute())){
-        _instrukcja1->execute(__runTimeData);
+    if( static_cast<bool>(value->execute())){
+        _instruction1->execute(__runTimeData);
     }
     else{
-        // sprawdzamy czy istnieje druga instrukcja warunkowa
-        if( _instrukcja2){
-            _instrukcja2->execute( __runTimeData);
+        // sprawdzamy czy istnieje druga instruction warunkowa
+        if( _instruction2){
+            _instruction2->execute( __runTimeData);
         }
     }
 
@@ -21,12 +21,12 @@ const Wartosc* InstrukcjaWarunkowaIf::execute( RunTimeData& __runTimeData){
 }
 
 /* ================================================================== analise */
-void InstrukcjaWarunkowaIf::analise( AnalysisData& __analysisData){
-    _wyrazenie->analise( __analysisData);
-    _instrukcja1->analise( __analysisData);
+void IfStatement::analise( AnalysisData& __analysisData){
+    _expression->analise( __analysisData);
+    _instruction1->analise( __analysisData);
 
-    // sprawdzamy czy istnieje druga instrukcja warunkowa
-    if( _instrukcja2){
-        _instrukcja2->analise( __analysisData);
+    // sprawdzamy czy istnieje druga instruction warunkowa
+    if( _instruction2){
+        _instruction2->analise( __analysisData);
     }
 }

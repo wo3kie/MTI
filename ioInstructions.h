@@ -6,85 +6,85 @@
 #include "instruction.h"
 
 // Reprezentuje instrukcjê drukowania
-class InstrukcjaDrukowania:public Instrukcja {
+class PrintInstruction:public Instruction {
     public:
         // Konstruktor przyjmuje wyra¿enie które bêdzi drukowane oraz numer linii
-        // w której wyst¹pi³a instrukcja
-        InstrukcjaDrukowania(Wyrazenie* __wyrazenie, int __numerLinii)
-        :Instrukcja( Void, __numerLinii),
-        _wyrazenie( __wyrazenie) {
+        // w której wyst¹pi³a instruction
+        PrintInstruction(Expression* __expression, int __lineNumber)
+        :Instruction( Void, __lineNumber),
+        _expression( __expression) {
         }
 
         // Wykonuje instrukcjê
-        virtual const Wartosc* execute( RunTimeData& __runTimeData){
-            return _wyrazenie->execute( __runTimeData)->printf();
+        virtual const Value* execute( RunTimeData& __runTimeData){
+            return _expression->execute( __runTimeData)->printf();
         }
 
         // Przechodzi przez drzewo sk³adniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // która przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowan¹ zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData){
-            _wyrazenie->analise( __analysisData);
+            _expression->analise( __analysisData);
         }
 
-        // Zwraca typ instrukcji
-        virtual Typ typ()const{ return Void;}
+        // Zwraca type instrukcji
+        virtual Type type()const{ return Void;}
 
     protected:
         // Wyra¿enie którego wartoœc bêdzie wydrukowana
-        Wyrazenie* _wyrazenie;
+        Expression* _expression;
 };
 
 // Reprezentuje instrukcjê przejœcia do nowej linii
-class InstrukcjaEndl:public InstrukcjaDrukowania {
+class EndlInstruction:public PrintInstruction {
     public:
-        // Konstruktor przyjmuje numer linii w której wyst¹pi³a instrukcja
-        inline InstrukcjaEndl(int __numerLinii):InstrukcjaDrukowania( 0x00, __numerLinii) {}
+        // Konstruktor przyjmuje numer linii w której wyst¹pi³a instruction
+        inline EndlInstruction(int __lineNumber):PrintInstruction( 0x00, __lineNumber) {}
 
         // Wykonuje instrukcjê
-        virtual const Wartosc* execute( RunTimeData& __runTimeData) {
+        virtual const Value* execute( RunTimeData& __runTimeData) {
             std::cout<< std::endl;
             return 0x00;
         }
 
         // Przechodzi przez drzewo sk³adniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // która przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowan¹ zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData) {}
 };
 
 // Reprezentuje instrukcjê wczytywania
-class InstrukcjaWczytywania:public Instrukcja {
+class ScanInstruction:public Instruction {
     public:
-        InstrukcjaWczytywania( Identyfikator* __identyfikator, int __numerLinii)
-        :Instrukcja( Void, __numerLinii),
-        _identyfikator( __identyfikator) {
+        ScanInstruction( Identifier* __identifier, int __lineNumber)
+        :Instruction( Void, __lineNumber),
+        _identifier( __identifier) {
         }
 
         // Wykonuje instrukcjê
-        const Wartosc* execute( RunTimeData& __runTimeData){
-            return _identyfikator->assign( __runTimeData)->scanf();
+        const Value* execute( RunTimeData& __runTimeData){
+            return _identifier->assign( __runTimeData)->scanf();
         }
 
         // Przechodzi przez drzewo sk³adniowe w gl¹b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // która przechowuje informacje o tablicach symboli.
         // Dodaje zadeklarowan¹ zmienna do tablicy symboli
         virtual void analise( AnalysisData& __analysisData) {
-            _identyfikator->analise( __analysisData);
+            _identifier->analise( __analysisData);
         }
 
-        // Zwraca typ instrukcji
-        virtual Typ typ()const{ return Void;}
+        // Zwraca type instrukcji
+        virtual Type type()const{ return Void;}
 
     protected:
-        // Identyfikator do którego bêdziemy wpisywac wczytan¹ wartoœc
-        Identyfikator* _identyfikator;
+        // Identifier do którego bêdziemy wpisywac wczytan¹ wartoœc
+        Identifier* _identifier;
 };
 
 #endif

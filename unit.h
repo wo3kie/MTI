@@ -7,6 +7,6 @@
 #include "binaryNode.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef WezelBinarny< OperatorMultiplikatywnyBi, CzynnikUnarny> Skladnik;
+typedef BinaryNode< BiMultiplicativeOperator, UnaryFactor> Unit;
 
 #endif

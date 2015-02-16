@@ -6,6 +6,6 @@
 #include "unit.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef WezelBinarny< OperatorAddytywnyBi, Skladnik> ProsteWyrazenie;
+typedef BinaryNode< BiAdditiveOperator, Unit> SimpleExpression;
 
 #endif

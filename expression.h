@@ -6,6 +6,6 @@
 #include "simpleExpression.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef WezelBinarny< OperatorLogicznyBi, ProsteWyrazenie> Wyrazenie;
+typedef BinaryNode< BinaryLogicalOperator, SimpleExpression> Expression;
 
 #endif

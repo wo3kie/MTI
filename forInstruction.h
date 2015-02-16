@@ -9,41 +9,41 @@
 #include "expression.h"
 
 // Reprezentuje instrukcje 'while'
-class InstrukcjaIteracyjnaFor: public Instrukcja{
+class ForInstruction: public Instruction{
     public:
         // Konstruktor przyjmuje jako argumenty wyra�enie kt�re b�dzie sprawdzane
         // przed ka�d� iteracj� p�tli, instrukcje z�o�on� kt�ra jest tre�ci� p�tli,
-        // oraz numer linii gdzie instrukcja warunkowa si� rozpoczyna
-        inline InstrukcjaIteracyjnaFor(
-            Deklaracja* __deklaracja, Wyrazenie* __warunek, InstrukcjaPrzypisania* __przypisanie,
-            Instrukcja* __instrukcja,int __numerLinii);
+        // oraz numer linii gdzie instruction warunkowa si� rozpoczyna
+        inline ForInstruction(
+            Declaration* __declaration, Expression* __condition, AssignmentInstruction* __assignment,
+            Instruction* __instruction,int __lineNumber);
 
         // Wykonuje instrukcj�
-        virtual Wartosc* execute( RunTimeData& __runTimeData);
+        virtual Value* execute( RunTimeData& __runTimeData);
 
         // Przechodzi przez drzewo sk�adniowe w gl�b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // kt�ra przechowuje informacje o tablicach symboli
         virtual void analise( AnalysisData& __analysisData);
 
     private:
-        Deklaracja* _deklaracja;//deklaracja
-        Wyrazenie* _warunek;// warunek konca petli
-        InstrukcjaPrzypisania* _przypisanie;// inkrementacja
+        Declaration* _declaration;//declaration
+        Expression* _condition;// warunek konca petli
+        AssignmentInstruction* _assignment;// inkrementacja
 
-        // Instrukcja zlo�ona kt�ra wykona si� je�eli warunek b�dzie spe�niony
-        Instrukcja* _instrukcja;
+        // Instruction zlo�ona kt�ra wykona si� je�eli warunek b�dzie spe�niony
+        Instruction* _instruction;
 };
 
-/* ================================================ InstrukcjaIteracyjnaWhile */
-inline InstrukcjaIteracyjnaFor::InstrukcjaIteracyjnaFor(
-    Deklaracja* __deklaracja,Wyrazenie*__warunek,InstrukcjaPrzypisania* __przypisanie,Instrukcja* __instrukcja,int __numerLinii)
-:Instrukcja( Void, __numerLinii),
-_deklaracja( __deklaracja),
-_warunek( __warunek),
-_przypisanie( __przypisanie),
-_instrukcja( __instrukcja){
+/* ================================================ WhileInstruction */
+inline ForInstruction::ForInstruction(
+    Declaration* __declaration,Expression*__condition,AssignmentInstruction* __assignment,Instruction* __instruction,int __lineNumber)
+:Instruction( Void, __lineNumber),
+_declaration( __declaration),
+_condition( __condition),
+_assignment( __assignment),
+_instruction( __instruction){
 }
 
 #endif

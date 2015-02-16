@@ -5,27 +5,27 @@
 
 #include "symbolTable.h"
 
-// 'RekordAktywacji' - definicja w pliku functionDefinition.h
-struct RekordAktywacji;
+// 'ActivationRecord' - definicja w pliku functionDefinition.h
+struct ActivationRecord;
 
 
 // Przechowuje dane potrzebne w czasie wykonywania drzewa
 struct RunTimeData{
-    // mozna wrzucic parametry wywolania dla funkcji 'main'
+    // mozna wrzucic parameters wywolania dla funkcji 'main'
 
     // Tablica zmiennych lokalnych
-    TablicaZmiennych* tablicaZmiennychLokalnych;
+    VariableTable* localVariableTable;
 
     // Tablica zmiennych globalnych
-    TablicaZmiennych* tablicaZmiennychGlobalnych;
+    VariableTable* globalVariableTable;
 
     // WskaŸœnik do globalnej tablicy funkcji
-    TablicaFunkcji* tablicaFunkcji;
+    FunctionTable* functionTable;
 
-    // Rekord aktywacji jest interfejsem funkcji. Klasa 'WywolanieFunkcji' wpisuje wartosci
+    // Rekord aktywacji jest interfejsem funkcji. Klasa 'FunctionCall' wpisuje wartosci
     // parametrow do rekordu aktywacji, funkcja sie wykonuje i w rekordzie aktywacji
-    // czeka zwracana przez funkcje wartosc
-    RekordAktywacji* rekordAktywacji;
+    // czeka zwracana przez funkcje value
+    ActivationRecord* activationRecord;
 };
 
 

@@ -5,48 +5,48 @@
 
 #include "operators.h"
 
-// Reprezentuje czynnik poprzedzony unarnym operatorem addytywnym
-class CzynnikUnarny:public Czynnik{
+// Reprezentuje unit poprzedzony unarnym operatorem addytywnym
+class UnaryFactor:public Factor{
     public:
-        // Konstruktor przyjmuje czynnik i unarny operator addytywny oraz numer linii w kt�rej w�ze�
+        // Konstruktor przyjmuje unit i unarny operator addytywny oraz numer linii w kt�rej w�ze�
         // zosta� utworzony
-        inline CzynnikUnarny(Czynnik* __czynnik, const OperatorUnarny* __operator, int __numerLinii);
+        inline UnaryFactor(Factor* __unit, const UnaryOperator* __operator, int __lineNumber);
 
-        // Oblicza wartosc czynnika
-        virtual const Wartosc* execute(RunTimeData& __runTimeData);
+        // Oblicza value czynnika
+        virtual const Value* execute(RunTimeData& __runTimeData);
 
         // Przechodzi przez drzewo skladniowe w gl�b
         // w celu analizy semantycznej drzewa.
-        // Jako parametr przyjmuje referencje klasy 'AnalysisData'
+        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
         // kt�ra przechowuje informacje o tablicach symboli
         virtual void analise( AnalysisData& __analysisData);
 
     private:
         // Operator unarny np.: +2, -3
-        const OperatorUnarny* _operator;
+        const UnaryOperator* _operator;
 
-        // Wska�nik na czynnik
-        Czynnik* _lewy;
+        // Wska�nik na unit
+        Factor* _left;
 };
 
-/* ============================================================ CzynnikUnarny */
-inline CzynnikUnarny::CzynnikUnarny(Czynnik* __czynnik,const OperatorUnarny* __operator, int __numerLinii)
-:Czynnik( Void, __numerLinii),
-_operator(__operator),_lewy(__czynnik){
+/* ============================================================ UnaryFactor */
+inline UnaryFactor::UnaryFactor(Factor* __unit,const UnaryOperator* __operator, int __lineNumber)
+:Factor( Void, __lineNumber),
+_operator(__operator),_left(__unit){
 }
 
 /* ================================================================== analise */
-inline void CzynnikUnarny::analise( AnalysisData& __analysisData){
-    _lewy->analise( __analysisData);
-    _typ= _lewy->typ();
+inline void UnaryFactor::analise( AnalysisData& __analysisData){
+    _left->analise( __analysisData);
+    _type= _left->type();
 }
 
 /* ================================================================== execute */
-inline const Wartosc* CzynnikUnarny::execute( RunTimeData& __runTimeData){
+inline const Value* UnaryFactor::execute( RunTimeData& __runTimeData){
     if( _operator){
-        return (*_operator)( _lewy->execute( __runTimeData));
+        return (*_operator)( _left->execute( __runTimeData));
     }
-    return _lewy->execute( __runTimeData);
+    return _left->execute( __runTimeData);
 }
 
 #endif
