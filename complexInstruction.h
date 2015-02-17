@@ -6,29 +6,32 @@
 #include "instrunctionList.h"
 
 // Reprezentuje instrukcje zlo¿ona. Instruction zlo¿¿ona jest to instruction zawarta w klamrach '{' i '}'
-class ComplexInstrukction:public Instruction{
-    public:
-        // Konstruktor przyjmuje liste instrukcji oraz numer linii w której zaczynaj¹ siê
-        // instrukcje
-        ComplexInstrukction(InstructionList* __instructions, int __lineNumber)
-        :Instruction( Void, __lineNumber),
-        _instructionList(__instructions){
-        }
+class ComplexInstrukction : public Instruction {
+public:
+    // Konstruktor przyjmuje liste instrukcji oraz numer linii w której zaczynaj¹ siê
+    // instrukcje
+    ComplexInstrukction(InstructionList* __instructions, int __lineNumber)
+        : Instruction(Void, __lineNumber)
+        , _instructionList(__instructions)
+    {
+    }
 
-        // Wykonuje instrukcje zlozona
-        virtual const Value* execute( RunTimeData& __runTimeData){
-            _instructionList->execute( __runTimeData);
-            return 0x00;
-        }
+    // Wykonuje instrukcje zlozona
+    virtual const Value* execute(RunTimeData& __runTimeData)
+    {
+        _instructionList->execute(__runTimeData);
+        return 0x00;
+    }
 
-        // Przechodzi przez drzewo sk³adniowe w gl¹b
-        // w celu analizy semantycznej drzewa.
-        // Jako parameter przyjmuje referencje klasy 'AnalysisData'
-        // która przechowuje informacje o tablicach symboli.
-        // Dodaje zadeklarowan¹ zmienna do tablicy symboli
-        virtual void analise( AnalysisData& __analysisData){
-            __analysisData.visibilityStack->push( ++__analysisData.blockNumber);
-            /*
+    // Przechodzi przez drzewo sk³adniowe w gl¹b
+    // w celu analizy semantycznej drzewa.
+    // Jako parameter przyjmuje referencje klasy 'AnalysisData'
+    // która przechowuje informacje o tablicach symboli.
+    // Dodaje zadeklarowan¹ zmienna do tablicy symboli
+    virtual void analise(AnalysisData& __analysisData)
+    {
+        __analysisData.visibilityStack->push(++__analysisData.blockNumber);
+        /*
             Wchodzac do zasiegu inkrementujemy value __analysisData.blockNumber,
             wychodzac dekrementujemy
 
@@ -38,7 +41,7 @@ class ComplexInstrukction:public Instruction{
 
             */
 
-            /*
+        /*
             // scope globalny ma value 0          Stos: 0 <- wierzcholek
 
             { // poczatek zasiegu 1                  Stos : 0 1 <- wierzcholek
@@ -52,16 +55,16 @@ class ComplexInstrukction:public Instruction{
 
             */
 
-            _instructionList->analise( __analysisData);
+        _instructionList->analise(__analysisData);
 
-            __analysisData.visibilityStack->pop();
-        }
+        __analysisData.visibilityStack->pop();
+    }
 
-    private:
-        int _numerBloku;
+private:
+    int _numerBloku;
 
-        // List instrukcji
-        InstructionList* _instructionList;
+    // List instrukcji
+    InstructionList* _instructionList;
 };
 
 #endif

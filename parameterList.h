@@ -7,6 +7,6 @@
 #include "parameter.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef List< Parameter> ParameterList;
+typedef List<Parameter> ParameterList;
 
 #endif

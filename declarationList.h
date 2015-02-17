@@ -7,6 +7,6 @@
 #include "list.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef List< Declaration> DeclarationList;
+typedef List<Declaration> DeclarationList;
 
 #endif

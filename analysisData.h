@@ -8,8 +8,12 @@
 #include <stack>
 
 // AnalysisData przechowuje dane potrzebne w trakcie analizy drzewa sk³adniowego
-struct AnalysisData{
-	AnalysisData(): blockNumber(0),errorCounter( 0){}
+struct AnalysisData {
+    AnalysisData()
+        : blockNumber(0)
+        , errorCounter(0)
+    {
+    }
 
     // Tablica zmiennych lokalnych
     VariableTable* localVariableTable;
@@ -40,13 +44,13 @@ struct AnalysisData{
     // Numer bloku ( scope widocznosci)
     int blockNumber;
 
-	// WskaŸnik do tablicy funkcji
-	FunctionTable* functionTable;
+    // WskaŸnik do tablicy funkcji
+    FunctionTable* functionTable;
 
-	// Przechowuje liczbe b³edow semantycznych napotkanych w drzewie
+    // Przechowuje liczbe b³edow semantycznych napotkanych w drzewie
     // Jezeli po analizie ta zmienna ma value 0 oznacza, ze analiza odbyla sie bezblednie
     // i mozna wykonywac drzewo
-	int errorCounter;
+    int errorCounter;
 };
 
 // Do³aczam plik ze struktura ktora przechowuje dane potrzebne w trakcie wykonywania drzewa

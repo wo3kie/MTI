@@ -5,58 +5,58 @@
 
 #include "functionList.h"
 
-namespace NSInterpreter{
-    const std::string funkcjaGlowna= "main";
+namespace NSInterpreter {
+const std::string funkcjaGlowna = "main";
 };
 
 // Reprezentuje program
-class Program{
-    public:
-        // Konstruktor przyjmuje listê deklaracji oraz listê funkcji
-        Program( DeclarationList* __listaDeklaracji, FunctionList* __listaFunkcji)
-        :_analizowany( false),
-        _funkcjaGlowna( NSInterpreter::funkcjaGlowna),
-        _listaDeklaracji( __listaDeklaracji),
-        _listaFunkcji( __listaFunkcji)
-        {
-        }
+class Program {
+public:
+    // Konstruktor przyjmuje listê deklaracji oraz listê funkcji
+    Program(DeclarationList* __listaDeklaracji, FunctionList* __listaFunkcji)
+        : _analizowany(false)
+        , _funkcjaGlowna(NSInterpreter::funkcjaGlowna)
+        , _listaDeklaracji(__listaDeklaracji)
+        , _listaFunkcji(__listaFunkcji)
+    {
+    }
 
-        // Konstruktor przyjmuje listê funkcji
-        Program( FunctionList* __listaFunkcji)
-        :_analizowany( false),
-        _funkcjaGlowna( NSInterpreter::funkcjaGlowna),
-        _listaDeklaracji( 0x00),
-        _listaFunkcji( __listaFunkcji)
-        {
-        }
+    // Konstruktor przyjmuje listê funkcji
+    Program(FunctionList* __listaFunkcji)
+        : _analizowany(false)
+        , _funkcjaGlowna(NSInterpreter::funkcjaGlowna)
+        , _listaDeklaracji(0x00)
+        , _listaFunkcji(__listaFunkcji)
+    {
+    }
 
-        // Analizuje program
-        void analise();
+    // Analizuje program
+    void analise();
 
-        // Analizuje i wykonuje program
-        const Value* execute();
+    // Analizuje i wykonuje program
+    const Value* execute();
 
-        // Dodaje funkcje biblioteczne do tablicy symboli
-        void dodajFunkcjeBiblioteczne();
+    // Dodaje funkcje biblioteczne do tablicy symboli
+    void dodajFunkcjeBiblioteczne();
 
-    protected:
-        // czy analizowalismy juz program
-        bool _analizowany;
+protected:
+    // czy analizowalismy juz program
+    bool _analizowany;
 
-        // Nazwa funkcji g³ównej.
-        std::string _funkcjaGlowna;
+    // Nazwa funkcji g³ównej.
+    std::string _funkcjaGlowna;
 
-        // Tablica zmiennych globalnych
-        VariableTable _tablicaZmiennychGlobalnych;
+    // Tablica zmiennych globalnych
+    VariableTable _tablicaZmiennychGlobalnych;
 
-        // Tablica funkcji
-        FunctionTable _tablicaFunkcji;
+    // Tablica funkcji
+    FunctionTable _tablicaFunkcji;
 
-        // List deklaracji zmiennych globalnych
-        DeclarationList* _listaDeklaracji;
+    // List deklaracji zmiennych globalnych
+    DeclarationList* _listaDeklaracji;
 
-        // List funkcji
-        FunctionList* _listaFunkcji;
+    // List funkcji
+    FunctionList* _listaFunkcji;
 };
 
 #endif

@@ -7,6 +7,6 @@
 #include "binaryNode.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef BinaryNode< BiMultiplicativeOperator, UnaryFactor> Unit;
+typedef BinaryNode<BiMultiplicativeOperator, UnaryFactor> Unit;
 
 #endif

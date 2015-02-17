@@ -8,9 +8,8 @@
 // 'ActivationRecord' - definicja w pliku functionDefinition.h
 struct ActivationRecord;
 
-
 // Przechowuje dane potrzebne w czasie wykonywania drzewa
-struct RunTimeData{
+struct RunTimeData {
     // mozna wrzucic parameters wywolania dla funkcji 'main'
 
     // Tablica zmiennych lokalnych
@@ -27,6 +26,5 @@ struct RunTimeData{
     // czeka zwracana przez funkcje value
     ActivationRecord* activationRecord;
 };
-
 
 #endif

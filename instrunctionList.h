@@ -7,6 +7,6 @@
 #include "list.h"
 
 // Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
-typedef List< Instruction> InstructionList;
+typedef List<Instruction> InstructionList;
 
 #endif

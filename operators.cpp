@@ -1,5 +1,5 @@
-#include"operators.h"
+#include "operators.h"
 
-namespace Operators{
-    AssignmentOperator copy;
+namespace Operators {
+AssignmentOperator copy;
 }

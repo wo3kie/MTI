@@ -5,9 +5,9 @@
 
 #include <vector>
 
-struct Parameters{
+struct Parameters {
     int argc;
-    std::vector< Value*> argv;
+    std::vector<Value*> argv;
 };
 
 #endif
