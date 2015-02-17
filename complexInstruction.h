@@ -8,7 +8,7 @@
 // Reprezentuje instrukcje zlo¿ona. Instruction zlo¿¿ona jest to instruction zawarta w klamrach '{' i '}'
 class ComplexInstrukction : public Instruction {
 public:
-    // Konstruktor przyjmuje liste instrukcji oraz numer linii w której zaczynaj¹ siê
+    // Konstruktor przyjmuje liste instrukcji oraz numer linii w ktorej zaczynaja sie
     // instrukcje
     ComplexInstrukction(InstructionList* __instructions, int __lineNumber)
         : Instruction(Void, __lineNumber)
@@ -23,11 +23,11 @@ public:
         return 0x00;
     }
 
-    // Przechodzi przez drzewo sk³adniowe w gl¹b
+    // Przechodzi przez drzewo skladniowe w glab
     // w celu analizy semantycznej drzewa.
     // Jako parameter przyjmuje referencje klasy 'AnalysisData'
-    // która przechowuje informacje o tablicach symboli.
-    // Dodaje zadeklarowan¹ zmienna do tablicy symboli
+    // ktora przechowuje informacje o tablicach symboli.
+    // Dodaje zadeklarowana zmienna do tablicy symboli
     virtual void analise(AnalysisData& __analysisData)
     {
         __analysisData.visibilityStack->push(++__analysisData.blockNumber);

@@ -5,7 +5,7 @@
 
 #include "instruction.h"
 
-// Nazwa typu zosta³a wprowadzona aby zachowac zgodnoœc z gramatyka
+// Nazwa typu zostala wprowadzona aby zachowac zgodnosc z gramatyka
 typedef Instruction Factor;
 
 #endif

@@ -9,7 +9,7 @@
 //
 //         A -> A b | b
 //
-//     maj¹ca postac drzewa
+//     majaca postac drzewa
 //
 //             A
 //           /   \
@@ -45,7 +45,7 @@ public:
         }
     }
 
-    // zwraca ile lista powiada elementów
+    // zwraca ile lista powiada elementow
     unsigned size() const {
         return _list.size(); }
 
@@ -53,7 +53,7 @@ public:
     T* operator[](unsigned __index) {
         return _list[__index]; }
 
-    // Przechodzi po liœcie i analizuje jej elementy
+    // Przechodzi po liscie i analizuje jej elementy
     void analise(AnalysisData& __analysisData)
     {
         for (unsigned index = 0; index < _list.size(); ++index) {
@@ -69,7 +69,7 @@ public:
         }
     }
 
-    // Przechodzi po liœcie i wykonuje jej elementy
+    // Przechodzi po liscie i wykonuje jej elementy
     void execute(RunTimeData& __runTimeData)
     {
         for (unsigned index = 0; index < _list.size(); ++index) {
@@ -86,7 +86,7 @@ public:
     }
 
 private:
-    // Tablica przechowuj¹ca poszczególne elementy listy
+    // Tablica przechowujaca poszczegolne elementy listy
     std::vector<T*> _list;
 };
 

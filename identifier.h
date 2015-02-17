@@ -8,11 +8,11 @@
 #include "factor.h"
 #include "symbolTable.h"
 
-// Reprezentuje identifier, zmienn¹ w programie uzytkownika
+// Reprezentuje identifier, zmienna w programie uzytkownika
 class Identifier : public Factor {
 public:
-    // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
-    // w której wyst¹pi³a zmienna
+    // Konstruktor przyjmuje nazwe zmiennej oraz numer linii
+    // w ktorej wystapila zmienna
     Identifier(std::string __identifier, int __lineNumber)
         : Factor(Void, __lineNumber)
         , _identifier(__identifier)
@@ -25,7 +25,7 @@ public:
     virtual const Value* execute(RunTimeData& _runTimeData) = 0;
     virtual Value* assign(RunTimeData& _runTimeData) = 0;
 
-    // Przechodzi przez drzewo sk³adniowe w gl¹b
+    // Przechodzi przez drzewo skladniowe w glab
     // w celu analizy semantycznej drzewa.
     // Jako parameter przyjmuje referencje klasy 'AnalysisData'
     // ktora przechowuje informacje o tablicach symboli.
@@ -52,14 +52,14 @@ protected:
 // Reprezentuje zmienne lokalne w programie uzytkownika
 class LocalVariable : public Identifier {
 public:
-    // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
-    // w której wyst¹pi³a zmienna
+    // Konstruktor przyjmuje nazwe zmiennej oraz numer linii
+    // w ktorej wystapila zmienna
     LocalVariable(std::string __identifier, int __lineNumber)
         : Identifier(__identifier, __lineNumber)
     {
     }
 
-    // Przechodzi przez drzewo sk³adniowe w gl¹b
+    // Przechodzi przez drzewo skladniowe w glab
     // w celu analizy semantycznej drzewa.
     // Jako parameter przyjmuje referencje klasy 'AnalysisData'
     // ktora przechowuje informacje o tablicach symboli.
@@ -117,7 +117,7 @@ public:
                                : __runTimeData.globalVariableTable->value(_position);
     }
 
-    // Uzywane przez 'operator=' do przypisania wartoœci
+    // Uzywane przez 'operator=' do przypisania wartosci
     virtual Value* assign(RunTimeData& __runTimeData)
     {
         return _position.first ? __runTimeData.localVariableTable->value(_position)
@@ -127,8 +127,8 @@ public:
 
 class GlobalVariable : public Identifier {
 public:
-    // Konstruktor przyjmuje nazwê zmiennej oraz numer linii
-    // w której wyst¹pi³a zmienna
+    // Konstruktor przyjmuje nazwe zmiennej oraz numer linii
+    // w ktorej wystapila zmienna
     GlobalVariable(std::string __identifier, int __lineNumber)
         : Identifier(__identifier, __lineNumber)
     {
@@ -137,7 +137,7 @@ public:
     // Destruktor
     virtual ~GlobalVariable() {}
 
-    // Przechodzi przez drzewo sk³adniowe w gl¹b
+    // Przechodzi przez drzewo skladniowe w glab
     // w celu analizy semantycznej drzewa.
     // Jako parameter przyjmuje referencje klasy 'AnalysisData'
     // ktora przechowuje informacje o tablicach symboli.
@@ -156,7 +156,7 @@ public:
         return __runTimeData.globalVariableTable->value(_position);
     }
 
-    // Uzywane przez 'operator=' do przypisania wartoœci
+    // Uzywane przez 'operator=' do przypisania wartosci
     virtual Value* assign(RunTimeData& __runTimeData)
     {
         return __runTimeData.globalVariableTable->value(_position);

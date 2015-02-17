@@ -16,13 +16,13 @@ public:
     // Przyjmuje argumenty funkcji main( int argc, char** argv)
     Interpreter(int __argc, char** __argv);
 
-    // Wczytuje plik, buduje, sprawdza i wykonuje drzewo sk≥adniowe programu.
-    // Zwraca 0 jeøeli nie napotkano na blÍdy i value rÛøna od zera w przeciwnym razie
+    // Wczytuje plik, buduje, sprawdza i wykonuje drzewo skladniowe programu.
+    // Zwraca 0 jeøeli nie napotkano na bledy i value roøna od zera w przeciwnym razie
     int run() {
         return _parser->yyparse(); }
 
 protected:
-    // Wskaünik na parser uzyty do budowy drzewa sk≥adniowego
+    // Wskaznik na parser uzyty do budowy drzewa skladniowego
     Parser* _parser;
 };
 

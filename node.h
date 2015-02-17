@@ -5,10 +5,10 @@
 
 #include "analysisData.h"
 
-// Klasa bazowa dla wez³ów drzewa sk³adniowego.
+// Klasa bazowa dla wezlow drzewa skladniowego.
 class Node {
 public:
-    // Konstruktor przyjmuje type wêz³a oraz numer linii w której wêze³ wyst¹pi³
+    // Konstruktor przyjmuje type wezla oraz numer linii w ktorej wezel wystapil
     inline Node(Type __type, int __lineNumber)
         : _type(__type)
         , _line(__lineNumber)
@@ -16,13 +16,13 @@ public:
     }
     virtual ~Node() {};
 
-    // Wykonuje weze³
+    // Wykonuje wezel
     virtual const Value* execute(RunTimeData&) = 0;
 
-    // Przechodzi przez drzewo sk³adniowe w gl¹b
+    // Przechodzi przez drzewo skladniowe w glab
     // w celu analizy semantycznej drzewa.
-    // Jako parameter przyjmuje referencjê klasy 'AnalysisData'
-    // która przechowuje informacje o tablicach symboli.
+    // Jako parameter przyjmuje referencje klasy 'AnalysisData'
+    // ktora przechowuje informacje o tablicach symboli.
     virtual void analise(AnalysisData&) = 0;
 
     // Zwraca type wezla. Niektore wezly zwracaja type Void

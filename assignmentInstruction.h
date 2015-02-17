@@ -9,26 +9,26 @@
 // Reprezentuje instrukcje przypisania
 class AssignmentInstruction : public Instruction {
 public:
-    // Konstruktor przyjmuje jako parameter nazwe zmiennej do której bêdziemy przypisywac,
-    // wyra¿enie którego wartoœc przypiszemy oraz numer linii, w której by³a instruction przypisania
+    // Konstruktor przyjmuje jako parameter nazwe zmiennej do ktorej bedziemy przypisywac,
+    // wyra¿enie ktorego wartosc przypiszemy oraz numer linii, w ktorej byla instruction przypisania
     inline AssignmentInstruction(Identifier* __identifier, Expression* __expression, int __lineNumber);
 
-    // Wykonuje instrukcjê
+    // Wykonuje instrukcje
     virtual const Value* execute(RunTimeData& __runTimeData);
 
-    // Przechodzi przez drzewo skladniowe w gl¹b
+    // Przechodzi przez drzewo skladniowe w glab
     // w celu analizy semantycznej drzewa.
-    // Jako parameter przyjmuje referencjê klasy 'AnalysisData'
-    // która przechowuje informacje o tablicach symboli
-    // Sprawdza zgodnoœc typów, zmiennej do ktorej przypisujemy
+    // Jako parameter przyjmuje referencje klasy 'AnalysisData'
+    // ktora przechowuje informacje o tablicach symboli
+    // Sprawdza zgodnosc typow, zmiennej do ktorej przypisujemy
     // oraz wyrazenia.
     virtual void analise(AnalysisData& __analysisData);
 
 protected:
-    // WskaŸnik na identifier, zmienna do której przypisujemy
+    // Wskaznik na identifier, zmienna do ktorej przypisujemy
     Identifier* _identifier;
 
-    // WskaŸnik na wyra¿enie, którego wartoœc bê¿dziemy przypisywac
+    // Wskaznik na wyra¿enie, ktorego wartosc be¿dziemy przypisywac
     Expression* _expression;
 };
 

@@ -5,7 +5,7 @@
 
 #include <string>
 
-// Struktura pamiêta polo¿enie symbolu leksykalnego oraz jego value leksykalna
+// Struktura pamieta polo¿enie symbolu leksykalnego oraz jego value leksykalna
 struct SymbolLocation {
     // Przechowuje w ktorej linii byl symbol
     static int lineNumber;

@@ -1,5 +1,5 @@
 /*
-	Drzewo sk³adniowe zbudowane rêcznie dla przyk³adowego programu
+	Drzewo skladniowe zbudowane recznie dla przykladowego programu
 */
 
 /*

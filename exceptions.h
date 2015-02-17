@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <string>
 
-// InterpreterException, wyj¹tki zg³aszane przez aplikacje
+// InterpreterException, wyjatki zglaszane przez aplikacje
 class IException : public std::exception {
 public:
     IException(const std::string& __message = "")
@@ -34,7 +34,7 @@ public:
     virtual ~CannotCallFunction() throw() {}
 };
 
-// Wyj¹tek zg³aszany je¿eli próbujemy dzielic przez zero
+// Wyjatek zglaszany je¿eli probujemy dzielic przez zero
 class DividedByZero : public IException {
 public:
     DividedByZero(const std::string& __message = "Divided by zero")
@@ -45,7 +45,7 @@ public:
     virtual ~DividedByZero() throw() {}
 };
 
-// Wyj¹tek zg³aszany je¿eli nie mo¿na otworzyc pliku podanego w wierszu poleceñ
+// Wyjatek zglaszany je¿eli nie mo¿na otworzyc pliku podanego w wierszu polecen
 class UnableToOpenFile : public IException {
 public:
     UnableToOpenFile(const std::string& __plik)
@@ -59,7 +59,7 @@ public:
         return _message.c_str(); }
 };
 
-// Wyj¹tek zg³aszany jeŸeli podano zl¹ liczbê parametrów wywo³ania programu
+// Wyjatek zglaszany jezeli podano zla liczbe parametrow wywolania programu
 class NoInputFile : public IException {
 public:
     virtual ~NoInputFile() throw() {}
@@ -68,8 +68,8 @@ public:
         return "No input file"; }
 };
 
-// Wyj¹tek zg³aszany przez tablicê symboli gdy odwolujemy sie do nazwy zmiennej
-// której nie ma w tablicy
+// Wyjatek zglaszany przez tablice symboli gdy odwolujemy sie do nazwy zmiennej
+// ktorej nie ma w tablicy
 class UndefinedSymbol : public IException {
 public:
     UndefinedSymbol(const std::string& __symbol)
@@ -84,8 +84,8 @@ public:
         return _message.c_str(); }
 };
 
-// Wyj¹tek zg³aszany przez tablicê symboli, je¿eli probujemy do niej dodac
-// identifier.o nazwie która jest ju¿ w tablicy
+// Wyjatek zglaszany przez tablice symboli, je¿eli probujemy do niej dodac
+// identifier.o nazwie ktora jest ju¿ w tablicy
 class MultipleDeclaration : public IException {
 public:
     MultipleDeclaration(const std::string& __symbol)
@@ -99,7 +99,7 @@ public:
         return _message.c_str(); }
 };
 
-// Wyj¹tek zg³aszany je¿eli s¹ niezgodne typy
+// Wyjatek zglaszany je¿eli sa niezgodne typy
 class IncorectTypes : public IException {
 public:
     IncorectTypes(const std::string& __message = "IncorectTypes")
@@ -110,7 +110,7 @@ public:
     virtual ~IncorectTypes() throw() {}
 };
 
-// Wyj¹tek zg³aszany przy próbie przypisania do sta³ej
+// Wyjatek zglaszany przy probie przypisania do stalej
 class AssignToConstValue : public IException {
 public:
     AssignToConstValue()

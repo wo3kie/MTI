@@ -20,7 +20,7 @@ enum Access {
 // Klasa interfejsu dla wartosci.
 class Value {
 public:
-    // Konstruktor przyjmuje type wartoœci oraz specyfikacje dostêpu
+    // Konstruktor przyjmuje type wartosci oraz specyfikacje dostepu
     Value(Type __type, Access __access)
         : _type(__type)
         , _access(__access)
@@ -29,7 +29,7 @@ public:
 
     virtual ~Value() {};
 
-    // Metody te s¹ wywolywane przez odpowiednie klasy 'Operator...'
+    // Metody te sa wywolywane przez odpowiednie klasy 'Operator...'
     virtual const Value* operator+(const Value*) const = 0;
     virtual const Value* operator+() const = 0;
     virtual const Value* operator-(const Value*) const = 0;
@@ -46,20 +46,20 @@ public:
 
     virtual const Value* operator=(const Value*) = 0;
 
-    // Metody drukuj¹ce i wczytuj¹ce wartoœci
+    // Metody drukujace i wczytujace wartosci
     virtual const Value* printf() const = 0;
     virtual const Value* scanf() = 0;
 
-    // Metoda okreœla, czy wartoœc jest tylko do odczytu 'ReadOnly' czy
+    // Metoda okresla, czy wartosc jest tylko do odczytu 'ReadOnly' czy
     // mo¿na do niej zapisywac 'ReadWrite'
     Access access() const {
         return _access; }
 
-    // Ustawia zmienn¹ tylko do odczytu
+    // Ustawia zmienna tylko do odczytu
     void readOnly() {
         _access = ReadOnly; }
 
-    // Zwraca type wartoœci: 'Double', 'String'
+    // Zwraca type wartosci: 'Double', 'String'
     Type type() const {
         return _type; }
 
@@ -67,24 +67,24 @@ public:
     virtual Value* copy() const = 0;
 
 protected:
-    // Przechowuje type wartoœci
+    // Przechowuje type wartosci
     Type _type;
 
-    // Przechowuje type dostepu do wartoœci
+    // Przechowuje type dostepu do wartosci
     Access _access;
 };
 
-// Wartoœc double reprezentuje liczby rzeczywiste w programie u¿ytkownika.
+// Wartosc double reprezentuje liczby rzeczywiste w programie u¿ytkownika.
 class DoubleValue : public Value {
 public:
-    // Konstruktor przyjmuje wartoœc oraz specyfikacjê dostêpu
+    // Konstruktor przyjmuje wartosc oraz specyfikacje dostepu
     DoubleValue(double __value = 0, Access __access = ReadWrite)
         : Value(Double, __access)
         , _value(__value)
     {
     }
 
-    // Dodaje dwie wartoœci
+    // Dodaje dwie wartosci
     virtual const Value* operator+(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -98,7 +98,7 @@ public:
         return this;
     }
 
-    // Odejmuje dwie wartoœci
+    // Odejmuje dwie wartosci
     virtual const Value* operator-(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -106,13 +106,13 @@ public:
         return new DoubleValue(_value - doubleValue->execute());
     }
 
-    // Zwraca wartoœc o przeciwnym znaku
+    // Zwraca wartosc o przeciwnym znaku
     virtual const Value* operator-() const
     {
         return new DoubleValue(-_value);
     }
 
-    // Mno¿y dwie wartoœci
+    // Mno¿y dwie wartosci
     virtual const Value* operator*(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -120,7 +120,7 @@ public:
         return new DoubleValue(_value * doubleValue->execute());
     }
 
-    // Dzieli dwie wartoœci
+    // Dzieli dwie wartosci
     virtual const Value* operator/(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -134,7 +134,7 @@ public:
         }
     }
 
-    // Okreœla, czy wartoœci s¹ równe
+    // Okresla, czy wartosci sa rowne
     virtual const Value* operator==(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -142,7 +142,7 @@ public:
         return new DoubleValue(_value == doubleValue->execute());
     }
 
-    // Okreœla, czy wartoœci s¹ ró¿ne
+    // Okresla, czy wartosci sa ro¿ne
     virtual const Value* operator!=(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -150,7 +150,7 @@ public:
         return new DoubleValue(_value != doubleValue->execute());
     }
 
-    // Okreœla, czy wartoœc jest wiêksza
+    // Okresla, czy wartosc jest wieksza
     virtual const Value* operator>(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -158,7 +158,7 @@ public:
         return new DoubleValue(_value > doubleValue->execute());
     }
 
-    // Okreœla, czy wartoœci jest mniejsza
+    // Okresla, czy wartosci jest mniejsza
     virtual const Value* operator<(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -166,7 +166,7 @@ public:
         return new DoubleValue(_value < doubleValue->execute());
     }
 
-    // Zwraca alternatywe dwóch wartoœci
+    // Zwraca alternatywe dwoch wartosci
     virtual const Value* operator||(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -178,7 +178,7 @@ public:
         return new DoubleValue(doubleValue->execute());
     }
 
-    // Zwraca koniunkcje dwóch wartoœci
+    // Zwraca koniunkcje dwoch wartosci
     virtual const Value* operator&&(const Value* __value) const
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -190,7 +190,7 @@ public:
         return new DoubleValue(doubleValue->execute());
     }
 
-    // Porównuje dwie wartoœci
+    // Porownuje dwie wartosci
     virtual const Value* operator=(const Value* __value)
     {
         const DoubleValue* doubleValue = dynamic_cast<const DoubleValue*>(__value);
@@ -200,7 +200,7 @@ public:
         return this;
     }
 
-    // Drukuje wartoœc na stdout
+    // Drukuje wartosc na stdout
     virtual const Value* printf() const
     {
         std::cout << _value;
@@ -208,14 +208,14 @@ public:
         return this;
     }
 
-    // Wczytuje wartoœc z stdin
+    // Wczytuje wartosc z stdin
     virtual const Value* scanf()
     {
         std::cin >> _value;
         return this;
     }
 
-    // Zwraca wartoœc
+    // Zwraca wartosc
     double execute() const
     {
         return _value;
@@ -233,14 +233,14 @@ public:
     }
 
 private:
-    // Przechowuje wartoœc rzeczywist¹
+    // Przechowuje wartosc rzeczywista
     double _value;
 };
 
 // Value string reprezentuje napisy w programie u¿ytkowanika
 class StringValue : public Value {
 public:
-    // Konstruktor przyjmuje wartoœc oraz specyfikacje dostêpu
+    // Konstruktor przyjmuje wartosc oraz specyfikacje dostepu
     StringValue(std::string __value = "", Access __access = ReadWrite)
         : Value(String, __access)
         , _value(__value)
@@ -319,7 +319,7 @@ public:
         return 0x00;
     }
 
-    // Porównuje dwie wartoœci
+    // Porownuje dwie wartosci
     virtual const Value* operator=(const Value* __value)
     {
         const StringValue* wartoscString = dynamic_cast<const StringValue*>(__value);
@@ -333,7 +333,7 @@ public:
         return this;
     }
 
-    // Drukuje wartoœc na stdout
+    // Drukuje wartosc na stdout
     virtual const Value* printf() const
     {
         std::cout << _value;
@@ -341,14 +341,14 @@ public:
         return this;
     }
 
-    // Wczytuje wartoœc z stdin
+    // Wczytuje wartosc z stdin
     virtual const Value* scanf()
     {
         std::cin >> _value;
         return this;
     }
 
-    // Zwraca wartoœc
+    // Zwraca wartosc
     std::string execute() const
     {
         return _value;
@@ -366,7 +366,7 @@ public:
     }
 
 private:
-    // Przechowuje wartoœc
+    // Przechowuje wartosc
     std::string _value;
 };
 

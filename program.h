@@ -12,7 +12,7 @@ const std::string funkcjaGlowna = "main";
 // Reprezentuje program
 class Program {
 public:
-    // Konstruktor przyjmuje listê deklaracji oraz listê funkcji
+    // Konstruktor przyjmuje liste deklaracji oraz liste funkcji
     Program(DeclarationList* __listaDeklaracji, FunctionList* __listaFunkcji)
         : _analizowany(false)
         , _funkcjaGlowna(NSInterpreter::funkcjaGlowna)
@@ -21,7 +21,7 @@ public:
     {
     }
 
-    // Konstruktor przyjmuje listê funkcji
+    // Konstruktor przyjmuje liste funkcji
     Program(FunctionList* __listaFunkcji)
         : _analizowany(false)
         , _funkcjaGlowna(NSInterpreter::funkcjaGlowna)
@@ -43,7 +43,7 @@ protected:
     // czy analizowalismy juz program
     bool _analizowany;
 
-    // Nazwa funkcji g³ównej.
+    // Nazwa funkcji glownej.
     std::string _funkcjaGlowna;
 
     // Tablica zmiennych globalnych

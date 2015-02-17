@@ -5,37 +5,37 @@
 
 #include "factor.h"
 
-// Reprezentuje letter³ napisowy
-// Litera³ napisowy jest ci¹giem znaków zawartych pomiêdzy cudzys³owami
-// Litera³ napisowy nie mo¿e byc dlu¿szy ni¿ jedna linia
+// Reprezentuje letterl napisowy
+// Literal napisowy jest ciagiem znakow zawartych pomiedzy cudzyslowami
+// Literal napisowy nie mo¿e byc dlu¿szy ni¿ jedna linia
 class TextLiteral : public Factor {
 public:
-    // Konstruktor przyjmuje wartoœc letter³u napisowego
-    // oraz numer linii w której on wyst¹pi³
-    // Usuwa cudzys³ów z napisów.: "kasia" -> kasia
+    // Konstruktor przyjmuje wartosc letterlu napisowego
+    // oraz numer linii w ktorej on wystapil
+    // Usuwa cudzyslow z napisow.: "kasia" -> kasia
     inline TextLiteral(const std::string& __text, int __lineNumber)
         : Factor(String, __lineNumber)
         , _value(__text.substr(1, __text.size() - 2))
     {
     }
 
-    // Zwraca letter³ napisowy
+    // Zwraca letterl napisowy
     virtual const Value* execute(RunTimeData& _runTimeData) {
         return &_value; }
 
-    // Analizuje letter³ napisowy
+    // Analizuje letterl napisowy
     virtual void analise(AnalysisData&)
     {
-        // Ta klasa jest liœciem drzewa sk³adniowego. Metoda 'analise' nie robi nic.
-        // Na niej koñczy siê przechodzenie drzewa sk³adniowego 'w gl¹b'.
+        // Ta klasa jest lisciem drzewa skladniowego. Metoda 'analise' nie robi nic.
+        // Na niej konczy sie przechodzenie drzewa skladniowego 'w glab'.
     }
 
-    // Zwraca type letter³u. Zawsze jest to string
+    // Zwraca type letterlu. Zawsze jest to string
     virtual Type type() const {
         return String; }
 
 protected:
-    // Przechowuje letter³ napisowy
+    // Przechowuje letterl napisowy
     StringValue _value;
 };
 

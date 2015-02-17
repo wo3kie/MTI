@@ -8,7 +8,7 @@
 // Reprezentuje wywolanie funkcji
 class FunctionCall : public Factor {
 public:
-    // Konstruktor przyjmuje identifier wywo³ywanej funkcji, listê wyra¿eñ oraz numer linii
+    // Konstruktor przyjmuje identifier wywolywanej funkcji, liste wyra¿en oraz numer linii
     FunctionCall(std::string __identifier, ExpressionList* __expressionList, int __lineNumber)
         : Factor(Void, __lineNumber)
         , _expressionList(__expressionList)
@@ -16,14 +16,14 @@ public:
     {
     }
 
-    // Sprawdza czy iloœc oraz typy argumentów funkcji i parametrów wywo³ania s¹ zgodne
+    // Sprawdza czy ilosc oraz typy argumentow funkcji i parametrow wywolania sa zgodne
     virtual void analise(AnalysisData& __analysisData);
 
-    // Wywo³uje funkcjê
+    // Wywoluje funkcje
     virtual const Value* execute(RunTimeData& _runTimeData);
 
 private:
-    // Wyra¿enia w wywo³aniu funkcji
+    // Wyra¿enia w wywolaniu funkcji
     ExpressionList* _expressionList;
 
     std::string _identifier;

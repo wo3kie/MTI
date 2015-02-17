@@ -6,7 +6,7 @@
 #include "list.h"
 #include "expression.h"
 
-// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
+// Nazwa typu wprowadzona, aby zachowac zgodnosc z gramatyka
 typedef List<Expression> ExpressionList;
 
 #endif

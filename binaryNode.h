@@ -5,14 +5,14 @@
 
 #include "node.h"
 
-// Klasa reprezentuje wêz³y drzewa binarnego, które mog¹ przechowywac jednego lub dwóch potomków
+// Klasa reprezentuje wezly drzewa binarnego, ktore moga przechowywac jednego lub dwoch potomkow
 template <typename O, typename P>
 class BinaryNode : public Node {
 public:
     typedef O Operator;
     typedef P Right;
 
-    //  Konstruktor dla wez³ów typu:   A         B
+    //  Konstruktor dla wezlow typu:   A         B
     //                                /|\       /|\
         //                               2 + 3     4 * 5
     BinaryNode(BinaryNode* __left, Operator* __operator, Right* __right, int __lineNumber)
@@ -23,7 +23,7 @@ public:
     {
     }
 
-    //  Konstruktor dla wez³ów typu:   A     B
+    //  Konstruktor dla wezlow typu:   A     B
     //                                 |     |
     //                                 2     8
     BinaryNode(Right* __right, int __lineNumber)
@@ -36,7 +36,7 @@ public:
 
     virtual ~BinaryNode() {}
 
-    // Wykonuje wezê³
+    // Wykonuje wezel
     virtual const Value* execute(RunTimeData& __runTimeData)
     {
         if (_left) {
@@ -45,7 +45,7 @@ public:
         return _right->execute(__runTimeData);
     }
 
-    // Analizuje wezê³ 'w glab'
+    // Analizuje wezel 'w glab'
     virtual void analise(AnalysisData& __analysisData)
     {
         if (_left) {
@@ -64,13 +64,13 @@ public:
     }
 
 protected:
-    // Lewy potomek wêz³a
+    // Lewy potomek wezla
     BinaryNode* _left;
 
-    // Right potomek wêz³a
+    // Right potomek wezla
     Right* _right;
 
-    // Operator u¿yty na wartoœciach potomków
+    // Operator u¿yty na wartosciach potomkow
     Operator* _operator;
 };
 

@@ -7,7 +7,7 @@
 
 #include <stack>
 
-// AnalysisData przechowuje dane potrzebne w trakcie analizy drzewa sk≥adniowego
+// AnalysisData przechowuje dane potrzebne w trakcie analizy drzewa skladniowego
 struct AnalysisData {
     AnalysisData()
         : blockNumber(0)
@@ -44,16 +44,16 @@ struct AnalysisData {
     // Numer bloku ( scope widocznosci)
     int blockNumber;
 
-    // Wskaünik do tablicy funkcji
+    // Wskaznik do tablicy funkcji
     FunctionTable* functionTable;
 
-    // Przechowuje liczbe b≥edow semantycznych napotkanych w drzewie
+    // Przechowuje liczbe bledow semantycznych napotkanych w drzewie
     // Jezeli po analizie ta zmienna ma value 0 oznacza, ze analiza odbyla sie bezblednie
     // i mozna wykonywac drzewo
     int errorCounter;
 };
 
-// Do≥aczam plik ze struktura ktora przechowuje dane potrzebne w trakcie wykonywania drzewa
+// Dolaczam plik ze struktura ktora przechowuje dane potrzebne w trakcie wykonywania drzewa
 #include "runTimeData.h"
 
 #endif

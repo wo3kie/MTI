@@ -18,7 +18,7 @@ struct RunTimeData {
     // Tablica zmiennych globalnych
     VariableTable* globalVariableTable;
 
-    // WskaŸœnik do globalnej tablicy funkcji
+    // Wskazsnik do globalnej tablicy funkcji
     FunctionTable* functionTable;
 
     // Rekord aktywacji jest interfejsem funkcji. Klasa 'FunctionCall' wpisuje wartosci

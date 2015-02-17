@@ -5,11 +5,11 @@
 
 #include "factor.h"
 
-// Reprezentuje liczbê
+// Reprezentuje liczbe
 class Number : public Factor {
 public:
-    // Konstruktor przyjmuje wartoœc liczby,
-    // oraz numer linii w której wyst¹pi³a number
+    // Konstruktor przyjmuje wartosc liczby,
+    // oraz numer linii w ktorej wystapila number
     Number(double __value, int __lineNumber)
         : Factor(Double, __lineNumber)
         , _value(__value, ReadOnly)
@@ -22,14 +22,14 @@ public:
         return &_value;
     }
 
-    // Analizuje liczbê
+    // Analizuje liczbe
     void analise(AnalysisData& __analysisData)
     {
-        // Klasa 'Number' jest liœciem w drzewie sk³adniowym programu u¿ytkowanika
+        // Klasa 'Number' jest lisciem w drzewie skladniowym programu u¿ytkowanika
     }
 
 private:
-    // Przechowuje wartoœc liczbow¹
+    // Przechowuje wartosc liczbowa
     DoubleValue _value;
 };
 

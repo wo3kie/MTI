@@ -8,7 +8,7 @@
 // Reprezentuje bracket
 class Bracket : public Factor {
 public:
-    // Konstruktor przyjmuje wyra¿enie oraz numer linii w której wyst¹pi³
+    // Konstruktor przyjmuje wyra¿enie oraz numer linii w ktorej wystapil
     // bracket
     Bracket(Expression* __expression, int __lineNumber)
         : Factor(Void, __lineNumber)

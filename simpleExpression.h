@@ -5,7 +5,7 @@
 
 #include "unit.h"
 
-// Nazwa typu wprowadzona, aby zachowac zgodnoœc z gramatyk¹
+// Nazwa typu wprowadzona, aby zachowac zgodnosc z gramatyka
 typedef BinaryNode<BiAdditiveOperator, Unit> SimpleExpression;
 
 #endif

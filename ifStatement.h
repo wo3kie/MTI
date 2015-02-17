@@ -6,11 +6,11 @@
 #include "complexInstruction.h"
 #include "expression.h"
 
-// Reprezentuje instrukcje warunkow¹ w programie u¿ytkowanika
+// Reprezentuje instrukcje warunkowa w programie u¿ytkowanika
 class IfStatement : public Instruction {
 public:
-    // Konstruktor przyjmuje wyra¿enie, dwie instrukcje z³o¿one oraz numer linii
-    // w której wyst¹pi³a ta instruction
+    // Konstruktor przyjmuje wyra¿enie, dwie instrukcje zlo¿one oraz numer linii
+    // w ktorej wystapila ta instruction
     IfStatement(Expression* __expression, Instruction* __instrukcja1,
                 Instruction* __instrukcja2, int __lineNumber)
         : Instruction(Void, __lineNumber)
@@ -20,8 +20,8 @@ public:
     {
     }
 
-    // Konstruktor przyjmuje wyra¿enie, instrukcje z³o¿on¹ oraz numer linii
-    // w której wyst¹pi³a ta instruction
+    // Konstruktor przyjmuje wyra¿enie, instrukcje zlo¿ona oraz numer linii
+    // w ktorej wystapila ta instruction
     IfStatement(Expression* __expression, Instruction* __instruction, int __lineNumber)
         : Instruction(Void, __lineNumber)
         , _expression(__expression)
@@ -30,24 +30,24 @@ public:
     {
     }
 
-    // Wykonuje instrukcjê warunkow¹
+    // Wykonuje instrukcje warunkowa
     virtual const Value* execute(RunTimeData& __runTimeData);
 
-    // Przechodzi przez drzewo sk³adniowe w gl¹b
+    // Przechodzi przez drzewo skladniowe w glab
     // w celu analizy semantycznej drzewa.
     // Jako parameter przyjmuje referencje klasy 'AnalysisData'
-    // która przechowuje informacje o tablicach symboli.
-    // Dodaje zadeklarowan¹ zmienna do tablicy symboli
+    // ktora przechowuje informacje o tablicach symboli.
+    // Dodaje zadeklarowana zmienna do tablicy symboli
     virtual void analise(AnalysisData& __analysisData);
 
 private:
     // Wyra¿enie logiczne
     Expression* _expression;
 
-    // Je¿eli wyra¿enie logiczne bylo prawdziwe wykona siê ta instruction
+    // Je¿eli wyra¿enie logiczne bylo prawdziwe wykona sie ta instruction
     Instruction* _instruction1;
 
-    // Je¿eli wyra¿enie logiczne bylo fa³szywe wykona siê ta instruction
+    // Je¿eli wyra¿enie logiczne bylo falszywe wykona sie ta instruction
     Instruction* _instruction2;
 };
 
