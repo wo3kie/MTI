@@ -1,31 +1,23 @@
-# MTI
+## Copyright (C) 2005 Łukasz Czerwiński
 
-## Master Thesis Interpreter
-OK. It was not my master thesis (https://github.com/wo3kie/MTC). I wish just have both names similar (MTI, MTC).
+## MTI, Master Thesis Interpreter
+OK. It was not my [master thesis](https://github.com/wo3kie/mtc). I wish just have both names similar (mtc, mti).
 
-
-## Copyright (C) 2005 Lukasz Czerwinski
-
-
-## Most important links:
+## Website
 GitHub source code  : https://github.com/wo3kie/MTI
 
-  
 ## Requirements
 * C++03
-* flex++, optional, only if you change interpreter.l, tested with flex++ 2.5.35
-* bison++, optional, only if you change interpreted.y, tested with bison++ 1.21.9-1
+* flex++ >= 2.5.35, optional, only if you change interpreter.l
+* bison++ >= 1.21.9-1, optional, only if you change interpreted.y
   
-  
-## How to build code?
-* make
+## How to build it?
+make
 
-
-## How to run a code?
+## How to run it?
 ./mti example.mti
 
-
-## How to write your own program
+## How to write a program?
 Please follow examples in 'example.mti' file. Shortly speaking mti supports C syntax with no structs. However arguments are passed to functions like by reference.
 
 ```
@@ -140,5 +132,5 @@ double main()
 
     return 0;
 }
-
 ```
+
