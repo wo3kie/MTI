@@ -40,7 +40,7 @@ double factorial( double d ){
     }
 }
 
-// return does not finish function\'s execution.
+// return does not finish function execution.
 // it sets value to be returned by function.
 double return3(){
     return 1;
@@ -107,7 +107,7 @@ double main()
     }
     printf( endl );
 
-    // return does not finish function's execution.
+    // return does not finish functions execution.
     if( return3() == 3 ){
         printf( "OK" );
     }
