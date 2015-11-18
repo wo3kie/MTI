@@ -1,10 +1,10 @@
 ## Copyright (C) 2005 Łukasz Czerwiński
 
 ## MTI, Master Thesis Interpreter
-OK. It was not my [master thesis](https://github.com/wo3kie/mtc). I wish just have both names similar (mtc, mti).
+OK. It was not my [master thesis](https://github.com/wo3kie/mtc). I wished to have both names similar (mtc, mti).
 
 ## Website
-GitHub source code  : https://github.com/wo3kie/MTI
+https://github.com/wo3kie/mti
 
 ## Requirements
 * C++03
@@ -20,7 +20,7 @@ make
 ## How to write a program?
 Please follow examples in 'example.mti' file. Shortly speaking mti supports C syntax with no structs. However arguments are passed to functions like by reference.
 
-```
+```{r, engine='cpp'}  
 double pow2( double d ){
     return d * d;
 }
