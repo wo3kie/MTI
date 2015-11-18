@@ -2,7 +2,7 @@ double pow2( double d ){
     return d * d;
 }
 
-// arguments are passed by reference
+// arguments are passed by value
 double setZero( double d ){
     d = 0;
 }
@@ -63,7 +63,7 @@ double main()
     }
     printf( endl );
 
-    // arguments are passed by reference
+    // arguments are passed by value
     d = 1;
     setZero( d );
     if( d == 1 ){

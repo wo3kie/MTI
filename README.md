@@ -18,14 +18,14 @@ make
 ./mti example.mti
 
 ## How to write a program?
-Please follow examples in 'example.mti' file. Shortly speaking mti supports C syntax with no structs. However arguments are passed to functions like by reference.
+Please follow examples in 'example.mti' file. Shortly speaking mti supports C syntax with no structs.  
 
 ```{r, engine='cpp'}  
 double pow2( double d ){
     return d * d;
 }
 
-// arguments are passed by reference
+// arguments are passed by value
 double setZero( double d ){
     d = 0;
 }
@@ -87,7 +87,7 @@ double main()
     }
     printf( endl );
 
-    // arguments are passed by reference
+    // arguments are passed by value
     d = 1;
     setZero( d );
     if( d == 1 ){
